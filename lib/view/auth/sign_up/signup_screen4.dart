@@ -1,6 +1,7 @@
 import 'package:a2aff/const/colors.dart';
 import 'package:a2aff/utils/background_image/background_image.dart';
 import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
+import 'package:a2aff/view/auth/sign_up/signup_screen5.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../const/image_or_icon_path.dart';
@@ -39,38 +40,66 @@ class _SignupScreen4State extends State<SignupScreen4> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 63..w),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomText(
-                      text: "Your specialty",
+                      text: "How many years of Real-\nEstate experience do you\nhave?",
                       fontSize: 24..sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                     SizedBox(height: 45..h),
-
-                    SizedBox(height: 104..h),
-
-                    // ? CustomButton(onTap: () => Get.bottomSheet(buildBottomSheetContent()), label: 'Next')
+                    CustomText(
+                      text: "Write it down:",
+                      fontSize: 14..sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
                     Container(
-                      width: 302..w,
-                      height: 49..h,
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(width: 0.50..w, color: const Color(0xFFFD7B01)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Center(
-                        child: CustomText(
-                          text: "Next",
-                          fontSize: 15..sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFFFD7B01),
-                        ),
+                      height: 41..h,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5..r), border: Border.all(color: Colors.white)),
+                      child: TextField(
+                        style: const TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding:
+                                EdgeInsets.only(left: 15..w, bottom: 11..h, top: 5..h, right: 15..w)),
                       ),
                     ),
-                    SizedBox(height: 20..h),
+                    SizedBox(height: 104..h),
+                    // Spacer(),
+
+                    CustomButton(
+                        onTap: () {
+                          Get.to(() => SignupScreen5());
+                        },
+                        label: 'Next')
+                    // Container(
+                    //   width: 302..w,
+                    //   height: 49..h,
+                    //   decoration: ShapeDecoration(
+                    //     shape: RoundedRectangleBorder(
+                    //       side: BorderSide(width: 0.50..w, color: const Color(0xFFFD7B01)),
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //   ),
+                    //   child: Center(
+                    //     child: CustomText(
+                    //       text: "Next",
+                    //       fontSize: 15..sp,
+                    //       fontWeight: FontWeight.w600,
+                    //       color: const Color(0xFFFD7B01),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 195..h),
                   ],
                 ),
               ),

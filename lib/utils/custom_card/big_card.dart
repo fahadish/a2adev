@@ -41,7 +41,7 @@ class CustomCard extends StatelessWidget {
       this.shadowColor,
       this.blurRadius,
       this.spreadRadius,
-      this.enableBorder,
+      this.enableBorder = false,
       this.borderColor,
       this.borderWidth});
 
@@ -65,7 +65,7 @@ class CustomCard extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 4)),
         boxShadow: [
           BoxShadow(
-            // color: shadowColor ?? AppColors.s0x3F000000,
+            color: shadowColor ?? Colors.transparent,
             blurRadius: blurRadius ?? 0,
             offset: const Offset(0, 0),
             spreadRadius: spreadRadius ?? 0,

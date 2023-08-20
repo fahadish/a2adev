@@ -1,15 +1,11 @@
-import 'package:a2aff/view/splash/splash_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:a2aff/view/post_property/post_property7_screen.dart';
+import 'package:a2aff/view/post_property/post_property_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-Future main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+void main() {
   runApp(const MyApp());
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -18,12 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return const GetMaterialApp(
-          home: SplashScreen(),
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: PostPropertyAllScreens(),
+          // SplashScreen(),
         );
       },
     );
