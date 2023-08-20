@@ -1,6 +1,6 @@
 import 'package:a2aff/view/post_property/post_property1_screen.dart';
 import 'package:a2aff/view/post_property/post_property2_screen.dart';
-import 'package:dotted_border/dotted_border.dart';
+// import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -1447,37 +1447,37 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20..h),
-                Center(
-                  child: DottedBorder(
-                    color: AppColors.k0xff3C1663,
-                    borderType: BorderType.RRect,
-                    dashPattern: const <double>[10, 3],
-                    radius: Radius.circular(5..r),
-                    strokeWidth: 1,
-                    child: Container(
-                      height: 55..h,
-                      width: 277..w,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "$iconPath/plus.png",
-                            height: 24..h,
-                            width: 24..w,
-                          ),
-                          SizedBox(width: 4..w),
-                          CustomText(
-                            text: "Upload From Gallery",
-                            fontSize: 13..sp,
-                            fontWeight: FontWeight.w300,
-                            color: AppColors.k0xff3C1663,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Center(
+                //   child: DottedBorder(
+                //     color: AppColors.k0xff3C1663,
+                //     borderType: BorderType.RRect,
+                //     dashPattern: const <double>[10, 3],
+                //     radius: Radius.circular(5..r),
+                //     strokeWidth: 1,
+                //     child: Container(
+                //       height: 55..h,
+                //       width: 277..w,
+                //       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Image.asset(
+                //             "$iconPath/plus.png",
+                //             height: 24..h,
+                //             width: 24..w,
+                //           ),
+                //           SizedBox(width: 4..w),
+                //           CustomText(
+                //             text: "Upload From Gallery",
+                //             fontSize: 13..sp,
+                //             fontWeight: FontWeight.w300,
+                //             color: AppColors.k0xff3C1663,
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: 45..h),
                 Padding(
                   padding: EdgeInsets.all(20.0..w),

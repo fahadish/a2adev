@@ -1,3 +1,4 @@
+import 'package:a2aff/view/auth/sign_up/signup_screen.dart';
 import 'package:a2aff/view/post_property/post_property7_screen.dart';
 import 'package:a2aff/view/post_property/post_property_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          home: PostPropertyAllScreens(),
+          home: SignUpScreen(),
           // SplashScreen(),
         );
       },
