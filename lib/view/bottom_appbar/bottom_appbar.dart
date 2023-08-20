@@ -21,7 +21,16 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   final List<Widget> screens = [
     HomeScreenArchitecture(),
     HomeScreenArchitecture(),
-    Container(height: 100, width: 100, color: Colors.red),
+    Center(
+        child: Container(
+      height: 100,
+      width: 100,
+      color: Colors.grey,
+      child: CustomText(
+        text: "Chat Screen",
+        fontSize: 20..sp,
+      ),
+    )),
   ];
 
   void onItemTapped(int index) {
@@ -32,7 +41,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
         ? Get.to(CustomBottomAppBar1())
         : selectedIndex == 1
             ? Get.bottomSheet(buildBottomSheetContent())
-            : Get.to(SignUpScreen());
+            : null;
   }
 
   Widget buildBottomSheetContent() {

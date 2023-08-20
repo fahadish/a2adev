@@ -30,7 +30,7 @@ class _SignupScreen3State extends State<SignupScreen3> {
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: Colors.black,
+                    color: AppColors.k0xff3C1663,
                   ),
                   onPressed: () => Get.back(),
                 ),
@@ -51,15 +51,16 @@ class _SignupScreen3State extends State<SignupScreen3> {
                     SizedBox(height: 45..h),
                     CustomText(
                       text: "Write it down:",
-                      fontSize: 24..sp,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 14..sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.k0xff3C1663,
                     ),
-
                     Container(
                       height: 174..h,
                       width: double.maxFinite,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.black)),
+                          borderRadius: BorderRadius.circular(5..r),
+                          border: Border.all(color: AppColors.k0xff3C1663)),
                       child: TextField(
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
@@ -74,9 +75,7 @@ class _SignupScreen3State extends State<SignupScreen3> {
                                 EdgeInsets.only(left: 15..w, bottom: 11..h, top: 11..h, right: 15..w)),
                       ),
                     ),
-
                     SizedBox(height: 104..h),
-
                     CustomButton(onTap: () => Get.to(SignupScreen4()), label: 'Next')
                     // Container(
                     //   width: 302..w,

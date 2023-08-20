@@ -96,7 +96,7 @@ class _SignupScreen1State extends State<SignupScreen1> {
                     SizedBox(height: 45..h),
                     GestureDetector(
                       onTap: () => setState(() {
-                        yes == false ? yes = true : yes = false;
+                        yes == false ? true : false;
                         no = false;
                       }),
                       child: Row(
