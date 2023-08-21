@@ -44,6 +44,8 @@ dependencies:
   firebase_auth: ^4.7.3
   firebase_storage:
   dotted_border: ^2.0.0+3
+  flutter_easyloading:
+
 
 
 dev_dependencies:

@@ -1,6 +1,7 @@
 import 'package:a2aff/view/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -67,8 +68,10 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: _splitScreenMode, // Use the initialized field here
       builder: (context, child) {
-        return const GetMaterialApp(
+        return  GetMaterialApp(
           home: SplashScreen(),
+          builder: EasyLoading.init(),
+
         );
       },
     );

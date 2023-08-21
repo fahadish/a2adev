@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,12 +25,14 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true; // Set loading state
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      EasyLoading.showToast('Login successfully');
       Get.offAll(() => HomeScreenArchitecture()); // Use Get.off or Get.offAll as needed
 
       // After successful authentication, you might want to navigate to another screen
     } catch (e) {
+      EasyLoading.showToast('Provided valid credentials');
 
-      Get.snackbar('Error', e.toString());
+      // Get.snackbar('Error', e.toString());
     } finally {
       isLoading.value = false; // Reset loading state
     }
