@@ -68,6 +68,8 @@ class _PostPropertyScreen1State extends State<PostPropertyScreen1> {
                       InkWell(
                         onTap: () {
                           controller.selectRent();
+
+
                         },
                         child: CustomCard(
                           height: 164..h,
