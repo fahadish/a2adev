@@ -8,10 +8,14 @@ import '../custom_text/heading1/heading1_text.dart';
 class CustomButton extends StatelessWidget {
   final String label;
   final Callback onTap;
+  final Color? color;
+  final Color? labelColor;
   const CustomButton({
     super.key,
     required this.onTap,
     required this.label,
+    this.color,
+    this.labelColor,
   });
 
   @override
@@ -25,13 +29,13 @@ class CustomButton extends StatelessWidget {
         borderRadius: 10..r,
         // rightPadding: 133..w,
         // leftPadding: 133..w,
-        color: AppColors.k0xffFD7B01,
+        color: color ?? AppColors.k0xffFD7B01,
         child: Center(
           child: CustomText(
             text: label,
             fontSize: 15..sp,
             fontWeight: FontWeight.w600,
-            color: AppColors.k0xff352049,
+            color: labelColor ?? AppColors.k0xff352049,
           ),
         ),
       ),
