@@ -84,48 +84,50 @@ class _LoginScreenState extends State<LoginScreen> {
             if (_authController.isLoading.value) {
               return CircularProgressIndicator();
             } else {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTextFieldWithIcon(
-                    controller: _emailController,
-                    hintText: "User name",
-                    assetIcon: "iconPath/user.png",
-                  ),
-                  SizedBox(height: 20),
-                  CustomTextFieldWithIcon(
-                    controller: _passwordController,
-                    hintText: "********",
-                    assetIcon: "iconPath/lock.png",
-                  ),
-                  SizedBox(height: 36),
-                  CustomButton(
-                    onTap: () {
-                      _authController.signInWithEmailAndPassword(
-                        _emailController.text,
-                        _passwordController.text,
-                      );
-                    },
-                    label: 'Login',
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Don't have an account?  ", style: TextStyle(fontSize: 13)),
-                      GestureDetector(
-                        onTap: () => Get.off(() => const SignUpScreen()),
-                        child: Text(
-                          "SignUp",
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold,
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomTextFieldWithIcon(
+                      controller: _emailController,
+                      hintText: "User name",
+                      assetIcon: "$iconPath/user.png",
+                    ),
+                    SizedBox(height: 20),
+                    CustomTextFieldWithIcon(
+                      controller: _passwordController,
+                      hintText: "********",
+                      assetIcon: "$iconPath/lock.png",
+                    ),
+                    SizedBox(height: 36),
+                    CustomButton(
+                      onTap: () {
+                        _authController.signInWithEmailAndPassword(
+                          _emailController.text,
+                          _passwordController.text,
+                        );
+                      },
+                      label: 'Login',
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Don't have an account?  ", style: TextStyle(fontSize: 13)),
+                        GestureDetector(
+                          onTap: () => Get.off(() => const SignUpScreen()),
+                          child: Text(
+                            "SignUp",
+                            style: TextStyle(
+                              color: Colors.orange,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               );
             }
           }),
