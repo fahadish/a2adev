@@ -29,6 +29,7 @@ class PostPropertyAllScreens extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
+                    postPropertyController.currentStep.value ==0?Get.back():
                     postPropertyController.currentStep.value--;
                   },
                   child: Icon(Icons.arrow_back_ios, size: 25..r),
@@ -140,7 +141,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 48..h),
+                SizedBox(height: 40..h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -153,7 +154,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                         bottomPadding: 7..h,
                         leftPadding: 20..h,
                         rightPadding: 20..h,
-                        color: controller.residential == true ? AppColors.k0xff7B48B0 : Colors.transparent,
+                        color: controller.residential == true ? AppColors.k0xff7B48B0 : AppColors.k0xffCBABEC,
                         child: Row(
                           children: [
                             Image.asset(
@@ -182,7 +183,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                         bottomPadding: 7..h,
                         leftPadding: 20..h,
                         rightPadding: 20..h,
-                        color: controller.commercial == true ? AppColors.k0xff7B48B0 : Colors.transparent,
+                        color: controller.commercial == true ? AppColors.k0xff7B48B0 : AppColors.k0xffCBABEC,
                         child: Row(
                           children: [
                             Image.asset(
@@ -204,7 +205,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 72..h),
+                SizedBox(height: 60..h),
                 CustomText(
                   text: "Select Property Type",
                   fontSize: 16..sp,

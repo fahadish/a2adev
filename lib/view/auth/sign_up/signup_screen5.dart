@@ -1,0 +1,102 @@
+import 'dart:io';
+
+import 'package:a2aff/const/colors.dart';
+import 'package:a2aff/utils/background_image/background_image.dart';
+import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
+import 'package:a2aff/view/auth/sign_up/signup_screen4.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../const/image_or_icon_path.dart';
+import '../../../controller/authController.dart';
+import '../../../utils/button/custom_button.dart';
+import 'package:get/get.dart';
+import '../../../utils/custom_card/big_card.dart';
+import '../../../utils/custom_text_field/custom_text_field.dart';
+import '../../bottom_appbar/bottom_appbar.dart';
+
+class SignupScreen5 extends StatefulWidget {
+  const SignupScreen5({super.key});
+
+  @override
+  State<SignupScreen5> createState() => _SignupScreen5State();
+}
+
+class _SignupScreen5State extends State<SignupScreen5> {
+  AuthController authController = Get.put(AuthController());
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<AuthController>(builder: (controller) {
+      return Scaffold(
+        body: BackgroundWhite(
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 78..h, left: 37..w),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black,
+                    ),
+                    onPressed: () => Get.back(),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 63..w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text: "Add profile picture",
+                      fontSize: 24..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    SizedBox(height: 45..h),
+                    Center(
+                      child: Container(
+                        width: 222..w,
+                        height: 297..h,
+                        padding: EdgeInsets.symmetric(horizontal: 75..w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: const Color(0xffd9d9d9),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (builder) =>
+                                    controller.myBottomSheet(context));
+                          },
+                          child: controller.imageFile != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(25..r),
+                                  child: Image.file(
+                                      File(controller.imageFile!.path),
+                                      fit: BoxFit.cover))
+                              : CircleAvatar(
+                                  backgroundColor: AppColors.k0xff9D9D9D,
+                                  child: Icon(Icons.add,
+                                      color: Colors.white, size: 35..r),
+                                ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 104..h),
+                    CustomButton(
+                        onTap: () => Get.to(CustomBottomAppBar()),
+                        label: 'Next')
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+}
