@@ -59,7 +59,7 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
               ],
             ),
             SizedBox(height: 40..h),
-            CustomTextFieldRightIcon(hintText: "Search...."),
+            CustomTextFieldRightIcon(hintText: "Search....."),
             SizedBox(height: 25..h),
             CustomCard(
               height: 500..h,
@@ -104,10 +104,13 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                           return Expanded(
                             child: Container(
                               height: 2.0,
-                              margin: EdgeInsets.symmetric(vertical: 10.0..h, horizontal: 1.0..w),
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 10.0..h, horizontal: 1.0..w),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50..r),
-                                color: _currentIndex == index ? Colors.white : AppColors.k0xffCCCCCC,
+                                color: _currentIndex == index
+                                    ? Colors.white
+                                    : AppColors.k0xffCCCCCC,
                               ),
                             ),
                           );
@@ -132,7 +135,8 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                               leftPadding: 15..w,
                               borderRadius: 50..r,
                               color: Colors.black.withOpacity(0.1),
-                              child: CustomText(text: "24HB", color: Colors.white),
+                              child:
+                                  CustomText(text: "24HB", color: Colors.white),
                             ),
                           ),
                         ),
@@ -147,8 +151,9 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                             ),
                             SizedBox(
                               width: 160..w,
-                              child:
-                                  CustomText(text: "Bahria town Apartments, Lahore, Pk", color: Colors.white),
+                              child: CustomText(
+                                  text: "Bahria town Apartments, Lahore, Pk",
+                                  color: Colors.white),
                             )
                           ],
                         )
