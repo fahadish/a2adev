@@ -23,6 +23,7 @@ class CustomCard extends StatelessWidget {
   final Widget child;
   final Color? color;
   final Color? shadowColor;
+
   const CustomCard(
       {super.key,
       this.height,
@@ -51,9 +52,15 @@ class CustomCard extends StatelessWidget {
       height: height,
       width: width,
       margin: EdgeInsets.only(
-          left: leftMargin ?? 0, right: rightMargin ?? 0, top: topMargin ?? 0, bottom: bottomMargin ?? 0),
+          left: leftMargin ?? 0,
+          right: rightMargin ?? 0,
+          top: topMargin ?? 0,
+          bottom: bottomMargin ?? 0),
       padding: EdgeInsets.only(
-          left: leftPadding ?? 0, right: rightPadding ?? 0, top: topPadding ?? 0, bottom: bottomPadding ?? 0),
+          left: leftPadding ?? 0,
+          right: rightPadding ?? 0,
+          top: topPadding ?? 0,
+          bottom: bottomPadding ?? 0),
       decoration: BoxDecoration(
         color: color ?? Colors.white,
         border: enableBorder == true
@@ -65,7 +72,7 @@ class CustomCard extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 4)),
         boxShadow: [
           BoxShadow(
-            // color: shadowColor ?? AppColors.s0x3F000000,
+            color: shadowColor ?? Colors.transparent,
             blurRadius: blurRadius ?? 0,
             offset: const Offset(0, 0),
             spreadRadius: spreadRadius ?? 0,

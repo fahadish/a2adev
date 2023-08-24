@@ -1,6 +1,9 @@
+import 'package:a2aff/view/bottom_appbar/bottom_appbar.dart';
+import 'package:a2aff/view/profile/profile_screen.dart';
 import 'package:a2aff/view/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -14,12 +17,14 @@ import 'view/splash/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final authController = AuthController(); // Instantiate the AuthController
-  Get.put(authController); // Put the AuthController into the GetX dependency management
+  Get.put(
+      authController); // Put the AuthController into the GetX dependency management
 
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 // class MyApp extends StatelessWidget {
@@ -42,8 +47,10 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: _splitScreenMode, // Use the initialized field here
       builder: (context, child) {
-        return const GetMaterialApp(
-          home: SplashScreen(),
+        return GetMaterialApp(
+          home: ProfileScreen(),
+          // SplashScreen(),
+          builder: EasyLoading.init(),
         );
       },
     );

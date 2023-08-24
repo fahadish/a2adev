@@ -32,29 +32,27 @@ class _SignupScreen1State extends State<SignupScreen1> {
         ),
       ),
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomCard(
-              width: 200..w,
-              topPadding: 10..h,
-              bottomPadding: 10..h,
-              color: AppColors.k0xffFD7B01,
-              borderRadius: 50..r,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText(
-                    text: "Upload file",
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.k0xff3C1663,
-                  ),
-                  Icon(Icons.add, color: AppColors.k0xff3C1663)
-                ],
-              ),
+        child: InkWell(
+          onTap: () => Get.back(),
+          child: CustomCard(
+            width: 200..w,
+            topPadding: 10..h,
+            bottomPadding: 10..h,
+            color: AppColors.k0xffFD7B01,
+            borderRadius: 50..r,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomText(
+                  text: "Upload file",
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.k0xff3C1663,
+                ),
+                Icon(Icons.add, color: AppColors.k0xff3C1663)
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -85,7 +83,8 @@ class _SignupScreen1State extends State<SignupScreen1> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("$imagePath/logo1.png", height: 98..h, width: 84..w),
+                    Image.asset("$imagePath/logo1.png",
+                        height: 98..h, width: 84..w),
                     SizedBox(height: 111..h),
                     CustomText(
                       text: "Are you RERA certified?",
@@ -98,6 +97,9 @@ class _SignupScreen1State extends State<SignupScreen1> {
                       onTap: () => setState(() {
                         yes == false ? yes = true : yes = false;
                         no = false;
+                        yes == true
+                            ? Get.bottomSheet(buildBottomSheetContent())
+                            : null;
                       }),
                       child: Row(
                         children: [
@@ -117,7 +119,9 @@ class _SignupScreen1State extends State<SignupScreen1> {
                             text: "Yes",
                             fontSize: 20..sp,
                             fontWeight: FontWeight.w400,
-                            color: yes == false ? Colors.white : AppColors.k0xffFD7B01,
+                            color: yes == false
+                                ? Colors.white
+                                : AppColors.k0xffFD7B01,
                           ),
                         ],
                       ),
@@ -146,21 +150,25 @@ class _SignupScreen1State extends State<SignupScreen1> {
                             text: "No",
                             fontSize: 20..sp,
                             fontWeight: FontWeight.w400,
-                            color: no == false ? Colors.white : AppColors.k0xffFD7B01,
+                            color: no == false
+                                ? Colors.white
+                                : AppColors.k0xffFD7B01,
                           ),
                         ],
                       ),
                     ),
                     SizedBox(height: 122..h),
                     yes || no == true
-                        // ? CustomButton(onTap: () => Get.bottomSheet(buildBottomSheetContent()), label: 'Next')
-                        ? CustomButton(onTap: () => Get.to(SignupScreen2()), label: 'Next')
+                        ? CustomButton(
+                            onTap: () => Get.to(SignupScreen2()), label: 'Next')
                         : Container(
                             width: 302..w,
                             height: 49..h,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(width: 0.50..w, color: const Color(0xFFFD7B01)),
+                                side: BorderSide(
+                                    width: 0.50..w,
+                                    color: const Color(0xFFFD7B01)),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
@@ -169,7 +177,9 @@ class _SignupScreen1State extends State<SignupScreen1> {
                                 text: "Next",
                                 fontSize: 15..sp,
                                 fontWeight: FontWeight.w600,
-                                color: yes || no == true ? Colors.black : const Color(0xFFFD7B01),
+                                color: yes || no == true
+                                    ? Colors.black
+                                    : const Color(0xFFFD7B01),
                               ),
                             ),
                           ),

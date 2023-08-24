@@ -2,11 +2,13 @@ import 'package:a2aff/utils/custom_card/big_card.dart';
 import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
 import 'package:a2aff/view/auth/sign_up/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../const/colors.dart';
 import '../../const/image_or_icon_path.dart';
 import '../../view/home/home_screen.dart';
+import '../post_property/post_property_screen.dart';
 import 'bottom_appbar1.dart';
 
 class CustomBottomAppBar extends StatefulWidget {
@@ -21,7 +23,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   final List<Widget> screens = [
     HomeScreenArchitecture(),
     HomeScreenArchitecture(),
-    Container(height: 100, width: 100, color: Colors.red),
+    Center(child: CustomText24(text: "Under Development",color: Colors.black,)),
   ];
 
   void onItemTapped(int index) {
@@ -32,7 +34,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
         ? Get.to(CustomBottomAppBar1())
         : selectedIndex == 1
             ? Get.bottomSheet(buildBottomSheetContent())
-            : Get.to(SignUpScreen());
+            : Center(child: CustomText24(text: "Under Development",color: Colors.black,));
   }
 
   Widget buildBottomSheetContent() {
@@ -49,43 +51,49 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomCard(
-              width: 200..w,
-              topPadding: 10..h,
-              bottomPadding: 10..h,
-              color: AppColors.k0xffFD7B01,
-              borderRadius: 50..r,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText(
-                    text: "Post a Property",
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.k0xff3C1663,
-                  ),
-                  Icon(Icons.add, color: AppColors.k0xff3C1663)
-                ],
+            InkWell(onTap: ()=>Get.to(PostPropertyAllScreens()),
+              child: CustomCard(
+                width: 200..w,
+                topPadding: 10..h,
+                bottomPadding: 10..h,
+                color: AppColors.k0xffFD7B01,
+                borderRadius: 50..r,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText(
+                      text: "Post a Property",
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.k0xff3C1663,
+                    ),
+                    Icon(Icons.add, color: AppColors.k0xff3C1663)
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 14..h),
-            CustomCard(
-              width: 200..w,
-              topPadding: 10..h,
-              bottomPadding: 10..h,
-              color: AppColors.k0xffFD7B01,
-              borderRadius: 50..r,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText(
-                    text: "Post a Request",
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.k0xff3C1663,
-                  ),
-                  Icon(Icons.add, color: AppColors.k0xff3C1663)
-                ],
+            InkWell(onTap: (){
+              EasyLoading.showToast('Under Development');
+            },
+              child: CustomCard(
+                width: 200..w,
+                topPadding: 10..h,
+                bottomPadding: 10..h,
+                color: AppColors.k0xffFD7B01,
+                borderRadius: 50..r,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText(
+                      text: "Post a Request",
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.k0xff3C1663,
+                    ),
+                    Icon(Icons.add, color: AppColors.k0xff3C1663)
+                  ],
+                ),
               ),
             ),
           ],
