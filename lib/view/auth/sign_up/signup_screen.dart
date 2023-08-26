@@ -28,6 +28,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     "Agent",
     "Client",
   ];
+  final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final companyNameController = TextEditingController();
+  final numberController = TextEditingController();
 
   @override
   void initState() {
@@ -42,6 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     focusNode.dispose();
     super.dispose();
   }
+  String selectedCountryCode = "US"; // Set the default country code
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +66,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontWeight: FontWeight.w600,
                       fontSize: 24..sp),
                   SizedBox(height: 59..h),
-                  TextFieldWithLabel(label: "Name"),
-                  TextFieldWithLabel(label: "Email"),
-                  TextFieldWithLabel(label: "Password"),
+                  TextFieldWithLabel(label: "Name",controller: nameController),
+                  TextFieldWithLabel(label: "Email",controller: emailController),
+                  TextFieldWithLabel(label: "Password",controller:passwordController),
                   Row(
                     children: [
                       CustomText(
@@ -87,9 +93,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             padding: EdgeInsets.zero,
                             flagWidth: 25,
                             textStyle: const TextStyle(color: Colors.black),
-                            onChanged: (value) =>
-                                controller.changeCountry(value),
-                            initialSelection: "US",
+                            onChanged: (value) {
+                              // Update the selectedCountryCode variable when the country code is changed
+                              setState(() {
+                                selectedCountryCode = value.dialCode ?? "";
+                              });
+                            },
+                            initialSelection: selectedCountryCode, // Set the default country code
                             showCountryOnly: false,
                             showOnlyCountryWhenClosed: false,
                             alignLeft: true,
@@ -130,6 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                               ),
                             ),
+                            controller: numberController,
                           ),
                         ),
                       ],
@@ -184,10 +195,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(height: 18..h),
-                  TextFieldWithLabel(label: "Company name", isOptional: true),
+                  TextFieldWithLabel(label: "Company name", isOptional: true, controller: companyNameController),
                   SizedBox(height: 50..h),
+                  // CustomButton(
+                  //     onTap: () {
+                  //       String countryCode = controller.getSelectedCountryCode();
+                  //       String combinedPassword = countryCode + numberController.text;
+                  //       Get.to(SignupScreen1(
+                  //
+                  //       name: nameController.text,
+                  //       email: emailController.text,
+                  //       password:   passwordController.text,
+                  //       phoneNumber:  controller.selectedCountryCode + numberController.text,
+                  //       selectedOption: selectedOption,
+                  //       companyName: companyNameController.text,
+                  //
+                  //
+                  //
+                  //     ));}, label: 'Next'),
+
                   CustomButton(
-                      onTap: () => Get.to(SignupScreen1()), label: 'Next'),
+                    onTap: () {
+                      String combinedNumber = selectedCountryCode + numberController.text;
+
+                      print('${combinedNumber}this is my num');
+                      Get.to(SignupScreen1(
+                        name: nameController.text,
+                        email: emailController.text,
+                        password: passwordController.text,
+                        phoneNumber: combinedNumber,// Combine country code with phone number
+                        selectedOption: selectedOption,
+                        companyName: companyNameController.text,
+                      ));
+                    },
+                    label: 'Next',
+                  ),
                   SizedBox(height: 20..h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

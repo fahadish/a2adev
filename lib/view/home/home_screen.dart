@@ -4,8 +4,11 @@ import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../const/colors.dart';
 import '../../utils/custom_text_field/custom_text_field.dart';
+import '../profile/profile_screen.dart';
 
 class HomeScreenArchitecture extends StatefulWidget {
   const HomeScreenArchitecture({super.key});
@@ -52,9 +55,15 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                   ),
                 ),
                 SizedBox(width: 8..w),
-                CircleAvatar(
-                  radius: 21..r,
-                  backgroundImage: AssetImage("$imagePath/Mask group.png"),
+                InkWell(
+                  onTap: (){
+                    Get.to(ProfileScreen());
+
+                  },
+                  child: CircleAvatar(
+                    radius: 21..r,
+                    backgroundImage: AssetImage("$imagePath/Mask group.png"),
+                  ),
                 ),
               ],
             ),

@@ -2,6 +2,7 @@ import 'package:a2aff/utils/background_image/background_image.dart';
 import 'package:a2aff/utils/custom_text_field/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import '../../../const/image_or_icon_path.dart';
 import '../../../controller/authController.dart';
 import '../../../utils/button/custom_button.dart';
@@ -80,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: Obx(() {
               if (_authController.isLoading.value) {
-                return const CircularProgressIndicator();
+                return Lottie.asset('assets/icons/animation_llr5v0pn.json');
               } else {
                 return SingleChildScrollView(
                   child: Column(

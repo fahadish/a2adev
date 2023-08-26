@@ -12,17 +12,40 @@ import '../../../utils/custom_card/big_card.dart';
 import '../../../utils/custom_text_field/custom_text_field.dart';
 
 class SignupScreen3 extends StatefulWidget {
-  const SignupScreen3({super.key});
+  final String name;
+  final String email;
+  final String password;
+  final String phoneNumber;
+  final String selectedOption;
+  final String companyName;
+  final String? imageLinkRera;
+  final bool isReraCertified; // Declare the variable here
 
+  final List<String> selectedOptions;
+
+
+  SignupScreen3({
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.phoneNumber,
+    required this.selectedOption,
+    required this.companyName,
+    required this.imageLinkRera,
+    required this.isReraCertified,
+    required this.selectedOptions,
+  });
   @override
   State<SignupScreen3> createState() => _SignupScreen3State();
 }
 
 class _SignupScreen3State extends State<SignupScreen3> {
   AuthController authController = Get.put(AuthController());
+  final TextEditingController locations = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
     return GetBuilder<AuthController>(builder: (controller) {
       return Scaffold(
         body: BackgroundWhite(
@@ -56,44 +79,65 @@ class _SignupScreen3State extends State<SignupScreen3> {
                       SizedBox(height: 45..h),
                       CustomTextFieldRightIcon(
                         hintText: '',
-                        onChange: (value) {
-                          controller.locationController = value;
-                          controller
-                              .searchLocation(controller.locationController);
-                        },
+
+                          controller:locations,
+                        // onChange: (value) {
+                        //   controller.locationController = value;
+                        //   controller
+                        //       .searchLocation(controller.locationController);
+                        // },
                       ),
-                      SizedBox(
-                        height: 300,
-                        child: ListView.separated(
-                          itemCount: 2,
-                          separatorBuilder: (context, index) =>
-                              SizedBox(height: 10..h),
-                          itemBuilder: (context, index) => Align(
-                            alignment: Alignment.topLeft,
-                            child: Container(
-                                padding: EdgeInsets.fromLTRB(
-                                    15..w, 6..h, 12..w, 6..h),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(64),
-                                    color: Color(0xffdab7ff)),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    CustomText(
-                                      text: "Faisalabad",
-                                      color: Colors.black,
-                                      fontSize: 13..sp,
-                                    ),
-                                    SizedBox(width: 5..w),
-                                    Icon(Icons.close)
-                                  ],
-                                )),
-                          ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 300,
+                      //   child: ListView.separated(
+                      //     itemCount: 2,
+                      //     separatorBuilder: (context, index) =>
+                      //         SizedBox(height: 10..h),
+                      //     itemBuilder: (context, index) => Align(
+                      //       alignment: Alignment.topLeft,
+                      //       child: Container(
+                      //           padding: EdgeInsets.fromLTRB(
+                      //               15..w, 6..h, 12..w, 6..h),
+                      //           decoration: BoxDecoration(
+                      //               borderRadius: BorderRadius.circular(64),
+                      //               color: Color(0xffdab7ff)),
+                      //           child: Row(
+                      //             mainAxisSize: MainAxisSize.min,
+                      //             children: [
+                      //               CustomText(
+                      //                 text: "Faisalabad",
+                      //                 color: Colors.black,
+                      //                 fontSize: 13..sp,
+                      //               ),
+                      //               SizedBox(width: 5..w),
+                      //               Icon(Icons.close)
+                      //             ],
+                      //           )),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(height: 104..h),
                       CustomButton(
-                          onTap: () => Get.to(SignupScreen4()), label: 'Next')
+                          onTap:
+                              () {
+
+                                authController.clearImage();
+                            Get.to(SignupScreen4(
+
+                                name: widget.name,
+                                email: widget.email,
+                                password: widget.password,
+                                phoneNumber: widget.phoneNumber,
+                                selectedOption: widget.selectedOption,
+                                companyName: widget.companyName,
+                                imageLinkRera: widget.imageLinkRera,
+                                isReraCertified: widget.isReraCertified,
+                                selectedOptions: widget.selectedOptions,
+                                locations: locations.text, // Pass the
+                              ));},
+                          //
+                          //
+                          label: 'Next')
                     ],
                   ),
                 ),

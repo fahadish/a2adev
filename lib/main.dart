@@ -1,3 +1,4 @@
+import 'package:a2aff/view/auth/sign_up/signup_screen.dart';
 import 'package:a2aff/view/bottom_appbar/bottom_appbar.dart';
 import 'package:a2aff/view/profile/profile_screen.dart';
 import 'package:a2aff/view/splash/splash_screen.dart';
@@ -48,11 +49,17 @@ class MyApp extends StatelessWidget {
       splitScreenMode: _splitScreenMode, // Use the initialized field here
       builder: (context, child) {
         return GetMaterialApp(
-          home: ProfileScreen(),
-          // SplashScreen(),
+          home:
+          // ProfileScreen(),
+          SplashScreen(),
+          // SignUpScreen(),
+          // CustomBottomAppBar(),
           builder: EasyLoading.init(),
         );
       },
     );
   }
+
+
+
 }

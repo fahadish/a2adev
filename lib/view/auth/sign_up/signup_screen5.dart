@@ -15,8 +15,32 @@ import '../../../utils/custom_text_field/custom_text_field.dart';
 import '../../bottom_appbar/bottom_appbar.dart';
 
 class SignupScreen5 extends StatefulWidget {
-  const SignupScreen5({super.key});
+  final String name;
+  final String email;
+  final String password;
+  final String phoneNumber;
+  final String selectedOption;
+  final String companyName;
+  final String? imageLinkRera;
+  final bool isReraCertified; // Declare the variable here
 
+  final List<String> selectedOptions;
+  final String locations;
+  final String experience; // Add experience parameter
+
+  SignupScreen5({
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.phoneNumber,
+    required this.selectedOption,
+    required this.companyName,
+    required this.imageLinkRera,
+    required this.isReraCertified,
+    required this.selectedOptions,
+    required this.locations,
+    required this.experience, // Add experience parameter
+  });
   @override
   State<SignupScreen5> createState() => _SignupScreen5State();
 }
@@ -36,12 +60,15 @@ class _SignupScreen5State extends State<SignupScreen5> {
                 child: Padding(
                   padding: EdgeInsets.only(top: 78..h, left: 37..w),
                   child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.black,
-                    ),
-                    onPressed: () => Get.back(),
-                  ),
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.black,
+                      ),
+                      onPressed: ()
+                      =>
+
+                      Get.back(),
+                      ),
                 ),
               ),
               Padding(
@@ -56,39 +83,82 @@ class _SignupScreen5State extends State<SignupScreen5> {
                       fontWeight: FontWeight.w600,
                     ),
                     SizedBox(height: 45..h),
-                    Center(
-                      child: Container(
-                        width: 222..w,
-                        height: 297..h,
-                        padding: EdgeInsets.symmetric(horizontal: 75..w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: const Color(0xffd9d9d9),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (builder) =>
-                                    controller.myBottomSheet(context));
-                          },
-                          child: controller.imageFile != null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(25..r),
-                                  child: Image.file(
-                                      File(controller.imageFile!.path),
-                                      fit: BoxFit.cover))
-                              : CircleAvatar(
+                    controller.imageFile != null
+                        ? Center(
+                            child: Container(
+                                width: 222..w,
+                                height: 297..h,
+                                // padding: EdgeInsets.symmetric(horizontal: 75..w),
+                                // decoration: BoxDecoration(
+                                //   borderRadius: BorderRadius.circular(4),
+                                //   color: const Color(0xffd9d9d9),
+                                // ),
+                                child: Image.file(
+                                  File(controller.imageFile!.path),
+                                )),
+                          )
+                        : Center(
+                            child: Container(
+                              width: 222..w,
+                              height: 297..h,
+                              padding: EdgeInsets.symmetric(horizontal: 75..w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: const Color(0xffd9d9d9),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (builder) =>
+                                          controller.myBottomSheet(context));
+                                },
+                                child:
+                                    // controller.imageFile != null
+                                    //     ? ClipRRect(
+                                    //         borderRadius: BorderRadius.circular(25..r),
+                                    //         child: Image.file(
+                                    //             File(controller.imageFile!.path),
+                                    //             fit: BoxFit.cover))
+                                    //     :
+
+                                    CircleAvatar(
                                   backgroundColor: AppColors.k0xff9D9D9D,
                                   child: Icon(Icons.add,
                                       color: Colors.white, size: 35..r),
                                 ),
-                        ),
-                      ),
-                    ),
+                              ),
+                            ),
+                          ),
                     SizedBox(height: 104..h),
                     CustomButton(
-                        onTap: () => Get.to(CustomBottomAppBar()),
+                        onTap: () async {
+                          await authController
+                              .uploadImageToFirebase("Profile_Images");
+                          if (authController.imageLink != null) {
+                            print(
+                                'Uploaded Image URL: Uploaded Image URL: ${authController.imageLink}');
+
+
+                            await authController.registerUserWithData(
+                              password: widget.password,
+                              certified: widget.isReraCertified,
+                              certifiedImage: widget.imageLinkRera ?? "NoData",
+                              company: widget.companyName,
+                              phone: widget.phoneNumber,
+                              email: widget.email,
+                              name: widget.name,
+                              location: widget.locations,
+                              experience: widget.experience,
+                              status: widget.selectedOption,
+                              specialty: widget.selectedOptions,
+                              profileImage: authController.imageLink.toString(),
+                            );
+
+                          }
+                          // Add navigation or other logic as needed
+                        },
+                        // Get.to(CustomBottomAppBar()),
                         label: 'Next')
                   ],
                 ),

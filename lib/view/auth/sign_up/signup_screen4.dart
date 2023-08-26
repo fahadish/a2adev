@@ -11,13 +11,37 @@ import '../../../utils/custom_card/big_card.dart';
 import '../../../utils/custom_text_field/custom_text_field.dart';
 
 class SignupScreen4 extends StatefulWidget {
-  const SignupScreen4({super.key});
+  final String name;
+  final String email;
+  final String password;
+  final String phoneNumber;
+  final String selectedOption;
+  final String companyName;
+  final String? imageLinkRera;
+  final bool isReraCertified; // Declare the variable here
 
+  final List<String> selectedOptions;
+  final String locations; // Add locations parameter
+
+  SignupScreen4({
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.phoneNumber,
+    required this.selectedOption,
+    required this.companyName,
+    required this.imageLinkRera,
+    required this.isReraCertified,
+    required this.selectedOptions,
+    required this.locations, // Add locations parameter
+  });
   @override
   State<SignupScreen4> createState() => _SignupScreen4State();
 }
 
 class _SignupScreen4State extends State<SignupScreen4> {
+  final TextEditingController experience = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +81,7 @@ class _SignupScreen4State extends State<SignupScreen4> {
                         style: TextStyle(color: Colors.white),
                         textAlignVertical: TextAlignVertical.bottom,
 
-                        // controller: widget.controller,
+                        controller: experience,
                         decoration: InputDecoration(
                           hintText: '',
                           border: OutlineInputBorder(
@@ -86,26 +110,21 @@ class _SignupScreen4State extends State<SignupScreen4> {
                     SizedBox(height: 104..h),
 
                     CustomButton(
-                        onTap: () => Get.to(SignupScreen5()), label: 'Next'),
-                    // Container(
-                    //   width: 302..w,
-                    //   height: 49..h,
-                    //   decoration: ShapeDecoration(
-                    //     shape: RoundedRectangleBorder(
-                    //       side: BorderSide(
-                    //           width: 0.50..w, color: const Color(0xFFFD7B01)),
-                    //       borderRadius: BorderRadius.circular(10),
-                    //     ),
-                    //   ),
-                    //   child: Center(
-                    //     child: CustomText(
-                    //       text: "Next",
-                    //       fontSize: 15..sp,
-                    //       fontWeight: FontWeight.w600,
-                    //       color: const Color(0xFFFD7B01),
-                    //     ),
-                    //   ),
-                    // ),
+                        onTap: () => Get.to(SignupScreen5(
+                          name: widget.name,
+                          email: widget.email,
+                          password: widget.password,
+                          phoneNumber: widget.phoneNumber,
+                          selectedOption: widget.selectedOption,
+                          companyName: widget.companyName,
+                          imageLinkRera: widget.imageLinkRera,
+                          isReraCertified: widget.isReraCertified,
+                          selectedOptions: widget.selectedOptions,
+                          locations: widget.locations,
+                          experience: experience.text, // Pass
+
+
+                        )), label: 'Next'),
                     SizedBox(height: 20..h),
                   ],
                 ),

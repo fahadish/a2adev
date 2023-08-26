@@ -4,22 +4,41 @@ import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
 import 'package:a2aff/view/auth/sign_up/signup_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../const/image_or_icon_path.dart';
+import '../../../controller/authController.dart';
 import '../../../utils/button/custom_button.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/custom_card/big_card.dart';
 
 class SignupScreen1 extends StatefulWidget {
-  const SignupScreen1({super.key});
+  final String name;
+  final String email;
+  final String password;
+  final String phoneNumber;
+  final String selectedOption;
+  final String companyName;
 
+  SignupScreen1({
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.phoneNumber,
+    required this.selectedOption,
+    required this.companyName,
+  });
   @override
   State<SignupScreen1> createState() => _SignupScreen1State();
 }
 
 class _SignupScreen1State extends State<SignupScreen1> {
+  AuthController _authController = Get.find<AuthController>(); // Assuming you have initialized the controller using Get.put() or Get.lazyPut()
+
   bool yes = false;
   bool no = false;
+  bool isReraCertified = false; // Add this line
+
 
   Widget buildBottomSheetContent() {
     return Container(
@@ -60,10 +79,13 @@ class _SignupScreen1State extends State<SignupScreen1> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: BackgroundColored(
         child: Column(
           children: [
+
+
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
@@ -94,13 +116,39 @@ class _SignupScreen1State extends State<SignupScreen1> {
                     ),
                     SizedBox(height: 45..h),
                     GestureDetector(
-                      onTap: () => setState(() {
-                        yes == false ? yes = true : yes = false;
-                        no = false;
-                        yes == true
-                            ? Get.bottomSheet(buildBottomSheetContent())
-                            : null;
-                      }),
+                      // onTap: () => setState(() {
+                      //   yes == false ? yes = true : yes = false;
+                      //   no = false;
+                      //   yes == true
+                      //       ? Get.bottomSheet(buildBottomSheetContent())
+                      //       : null;
+                      // }),
+        onTap: () async {
+      setState(() {
+        yes = !yes;
+        no = false;
+        // Set isReraCertified based on user's selection
+        isReraCertified = yes; // true if yes, false if no
+      });
+
+      if (yes) {
+        await _authController.getImage(ImageSource.gallery);
+      }
+
+                      // onTap: () async {
+                        // setState(() {
+                        //   yes = !yes;
+                        //   no = false;
+                        //   isReraCertified = true;
+                        //
+                        // });
+                        //
+                        // if (isReraCertified) {
+                        //   await _authController.getImage(ImageSource.gallery);
+                        //
+                        //   // Use the desired source for image selection
+                        // }
+                      },
                       child: Row(
                         children: [
                           yes == false
@@ -129,8 +177,10 @@ class _SignupScreen1State extends State<SignupScreen1> {
                     SizedBox(height: 34..h),
                     GestureDetector(
                       onTap: () => setState(() {
-                        no == false ? no = true : no = false;
+                        no = !no;
                         yes = false;
+                        // Set isReraCertified based on user's selection
+                        isReraCertified = !no; // false if no, true if yes
                       }),
                       child: Row(
                         children: [
@@ -159,8 +209,36 @@ class _SignupScreen1State extends State<SignupScreen1> {
                     ),
                     SizedBox(height: 122..h),
                     yes || no == true
+
+
                         ? CustomButton(
-                            onTap: () => Get.to(SignupScreen2()), label: 'Next')
+                        onTap: () async {
+                          if (yes || no) {
+                            if (yes && _authController.imageFile != null) {
+                              // todo uncomment and loading setup
+                              await _authController.uploadImageToFirebase("RERA"); //
+                              print("Image URL: ${_authController.imageLink}");
+                              // You might need to modify the function in AuthController to accept a folder name
+                            }
+                            Get.to(SignupScreen2(
+                                name: widget.name,
+                                email: widget.email,
+                                password: widget.password,
+                                phoneNumber: widget.phoneNumber,
+                                selectedOption: widget.selectedOption,
+                                companyName: widget.companyName,
+                                imageLinkRera: _authController.imageLink,
+                              isReraCertified: isReraCertified,
+
+
+
+                            ));
+                          }
+                        },
+
+
+
+                        label: 'Next')
                         : Container(
                             width: 302..w,
                             height: 49..h,

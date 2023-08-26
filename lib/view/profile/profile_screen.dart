@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controller/authController.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -14,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  AuthController authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -246,21 +250,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                       SizedBox(height: 15..h),
-                      Row(
-                        children: [
-                          SizedBox(width: 16..w),
-                          Image.asset(
-                            "$iconPath/logout.png",
-                            height: 20..h,
-                            width: 30..w,
-                          ),
-                          SizedBox(width: 36..w),
-                          CustomText(
-                            text: "Logout",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16..sp,
-                          ),
-                        ],
+                      InkWell(
+                        onTap: ()async{
+                         await authController.signOut();
+
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(width: 16..w),
+                            Image.asset(
+                              "$iconPath/logout.png",
+                              height: 20..h,
+                              width: 30..w,
+                            ),
+                            SizedBox(width: 36..w),
+                            CustomText(
+                              text: "Logout",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16..sp,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
