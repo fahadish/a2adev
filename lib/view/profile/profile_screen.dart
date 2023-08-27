@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/authController.dart';
+import '../profile_edit/edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -55,25 +56,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   fontSize: 16..sp,
                 ),
                 SizedBox(height: 13..h),
-                CustomCard(
-                  topPadding: 10..h,
-                  bottomPadding: 10..h,
-                  color: Colors.black.withOpacity(0.05),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 16..w),
-                      Image.asset(
-                        "$iconPath/person.png",
-                        height: 30..h,
-                        width: 30..w,
-                      ),
-                      SizedBox(width: 36..w),
-                      CustomText(
-                        text: "Edit profile",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16..sp,
-                      ),
-                    ],
+                InkWell(
+                  onTap: () => Get.to(EditProfileScreen()),
+                  child: CustomCard(
+                    topPadding: 10..h,
+                    bottomPadding: 10..h,
+                    color: Colors.black.withOpacity(0.05),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 16..w),
+                        Image.asset(
+                          "$iconPath/person.png",
+                          height: 30..h,
+                          width: 30..w,
+                        ),
+                        SizedBox(width: 36..w),
+                        CustomText(
+                          text: "Edit profile",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16..sp,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 20..h),
@@ -113,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         child: Container(
-                          height: 300,
+                          height: 300..h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
                           child: Column(
@@ -125,15 +129,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 height: 64..h,
                                 width: 64..w,
                               ),
-                              Text(
-                                "Your verification request has been sent successfully to the administration department.",
-                                style: TextStyle(fontSize: 20),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  "Your verification request has been sent successfully to the administration department.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 18..sp),
+                                ),
                               ),
                               ElevatedButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text("Close"))
+                                  child: Text("Close")),
+                              SizedBox(height: 10..h)
                             ],
                           ),
                         ),
@@ -251,9 +261,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SizedBox(height: 15..h),
                       InkWell(
-                        onTap: ()async{
-                         await authController.signOut();
-
+                        onTap: () async {
+                          await authController.signOut();
                         },
                         child: Row(
                           children: [

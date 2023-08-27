@@ -8,14 +8,21 @@ class TextFieldWithLabel extends StatefulWidget {
   final String? label;
   final bool? isOptional;
   final String? hintText;
+  final Color? borderColor;
+  final Color? labelColor;
+  final double? labelSize;
   final TextEditingController? controller;
 
-  const TextFieldWithLabel(
-      {super.key,
-      this.label,
-      this.isOptional = false,
-      this.hintText,
-      this.controller});
+  const TextFieldWithLabel({
+    super.key,
+    this.label,
+    this.isOptional = false,
+    this.hintText,
+    this.controller,
+    this.borderColor,
+    this.labelColor,
+    this.labelSize,
+  });
 
   @override
   State<TextFieldWithLabel> createState() => _TextFieldWithLabelState();
@@ -47,9 +54,10 @@ class _TextFieldWithLabelState extends State<TextFieldWithLabel> {
           children: [
             CustomText(
               text: widget.label!,
+              fontSize: widget.labelSize,
               color: focusNode.hasFocus
-                  ? AppColors.k0xff352049
-                  : AppColors.k0xff9D9D9D,
+                  ? widget.labelColor ?? AppColors.k0xff352049
+                  : widget.labelColor ?? AppColors.k0xff9D9D9D,
             ),
             CustomText(
               text: widget.isOptional == false ? "*" : " (Optional)",
@@ -81,7 +89,7 @@ class _TextFieldWithLabelState extends State<TextFieldWithLabel> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4..r),
                 borderSide: BorderSide(
-                  color: AppColors.k0xff9D9D9D,
+                  color: widget.borderColor ?? AppColors.k0xff9D9D9D,
                   width: 2.0,
                 ),
               ),

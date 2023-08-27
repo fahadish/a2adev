@@ -23,10 +23,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   AuthController authController = Get.put(AuthController());
   FocusNode focusNode = FocusNode();
   bool isTapped = false;
-  String selectedOption = 'Client';
+  String selectedOption = "User";
   List<String> dropdownOptions = [
+    "Developer",
     "Agent",
-    "Client",
+    "User",
   ];
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
@@ -47,6 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     focusNode.dispose();
     super.dispose();
   }
+
   String selectedCountryCode = "US"; // Set the default country code
 
   @override
@@ -66,9 +68,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontWeight: FontWeight.w600,
                       fontSize: 24..sp),
                   SizedBox(height: 59..h),
-                  TextFieldWithLabel(label: "Name",controller: nameController),
-                  TextFieldWithLabel(label: "Email",controller: emailController),
-                  TextFieldWithLabel(label: "Password",controller:passwordController),
+                  TextFieldWithLabel(label: "Name", controller: nameController),
+                  TextFieldWithLabel(
+                      label: "Email", controller: emailController),
+                  TextFieldWithLabel(
+                      label: "Password", controller: passwordController),
                   Row(
                     children: [
                       CustomText(
@@ -99,7 +103,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 selectedCountryCode = value.dialCode ?? "";
                               });
                             },
-                            initialSelection: selectedCountryCode, // Set the default country code
+                            initialSelection: selectedCountryCode,
+                            // Set the default country code
                             showCountryOnly: false,
                             showOnlyCountryWhenClosed: false,
                             alignLeft: true,
@@ -195,7 +200,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(height: 18..h),
-                  TextFieldWithLabel(label: "Company name", isOptional: true, controller: companyNameController),
+                  TextFieldWithLabel(
+                      label: "Company name",
+                      isOptional: true,
+                      controller: companyNameController),
                   SizedBox(height: 50..h),
                   // CustomButton(
                   //     onTap: () {
@@ -216,14 +224,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                   CustomButton(
                     onTap: () {
-                      String combinedNumber = selectedCountryCode + numberController.text;
+                      String combinedNumber =
+                          selectedCountryCode + numberController.text;
 
                       print('${combinedNumber}this is my num');
                       Get.to(SignupScreen1(
                         name: nameController.text,
                         email: emailController.text,
                         password: passwordController.text,
-                        phoneNumber: combinedNumber,// Combine country code with phone number
+                        phoneNumber: combinedNumber,
+                        // Combine country code with phone number
                         selectedOption: selectedOption,
                         companyName: companyNameController.text,
                       ));
