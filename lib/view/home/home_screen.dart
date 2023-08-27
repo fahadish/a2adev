@@ -3,10 +3,13 @@ import 'package:a2aff/utils/custom_card/big_card.dart';
 import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../const/colors.dart';
+import '../../controller/authController.dart';
+import '../../userModel.dart';
 import '../../utils/custom_text_field/custom_text_field.dart';
 import '../profile/profile_screen.dart';
 
@@ -18,6 +21,41 @@ class HomeScreenArchitecture extends StatefulWidget {
 }
 
 class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
+  UserModel? userData;
+  AuthController authController = Get.find<AuthController>();
+
+  Future<void> fetchUserData() async {
+    try {
+      EasyLoading.show(status: 'Fetching Data');
+
+      String? userId = authController.getCurrentUserUid();
+      if (userId != null) {
+        setState(() {
+          userData = null; // Clear previous data
+        });
+
+        UserModel? fetchedUserData = await authController.fetchUserData(userId);
+        setState(() {
+          userData = fetchedUserData;
+        });
+
+        print('Fetched user data: $userData');
+      } else {
+        print("User ID is null");
+      }
+    } catch (error) {
+      print('Error fetching user data: $error');
+    } finally {
+      EasyLoading.dismiss();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
   int _currentIndex = 0;
   final List<String> _imageUrls = ["$imagePath/22.png", "$imagePath/11.png"];
 
@@ -57,12 +95,15 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                 SizedBox(width: 8..w),
                 InkWell(
                   onTap: (){
-                    Get.to(ProfileScreen());
+                    Get.to(ProfileScreen(userData: userData));  // Pass userData
 
                   },
                   child: CircleAvatar(
                     radius: 21..r,
-                    backgroundImage: AssetImage("$imagePath/Mask group.png"),
+                    backgroundImage: userData?.profileImage != null &&
+                        userData!.profileImage.isNotEmpty
+                        ? NetworkImage(userData!.profileImage!) as ImageProvider<Object>?
+                        : AssetImage("$imagePath/Mask group.png"),
                   ),
                 ),
               ],

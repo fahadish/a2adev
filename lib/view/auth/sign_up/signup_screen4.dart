@@ -3,6 +3,7 @@ import 'package:a2aff/utils/background_image/background_image.dart';
 import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
 import 'package:a2aff/view/auth/sign_up/signup_screen5.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../const/image_or_icon_path.dart';
 import '../../../utils/button/custom_button.dart';
@@ -110,22 +111,35 @@ class _SignupScreen4State extends State<SignupScreen4> {
                     SizedBox(height: 104..h),
 
                     CustomButton(
-                        onTap: () => Get.to(SignupScreen5(
-                          name: widget.name,
-                          email: widget.email,
-                          password: widget.password,
-                          phoneNumber: widget.phoneNumber,
-                          selectedOption: widget.selectedOption,
-                          companyName: widget.companyName,
-                          imageLinkRera: widget.imageLinkRera,
-                          isReraCertified: widget.isReraCertified,
-                          selectedOptions: widget.selectedOptions,
-                          locations: widget.locations,
-                          experience: experience.text, // Pass
+                onTap: () {
+                  if (experience.text.isEmpty) {
+                    // Show a toast message indicating that experience should be provided
+                    EasyLoading.showToast('Please provide experience');
+                  } else {
+                    // Navigate to SignupScreen5 if the experience is not empty
+                    Get.to(SignupScreen5(
+                      name: widget.name,
+                      email: widget.email,
+                      password: widget.password,
+                      phoneNumber: widget.phoneNumber,
+                      selectedOption: widget.selectedOption,
+                      companyName: widget.companyName,
+                      imageLinkRera: widget.imageLinkRera,
+                      isReraCertified: widget.isReraCertified,
+                      selectedOptions: widget.selectedOptions,
+                      locations: widget.locations,
+                      experience: experience.text,
+                    ));
+                  }
+                },
+                label: 'Next',
+              ),
 
 
-                        )), label: 'Next'),
-                    SizedBox(height: 20..h),
+
+
+
+            SizedBox(height: 20..h),
                   ],
                 ),
               ),

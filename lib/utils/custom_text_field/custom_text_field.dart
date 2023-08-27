@@ -12,11 +12,16 @@ class TextFieldWithLabel extends StatefulWidget {
   final Color? labelColor;
   final double? labelSize;
   final TextEditingController? controller;
+  final bool enabled; // Add this property
+  final bool obsecure; // Add this property
+
 
   const TextFieldWithLabel({
     super.key,
     this.label,
     this.isOptional = false,
+    this.enabled = true,
+    this.obsecure = false,
     this.hintText,
     this.controller,
     this.borderColor,
@@ -73,6 +78,8 @@ class _TextFieldWithLabelState extends State<TextFieldWithLabel> {
           child: TextFormField(
             focusNode: focusNode,
             textAlignVertical: TextAlignVertical.bottom,
+            enabled: widget.enabled, // Use the enabled property from the widget
+
             onTap: () {
               setState(() {
                 isTapped = true;
@@ -84,6 +91,7 @@ class _TextFieldWithLabelState extends State<TextFieldWithLabel> {
               });
             },
             controller: widget.controller,
+            obscureText: widget.obsecure,
             decoration: InputDecoration(
               hintText: widget.hintText ?? '',
               border: OutlineInputBorder(
@@ -95,6 +103,7 @@ class _TextFieldWithLabelState extends State<TextFieldWithLabel> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4.0..r),
+
                 borderSide: BorderSide(
                   color: AppColors.k0xff352049,
                   width: 2..w, // Change the border width to make it visible
@@ -147,6 +156,122 @@ class CustomTextFieldWithIcon extends StatelessWidget {
               color: Colors
                   .transparent, // Same border color as in the normal state
               width: 0..w,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+// class CustomTextFieldWithIconObsecure extends StatelessWidget {
+//   final TextEditingController? controller;
+//   final String? assetIcon;
+//   final String? hintText;
+//
+//   const CustomTextFieldWithIconObsecure(
+//       {super.key, required this.hintText, this.assetIcon, this.controller});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 41..h,
+//       child: TextFormField(
+//         textAlignVertical: TextAlignVertical.bottom,
+//         controller: controller,
+//         decoration: InputDecoration(
+//           fillColor: Colors.white,
+//           contentPadding:
+//               EdgeInsets.symmetric(vertical: 15..h, horizontal: 5..w),
+//           filled: true,
+//           hintText: hintText ?? 'Enter text',
+//           prefixIcon: Padding(
+//             padding: EdgeInsets.symmetric(vertical: 10.0..w),
+//             child: Image.asset(assetIcon!, height: 18..h, width: 18..w),
+//           ),
+//           border: OutlineInputBorder(
+//             borderRadius: BorderRadius.circular(4..r),
+//             borderSide: BorderSide(
+//               color: Colors.transparent,
+//               width: 0..w,
+//             ),
+//           ),
+//           focusedBorder: OutlineInputBorder(
+//             borderRadius: BorderRadius.circular(4.0),
+//             borderSide: BorderSide(
+//               color: Colors
+//                   .transparent, // Same border color as in the normal state
+//               width: 0..w,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+class CustomTextFieldWithIconObsecure extends StatefulWidget {
+  final TextEditingController? controller;
+  final String? assetIcon;
+  final String? hintText;
+
+  const CustomTextFieldWithIconObsecure({
+    Key? key,
+    required this.hintText,
+    this.assetIcon,
+    this.controller,
+  }) : super(key: key);
+
+  @override
+  _CustomTextFieldWithIconObsecureState createState() =>
+      _CustomTextFieldWithIconObsecureState();
+}
+
+class _CustomTextFieldWithIconObsecureState
+    extends State<CustomTextFieldWithIconObsecure> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 41,
+      child: TextFormField(
+        textAlignVertical: TextAlignVertical.bottom,
+        controller: widget.controller,
+        obscureText: _obscureText,
+        decoration: InputDecoration(
+          fillColor: Colors.white,
+          contentPadding:
+          EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+          filled: true,
+          hintText: widget.hintText ?? 'Enter text',
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.0),
+            child: Image.asset(widget.assetIcon!,
+                height: 18, width: 18),
+          ),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            child: Icon(
+              _obscureText ? Icons.visibility : Icons.visibility_off,
+              color: Colors.grey,
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: BorderSide(
+              color: Colors.transparent,
+              width: 0,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: BorderSide(
+              color: Colors.transparent,
+              width: 0,
             ),
           ),
         ),

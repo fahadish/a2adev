@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../const/colors.dart';
 import '../../const/image_or_icon_path.dart';
+import '../../controller/authController.dart';
+import '../../userModel.dart';
 import '../../view/home/home_screen.dart';
 import '../post_property/post_property_screen.dart';
 import 'bottom_appbar1.dart';
@@ -19,23 +21,89 @@ class CustomBottomAppBar extends StatefulWidget {
 }
 
 class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
+  bool isUserDataLoading = true; // Track whether user data is currently being fetched
+  UserModel? userData;
+  AuthController authController = Get.find<AuthController>();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+  Future<void> fetchUserData() async {
+
+    try {EasyLoading.show(status: 'Featching Data');
+
+      // Assuming your AuthController's fetchUserData takes a user ID
+      String? userId = authController.getCurrentUserUid(); // Re
+    if (userId != null) {
+      userData = await authController.fetchUserData(userId);
+      print('Fetched user data: $userData'); // Print the fetched user data
+      EasyLoading.dismiss();// Set loading to false after data is fetched
+
+    } else {
+      // Handle the case where userId is null
+      print("User ID is null");
+
+      EasyLoading.dismiss();// Set loading to false after data is fetched
+
+    }
+
+
+
+
+      print('Fetched user data: $userData'); // Print the fetched user data
+      print(
+
+        'user picture${userData!.profileImage}'
+      ); // Print the fetched user data
+
+      setState(() {
+        isUserDataLoading = false; //
+        EasyLoading.dismiss();// Set loading to false after data is fetched
+      });
+
+      EasyLoading.dismiss();
+    } catch (error) {
+      setState(() {
+        isUserDataLoading = false; // Ensure loading is set to false even if an error occurs
+      });
+      print('Error fetching user data: $error');
+      EasyLoading.dismiss();// Set loading to false after data is fetched
+
+    }
+  }
+
   int selectedIndex = 0;
   final List<Widget> screens = [
     HomeScreenArchitecture(),
     HomeScreenArchitecture(),
     Center(child: CustomText24(text: "Under Development",color: Colors.black,)),
   ];
-
   void onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
     });
-    selectedIndex == 0
-        ? Get.to(CustomBottomAppBar1())
-        : selectedIndex == 1
-            ? Get.bottomSheet(buildBottomSheetContent())
-            : Center(child: CustomText24(text: "Under Development",color: Colors.black,));
+
+    if (selectedIndex == 0) {
+      Get.to(CustomBottomAppBar1());
+    } else if (selectedIndex == 1) {
+      Get.bottomSheet(buildBottomSheetContent());
+    } else if (selectedIndex == 2) {
+      Get.to(HomeScreenArchitecture()); // Pass userData to the HomeScreenArchitecture widget
+    }
   }
+
+  // void onItemTapped(int index) {
+  //   setState(() {
+  //     selectedIndex = index;
+  //   });
+  //   selectedIndex == 0
+  //       ? Get.to(CustomBottomAppBar1())
+  //       : selectedIndex == 1
+  //           ? Get.bottomSheet(buildBottomSheetContent())
+  //           : Center(child: CustomText24(text: "Under Development",color: Colors.black,));
+  // }
 
   Widget buildBottomSheetContent() {
     return Container(
@@ -113,6 +181,9 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[selectedIndex],
+
+
+
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(30.0..r)),
         child: Container(

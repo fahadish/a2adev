@@ -7,6 +7,7 @@ import 'package:a2aff/view/auth/login/login_screen.dart';
 import 'package:a2aff/view/auth/sign_up/signup_screen1.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../controller/authController.dart';
@@ -49,7 +50,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  String selectedCountryCode = "US"; // Set the default country code
+  bool _isNameValid(String name) {
+    return name.isNotEmpty;
+  }
+
+  bool _isCompanyNameValid(String companyName) {
+    // You can define your own validation rules for the company name field
+    // For example, checking for a minimum length
+    return companyName.isNotEmpty && companyName.length >= 3;
+  }
+
+  bool _isPhoneNumberValid(String phoneNumber) {
+    // You can define your own validation rules for the phone number field
+    // For example, checking for a valid format
+    final phoneRegExp = RegExp(r'^\d{10}$'); // Assuming a 10-digit phone number
+    return phoneRegExp.hasMatch(phoneNumber);
+  }
+  bool _isEmailValid(String email) {
+    final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[a-zA-Z]{2,})+$');
+    return emailRegExp.hasMatch(email);
+  }
+
+  bool _isPasswordValid(String password) {
+    return password.length >= 6;
+  }
+  // String selectedCountryCode = "US"; // Set the default country code
+  // String selectedCountryCode = "US"; // Set the default country code
+  String selectedCountryCode = "+971"; // Default: United Arab Emirates
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextFieldWithLabel(
                       label: "Email", controller: emailController),
                   TextFieldWithLabel(
-                      label: "Password", controller: passwordController),
+                      label: "Password", controller: passwordController, obsecure: true),
                   Row(
                     children: [
                       CustomText(
@@ -223,19 +250,62 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   //     ));}, label: 'Next'),
 
                   CustomButton(
-                    onTap: () {
-                      String combinedNumber =
-                          selectedCountryCode + numberController.text;
+                    // onTap: () {
+                    //   String combinedNumber =
+                    //       selectedCountryCode + numberController.text;
+                    //
+                    //   print('${combinedNumber}this is my num');
+                    //   Get.to(SignupScreen1(
+                    //     name: nameController.text,
+                    //     email: emailController.text,
+                    //     password: passwordController.text,
+                    //     phoneNumber: combinedNumber,
+                    //     // Combine country code with phone number
+                    //     selectedOption: selectedOption,
+                    //     companyName: companyNameController.text,
+                    //   ));
+                    // },
 
-                      print('${combinedNumber}this is my num');
+                    onTap: () {
+                      final email = emailController.text.trim();
+                      final password = passwordController.text;
+                      final name = nameController.text;
+                      final companyName = companyNameController.text;
+                      final phoneNumber = numberController.text;
+                      if (!_isNameValid(name)) {
+                        EasyLoading.showToast('Please provide your name');
+                        return;
+                      }
+                      if (!_isEmailValid(email)) {
+                        EasyLoading.showToast('Please provide a valid email');
+                        return;
+                      }
+
+                      if (!_isPasswordValid(password)) {
+                        EasyLoading.showToast('Please provide a valid password (at least 6 characters)');
+                        return;
+                      }
+
+
+
+
+
+                      if (!_isPhoneNumberValid(phoneNumber)) {
+                        EasyLoading.showToast('Please provide a valid phone number');
+                        return;
+                      }
+                      // if (!_isCompanyNameValid(companyName)) {
+                      //   EasyLoading.showToast('Please provide a valid company name (at least 3 characters)');
+                      //   return;
+                      // }
+                      String combinedNumber = selectedCountryCode + numberController.text;
                       Get.to(SignupScreen1(
-                        name: nameController.text,
-                        email: emailController.text,
-                        password: passwordController.text,
+                        name: name,
+                        email: email,
+                        password: password,
                         phoneNumber: combinedNumber,
-                        // Combine country code with phone number
                         selectedOption: selectedOption,
-                        companyName: companyNameController.text,
+                        companyName: companyName,
                       ));
                     },
                     label: 'Next',

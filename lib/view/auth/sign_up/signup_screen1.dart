@@ -3,6 +3,7 @@ import 'package:a2aff/utils/background_image/background_image.dart';
 import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
 import 'package:a2aff/view/auth/sign_up/signup_screen2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../const/image_or_icon_path.dart';
@@ -212,30 +213,59 @@ class _SignupScreen1State extends State<SignupScreen1> {
 
 
                         ? CustomButton(
+                        // onTap: () async {
+                        //   if (yes || no) {
+                        //     if (yes && _authController.imageFile != null) {
+                        //       // todo uncomment and loading setup
+                        //       await _authController.uploadImageToFirebase("RERA"); //
+                        //       print("Image URL: ${_authController.imageLink}");
+                        //
+                        //       // You might need to modify the function in AuthController to accept a folder name
+                        //     }
+                        //     Get.to(SignupScreen2(
+                        //         name: widget.name,
+                        //         email: widget.email,
+                        //         password: widget.password,
+                        //         phoneNumber: widget.phoneNumber,
+                        //         selectedOption: widget.selectedOption,
+                        //         companyName: widget.companyName,
+                        //         imageLinkRera: _authController.imageLink,
+                        //       isReraCertified: isReraCertified,
+                        //
+                        //
+                        //
+                        //     ));
+                        //   }
+                        // },
                         onTap: () async {
                           if (yes || no) {
                             if (yes && _authController.imageFile != null) {
-                              // todo uncomment and loading setup
-                              await _authController.uploadImageToFirebase("RERA"); //
+                              await _authController.uploadImageToFirebase("RERA");
                               print("Image URL: ${_authController.imageLink}");
-                              // You might need to modify the function in AuthController to accept a folder name
+                            } else if (yes && _authController.imageFile == null) {
+                              // Show toast if yes is true and imageFile is null
+                              // Get.snackbar(
+                              //   "Select Image",
+                              //   "Please select an image to continue.",
+                              //   snackPosition: SnackPosition.BOTTOM,
+                              //   duration: Duration(seconds: 3),
+                              // );
+                              EasyLoading.showToast('Please select RERA certificate to continue.');
+                              return; // Stop the process here
                             }
+
                             Get.to(SignupScreen2(
-                                name: widget.name,
-                                email: widget.email,
-                                password: widget.password,
-                                phoneNumber: widget.phoneNumber,
-                                selectedOption: widget.selectedOption,
-                                companyName: widget.companyName,
-                                imageLinkRera: _authController.imageLink,
+                              name: widget.name,
+                              email: widget.email,
+                              password: widget.password,
+                              phoneNumber: widget.phoneNumber,
+                              selectedOption: widget.selectedOption,
+                              companyName: widget.companyName,
+                              imageLinkRera: _authController.imageLink,
                               isReraCertified: isReraCertified,
-
-
-
                             ));
                           }
                         },
-
 
 
                         label: 'Next')

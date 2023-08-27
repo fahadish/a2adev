@@ -5,6 +5,7 @@ import 'package:a2aff/utils/background_image/background_image.dart';
 import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
 import 'package:a2aff/view/auth/sign_up/signup_screen4.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../const/image_or_icon_path.dart';
 import '../../../controller/authController.dart';
@@ -55,21 +56,25 @@ class _SignupScreen5State extends State<SignupScreen5> {
         body: BackgroundWhite(
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 78..h, left: 37..w),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.black,
-                      ),
-                      onPressed: ()
-                      =>
+              Row(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 78..h, left: 37..w),
+                      child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.black,
+                          ),
+                          onPressed: ()
+                          =>
 
-                      Get.back(),
-                      ),
-                ),
+                          Get.back(),
+                          ),
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 63..w),
@@ -77,10 +82,12 @@ class _SignupScreen5State extends State<SignupScreen5> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomText(
-                      text: "Add profile picture",
-                      fontSize: 24..sp,
-                      fontWeight: FontWeight.w600,
+                    Center(
+                      child: CustomText(
+                        text: "Add profile picture",
+                        fontSize: 24..sp,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     SizedBox(height: 45..h),
                     controller.imageFile != null
@@ -132,33 +139,78 @@ class _SignupScreen5State extends State<SignupScreen5> {
                           ),
                     SizedBox(height: 104..h),
                     CustomButton(
-                        onTap: () async {
-                          await authController
-                              .uploadImageToFirebase("Profile_Images");
-                          if (authController.imageLink != null) {
-                            print(
-                                'Uploaded Image URL: Uploaded Image URL: ${authController.imageLink}');
-
-
-                            await authController.registerUserWithData(
-                              password: widget.password,
-                              certified: widget.isReraCertified,
-                              certifiedImage: widget.imageLinkRera ?? "NoData",
-                              company: widget.companyName,
-                              phone: widget.phoneNumber,
-                              email: widget.email,
-                              name: widget.name,
-                              location: widget.locations,
-                              experience: widget.experience,
-                              status: widget.selectedOption,
-                              specialty: widget.selectedOptions,
-                              profileImage: authController.imageLink.toString(),
-                            );
-
-                          }
-                          // Add navigation or other logic as needed
-                        },
+                        // onTap: () async {
+    onTap: () async {
+    // if (controller.imageFile == null) {
+    // // Show a toast if no profile picture is provided
+    // EasyLoading.showToast('Please provide a profile picture');
+    // } else{
+    //
+    //
+    //                       await authController
+    //                           .uploadImageToFirebase("Profile_Images");
+    //                       if (authController.imageLink != null) {
+    //                         print(
+    //                             'Uploaded Image URL: Uploaded Image URL: ${authController.imageLink}');
+    //
+    //
+    //                         await authController.registerUserWithData(
+    //                           password: widget.password,
+    //                           certified: widget.isReraCertified,
+    //                           certifiedImage: widget.imageLinkRera ?? "NoData",
+    //                           company: widget.companyName,
+    //                           phone: widget.phoneNumber,
+    //                           email: widget.email,
+    //                           name: widget.name,
+    //                           location: widget.locations,
+    //                           experience: widget.experience,
+    //                           status: widget.selectedOption,
+    //                           specialty: widget.selectedOptions,
+    //                           profileImage: authController.imageLink.toString(),
+    //                         );
+    //
+    //                       }}},
+                          // Add navigation or other logic as neede
                         // Get.to(CustomBottomAppBar()),
+if(authController.imageLink != null){
+  await authController.uploadImageToFirebase("Profile_Images");
+
+  await authController.registerUserWithData(
+      password: widget.password,
+      certified: widget.isReraCertified,
+      certifiedImage: widget.imageLinkRera ?? "NoData",
+      company: widget.companyName,
+      phone: widget.phoneNumber,
+      email: widget.email,
+      name: widget.name,
+      location: widget.locations,
+      experience: widget.experience,
+      status: widget.selectedOption,
+      specialty: widget.selectedOptions,
+      profileImage: authController.imageLink.toString());
+}else{
+
+  await authController.registerUserWithData(
+      password: widget.password,
+      certified: widget.isReraCertified,
+      certifiedImage: widget.imageLinkRera ?? "NoData",
+      company: widget.companyName,
+      phone: widget.phoneNumber,
+      email: widget.email,
+      name: widget.name,
+      location: widget.locations,
+      experience: widget.experience,
+      status: widget.selectedOption,
+      specialty: widget.selectedOptions,
+      profileImage: authController.imageLink.toString());
+
+}
+
+
+
+
+}
+,
                         label: 'Next')
                   ],
                 ),

@@ -3,6 +3,7 @@ import 'package:a2aff/utils/background_image/background_image.dart';
 import 'package:a2aff/utils/custom_text/heading1/heading1_text.dart';
 import 'package:a2aff/view/auth/sign_up/signup_screen4.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../const/image_or_icon_path.dart';
 import '../../../controller/authController.dart';
@@ -118,12 +119,15 @@ class _SignupScreen3State extends State<SignupScreen3> {
                       // ),
                       SizedBox(height: 104..h),
                       CustomButton(
-                          onTap:
-                              () {
 
-                                authController.clearImage();
-                            Get.to(SignupScreen4(
-
+                          onTap: () {
+                            if (locations.text.isEmpty) {
+                              // Show a toast message indicating that the location should be provided
+                              EasyLoading.showToast('Please provide valid location');
+                            } else {
+                              // Navigate to the SignupScreen4 if the location is not empty
+                              authController.clearImage();
+                              Get.to(SignupScreen4(
                                 name: widget.name,
                                 email: widget.email,
                                 password: widget.password,
@@ -133,8 +137,27 @@ class _SignupScreen3State extends State<SignupScreen3> {
                                 imageLinkRera: widget.imageLinkRera,
                                 isReraCertified: widget.isReraCertified,
                                 selectedOptions: widget.selectedOptions,
-                                locations: locations.text, // Pass the
-                              ));},
+                                locations: locations.text,
+                              ));
+                            }
+                          },
+                          // onTap:
+                          //     () {
+                          //
+                          //       authController.clearImage();
+                          //   Get.to(SignupScreen4(
+                          //
+                          //       name: widget.name,
+                          //       email: widget.email,
+                          //       password: widget.password,
+                          //       phoneNumber: widget.phoneNumber,
+                          //       selectedOption: widget.selectedOption,
+                          //       companyName: widget.companyName,
+                          //       imageLinkRera: widget.imageLinkRera,
+                          //       isReraCertified: widget.isReraCertified,
+                          //       selectedOptions: widget.selectedOptions,
+                          //       locations: locations.text, // Pass the
+                          //     ));},
                           //
                           //
                           label: 'Next')

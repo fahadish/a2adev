@@ -11,28 +11,31 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../userModel.dart';
 import '../view/bottom_appbar/bottom_appbar.dart';
 import '../view/home/home_screen.dart';
 import '../view/splash/splash_screen.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
-bool loading = false;
-  Rxn<User> firebaseUser = Rxn<User>();
 
+bool loading = false;
+
+
+
+  Rxn<User> firebaseUser = Rxn<User>();
+  RxBool isLoading = false.obs;
+  Rx<UserModel?> userData = Rx<UserModel?>(null);
   @override
   void onInit() {
     super.onInit();
     firebaseUser.bindStream(_auth.authStateChanges());
   }
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController locations = TextEditingController();
+
   String locationController = "";
   String? imageLink;
   File? imageFile;
-  RxBool isLoading = false.obs;
   CountryCode? countryCode;
   List<String> locationsList = ["Faisalabad", "Islamabad", "Lahore"];
 
@@ -145,59 +148,54 @@ bool loading = false;
     );
   }
 
+  // Future<void> fetchUserData(String userId) async {
+  //   try {
+  //     DocumentSnapshot userSnapshot =
+  //     await FirebaseFirestore.instance.collection('users').doc(userId).get();
+  //
+  //     final user = UserModel.fromSnapshot(userSnapshot);
+  //     userData.value = user;
+  //   } catch (e) {
+  //     print('Error fetching user data: $e');
+  //   }
+  // }
+
   // Future<void> signInWithEmailAndPassword(String email, String password) async {
   //   try {
   //     loading = true;
   //     isLoading.value = true; // Set loading state
-  //     await _auth.signInWithEmailAndPassword(email: email, password: password);
-  //     loading=false;
-  //     EasyLoading.showToast('Login successfully');
-  //     Get.offAll(
-  //         () => CustomBottomAppBar()); // Use Get.off or Get.offAll as needed
   //
-  //     // After successful authentication, you might want to navigate to another screen
+  //     // Sign in the user
+  //     await _auth.signInWithEmailAndPassword(email: email, password: password);
+  //
+  //     // Fetch and store user data
+  //     await fetchUserData(_auth.currentUser!.uid);
+  //     // Navigate to the next screen
+  //     Get.offAll(() => CustomBottomAppBar());
+  //
+  //     // Show a success message
+  //     Get.snackbar('Success', 'Login successfully');
+  //
   //   } catch (e) {
-  //     loading=false;
-  //     EasyLoading.showToast('Provided valid credentials');
-  //     // Get.snackbar('Error', e.toString());
+  //     // Log the error for debugging purposes
+  //     print('Authentication Error: $e');
+  //
+  //     // Show a user-friendly error message
+  //     String errorMessage = 'An error occurred';
+  //     if (e is FirebaseAuthException) {
+  //       if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+  //         errorMessage = 'Invalid email or password';
+  //       } else if (e.code == 'invalid-email') {
+  //         errorMessage = 'Invalid email format';
+  //       } // Add more specific error handling if needed
+  //     }
+  //     Get.snackbar('Error', errorMessage);
+  //
   //   } finally {
+  //     loading = false;
   //     isLoading.value = false; // Reset loading state
   //   }
   // }
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
-    try {
-      loading = true;
-      isLoading.value = true; // Set loading state
-
-      // Sign in the user
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-
-      // Navigate to the next screen
-      Get.offAll(() => CustomBottomAppBar());
-
-      // Show a success message
-      Get.snackbar('Success', 'Login successfully');
-
-    } catch (e) {
-      // Log the error for debugging purposes
-      print('Authentication Error: $e');
-
-      // Show a user-friendly error message
-      String errorMessage = 'An error occurred';
-      if (e is FirebaseAuthException) {
-        if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-          errorMessage = 'Invalid email or password';
-        } else if (e.code == 'invalid-email') {
-          errorMessage = 'Invalid email format';
-        } // Add more specific error handling if needed
-      }
-      Get.snackbar('Error', errorMessage);
-
-    } finally {
-      loading = false;
-      isLoading.value = false; // Reset loading state
-    }
-  }
 
 
   void clearImage() {
@@ -278,54 +276,41 @@ bool loading = false;
 
 
 
-  // Future<void> registerUser({
-  //   required bool certified,
-  //   required String certifiedImage,
-  //   required String company,
-  //   required String phone,
-  //   required String email,
-  //   required String name,
-  //   required String location,
-  //   required String experience,
-  //   required String status,
-  //   required List<String> specialty,
-  //   required String profileImage,
-  // }) async {
-  //   try {
-  //     loading=true;
-  //
-  //     EasyLoading.show(status: "Loading...");
-  //     // Reference to the 'users' collection
-  //     CollectionReference usersCollection =
-  //     FirebaseFirestore.instance.collection('users');
-  //
-  //     // Create a new document with a generated ID
-  //     await usersCollection.add({
-  //       'certified': certified,
-  //       'certified_image': certifiedImage,
-  //       'company': company,
-  //       'phone': phone,
-  //       'email': email,
-  //       'name': name,
-  //       'location': location,
-  //       'experience': experience,
-  //       'status': status,
-  //       'specialty': specialty,
-  //       'profile_image': profileImage,
-  //     });
-  //     loading = false;
-  //
-  //     EasyLoading.dismiss();
-  //     EasyLoading.showToast('User registered successfully');
-  //     print('User registered successfully');
-  //   } catch (e) {
-  //     EasyLoading.dismiss();
-  //     loading=false;
-  //
-  //
-  //     print('Error registering user: $e');
-  //   }
-  // }
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    try {
+      loading = true;
+      isLoading.value = true;
+
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+      // await fetchUserData(_auth.currentUser!.uid);
+      Get.offAll(() => CustomBottomAppBar());
+      Get.snackbar('Success', 'Login successfully');
+    } catch (e) {
+      print('Authentication Error: $e');
+      handleAuthError(e);
+    } finally {
+      loading = false;
+      isLoading.value = false;
+    }
+  }
+
+
+  Future<UserModel?> fetchUserData(String userId) async {
+    try {
+      DocumentSnapshot userSnapshot =
+      await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+      final user = UserModel.fromSnapshot(userSnapshot);
+      return user; // Return the UserModel object
+    } catch (e) {
+      print('Error fetching user data: $e');
+      return null; // Return null if there's an error
+    }
+  }
+  String? getCurrentUserUid() {
+    return firebaseUser.value?.uid; // Assuming firebaseUser is a Rxn<User>
+  }
   Future<void> registerUserWithData({
     required String password,
     required bool certified,
@@ -343,8 +328,7 @@ bool loading = false;
     try {
       EasyLoading.show(status: 'Loading...');
 
-      final UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(
+      final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -363,36 +347,68 @@ bool loading = false;
         'profile_image': profileImage,
       };
 
-      // Reference to the 'users' collection
-      CollectionReference usersCollection = FirebaseFirestore.instance
-          .collection('users');
+      CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
-      // Create a new document with the user's UID and set user data
       await usersCollection.doc(userCredential.user!.uid).set(userMap);
+      // await fetchUserData(userCredential.user!.uid);
+
       EasyLoading.dismiss();
       EasyLoading.showToast('User Register successfully');
-      
+
       Get.to(CustomBottomAppBar());
-    } on FirebaseAuthException catch (e) {
-      // FirebaseAuthException covers authentication related errors
-      print('FirebaseAuthException: ${e.message}');
-      EasyLoading.showToast('Authentication error: ${e.message}');
     } catch (e) {
-      // Catch any other exceptions
-      if (e is FirebaseException) {
-        // Handle Firebase-related exceptions
-        if (e.code == 'cancelled') {
-          print('FirebaseException (cancelled): ${e.message}');
-          EasyLoading.showToast('Operation cancelled');
-        } else {
-          print('FirebaseException: ${e.message}');
-          EasyLoading.showToast('Firebase error: ${e.message}');
-        }
-      } else {
-        // Handle other unexpected exceptions
-        print('Unexpected error: $e');
-        EasyLoading.showToast('An unexpected error occurred');
-      }
+      print('Error during registration: $e');
+      handleAuthError(e);
+      EasyLoading.showToast('User Register failed');
+
+      Get.to(SplashScreen());
+
     }
   }
+
+  void handleAuthError(dynamic error) {
+    String errorMessage = 'An error occurred';
+    if (error is FirebaseAuthException) {
+      switch (error.code) {
+        case 'user-not-found':
+        case 'wrong-password':
+          errorMessage = 'Invalid email or password';
+          break;
+        case 'invalid-email':
+          errorMessage = 'Invalid email format';
+          break;
+        default:
+          errorMessage = 'Authentication error: ${error.message}';
+      }
+    }
+    EasyLoading.showToast(errorMessage);
+  }
+  Future<void> updateUserData({
+    required String userId,
+    required Map<String, dynamic> updatedData,
+  }) async {
+    try {
+      EasyLoading.show(status: 'Updating...');
+
+      // Reference to the users collection
+      CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+
+      // Update the user's document with the provided data
+      await usersCollection.doc(userId).update(updatedData);
+
+      EasyLoading.dismiss();
+      EasyLoading.showToast('User data updated successfully');
+
+      // Optionally, fetch updated user data after updating
+      UserModel? updatedUser = await fetchUserData(userId);
+      if (updatedUser != null) {
+        userData.value = updatedUser; // Update the userData value
+      }
+    } catch (e) {
+      print('Error updating user data: $e');
+      EasyLoading.showToast('Error updating user data');
+    }
+  }
+
+
 }

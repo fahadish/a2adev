@@ -7,11 +7,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/authController.dart';
+import '../../userModel.dart';
 import '../profile_edit/edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final UserModel? userData;  // Add this line to accept userData
 
+  const ProfileScreen({Key? key, this.userData}) : super(key: key);
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -21,6 +23,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserModel? userData = widget.userData;
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +61,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: 13..h),
                 InkWell(
-                  onTap: () => Get.to(EditProfileScreen()),
+                  onTap: () => Get.to(    EditProfileScreen(userData: userData), // Pass userData here
+                  ),
                   child: CustomCard(
                     topPadding: 10..h,
                     bottomPadding: 10..h,
