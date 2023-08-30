@@ -52,10 +52,9 @@ class MyApp extends StatelessWidget {
       splitScreenMode: _splitScreenMode, // Use the initialized field here
       builder: (context, child) {
         return GetMaterialApp(
-          home:
-              // LoginScreen(),
-              // SignUpScreen(),
-              CustomBottomAppBar(),
+          home: LoginScreen(),
+          // SignUpScreen(),
+          // CustomBottomAppBar(),
           // SplashScreen(),
           // CustomBottomAppBar3(),
           builder: EasyLoading.init(),
