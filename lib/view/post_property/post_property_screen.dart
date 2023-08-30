@@ -13,7 +13,9 @@ import '../../utils/custom_card/big_card.dart';
 import '../../utils/custom_text/heading1/heading1_text.dart';
 
 class PostPropertyAllScreens extends StatelessWidget {
-  final PostPropertyController postPropertyController = Get.put(PostPropertyController());
+  final PostPropertyController postPropertyController =
+      Get.put(PostPropertyController());
+
   PostPropertyAllScreens({super.key});
 
   @override
@@ -29,8 +31,9 @@ class PostPropertyAllScreens extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    postPropertyController.currentStep.value ==0?Get.back():
-                    postPropertyController.currentStep.value--;
+                    postPropertyController.currentStep.value == 0
+                        ? Get.back()
+                        : postPropertyController.currentStep.value--;
                   },
                   child: Icon(Icons.arrow_back_ios, size: 25..r),
                 ),
@@ -71,7 +74,9 @@ class PostPropertyAllScreens extends StatelessWidget {
   List<Step> buildStep(BuildContext context) {
     return [
       Step(
-        state: postPropertyController.currentStep.value == 0 ? StepState.indexed : StepState.complete,
+        state: postPropertyController.currentStep.value == 0
+            ? StepState.indexed
+            : StepState.complete,
         isActive: postPropertyController.currentStep.value >= 0 ? true : false,
         title: const Text("  "),
         content: GetBuilder<PostPropertyController>(builder: (controller) {
@@ -100,7 +105,9 @@ class PostPropertyAllScreens extends StatelessWidget {
                             width: 164..w,
                             topPadding: 33..h,
                             bottomPadding: 33..h,
-                            color: controller.sale == true ? AppColors.k0xff7B48B0 : AppColors.k0xffCBABEC,
+                            color: controller.sale == true
+                                ? AppColors.k0xff7B48B0
+                                : AppColors.k0xffCBABEC,
                             child: Image.asset(
                               "$imagePath/sale.png",
                             ),
@@ -125,7 +132,9 @@ class PostPropertyAllScreens extends StatelessWidget {
                             width: 164..w,
                             topPadding: 33..h,
                             bottomPadding: 33..h,
-                            color: controller.rent == true ? AppColors.k0xff7B48B0 : AppColors.k0xffCBABEC,
+                            color: controller.rent == true
+                                ? AppColors.k0xff7B48B0
+                                : AppColors.k0xffCBABEC,
                             child: Image.asset(
                               "$imagePath/rent.png",
                             ),
@@ -154,21 +163,27 @@ class PostPropertyAllScreens extends StatelessWidget {
                         bottomPadding: 7..h,
                         leftPadding: 20..h,
                         rightPadding: 20..h,
-                        color: controller.residential == true ? AppColors.k0xff7B48B0 : AppColors.k0xffCBABEC,
+                        color: controller.residential == true
+                            ? AppColors.k0xff7B48B0
+                            : AppColors.k0xffCBABEC,
                         child: Row(
                           children: [
                             Image.asset(
                               "$imagePath/residential.png",
                               height: 20..h,
                               width: 20..w,
-                              color: controller.residential == true ? Colors.white : AppColors.k0xff7B48B0,
+                              color: controller.residential == true
+                                  ? Colors.white
+                                  : AppColors.k0xff7B48B0,
                             ),
                             SizedBox(width: 15..w),
                             CustomText(
                               text: "Residential",
                               fontSize: 15..sp,
                               fontWeight: FontWeight.w500,
-                              color: controller.residential == true ? Colors.white : Colors.black,
+                              color: controller.residential == true
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ],
                         ),
@@ -183,21 +198,27 @@ class PostPropertyAllScreens extends StatelessWidget {
                         bottomPadding: 7..h,
                         leftPadding: 20..h,
                         rightPadding: 20..h,
-                        color: controller.commercial == true ? AppColors.k0xff7B48B0 : AppColors.k0xffCBABEC,
+                        color: controller.commercial == true
+                            ? AppColors.k0xff7B48B0
+                            : AppColors.k0xffCBABEC,
                         child: Row(
                           children: [
                             Image.asset(
                               "$imagePath/commercial.png",
                               height: 20..h,
                               width: 20..w,
-                              color: controller.commercial == true ? Colors.white : AppColors.k0xff7B48B0,
+                              color: controller.commercial == true
+                                  ? Colors.white
+                                  : AppColors.k0xff7B48B0,
                             ),
                             SizedBox(width: 15..w),
                             CustomText(
                               text: "Commercial",
                               fontSize: 15..sp,
                               fontWeight: FontWeight.w500,
-                              color: controller.commercial == true ? Colors.white : Colors.black,
+                              color: controller.commercial == true
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ],
                         ),
@@ -222,7 +243,8 @@ class PostPropertyAllScreens extends StatelessWidget {
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemCount: 4,
-                          separatorBuilder: (context, index) => SizedBox(width: 10..w),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 10..w),
                           itemBuilder: (context, index) => SizedBox(
                             width: 90..w,
                             child: Column(
@@ -234,7 +256,9 @@ class PostPropertyAllScreens extends StatelessWidget {
                                 ),
                                 SizedBox(height: 10..h),
                                 CustomText(
-                                  text: index == 1 ? "Commercial / Office" : "Purpose",
+                                  text: index == 1
+                                      ? "Commercial / Office"
+                                      : "Purpose",
                                   fontSize: 9..sp,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -265,7 +289,9 @@ class PostPropertyAllScreens extends StatelessWidget {
         }),
       ),
       Step(
-        state: postPropertyController.currentStep.value <= 1 ? StepState.indexed : StepState.complete,
+        state: postPropertyController.currentStep.value <= 1
+            ? StepState.indexed
+            : StepState.complete,
         isActive: postPropertyController.currentStep.value >= 1 ? true : false,
         title: Text("  "),
         content: GetBuilder<PostPropertyController>(builder: (controller) {
@@ -400,7 +426,9 @@ class PostPropertyAllScreens extends StatelessWidget {
         }),
       ),
       Step(
-        state: postPropertyController.currentStep.value <= 2 ? StepState.indexed : StepState.complete,
+        state: postPropertyController.currentStep.value <= 2
+            ? StepState.indexed
+            : StepState.complete,
         isActive: postPropertyController.currentStep.value >= 2 ? true : false,
         title: Text("  "),
         content: GetBuilder<PostPropertyController>(builder: (controller) {
@@ -727,7 +755,9 @@ class PostPropertyAllScreens extends StatelessWidget {
         }),
       ),
       Step(
-        state: postPropertyController.currentStep.value <= 3 ? StepState.indexed : StepState.complete,
+        state: postPropertyController.currentStep.value <= 3
+            ? StepState.indexed
+            : StepState.complete,
         isActive: postPropertyController.currentStep.value >= 3 ? true : false,
         title: Text("  "),
         content: GetBuilder<PostPropertyController>(builder: (controller) {
@@ -945,7 +975,9 @@ class PostPropertyAllScreens extends StatelessWidget {
         }),
       ),
       Step(
-        state: postPropertyController.currentStep.value <= 4 ? StepState.indexed : StepState.complete,
+        state: postPropertyController.currentStep.value <= 4
+            ? StepState.indexed
+            : StepState.complete,
         isActive: postPropertyController.currentStep.value >= 4 ? true : false,
         title: Text(""),
         content: GetBuilder<PostPropertyController>(builder: (controller) {
@@ -970,23 +1002,21 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 7..h),
-                TextFormField(
-                  // controller: widget.controller,
-                  decoration: InputDecoration(
-                    hintText: '',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1..w, // Change the border width to make it visible
-                      ),
+                Container(
+                  height: 40..h,
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 10..w),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
@@ -1007,23 +1037,21 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 7..h),
-                TextFormField(
-                  // controller: widget.controller,
-                  decoration: InputDecoration(
-                    hintText: '',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1..w, // Change the border width to make it visible
-                      ),
+                Container(
+                  height: 40..h,
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 10..w),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
@@ -1044,23 +1072,21 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 7..h),
-                TextFormField(
-                  // controller: widget.controller,
-                  decoration: InputDecoration(
-                    hintText: '',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1..w, // Change the border width to make it visible
-                      ),
+                Container(
+                  height: 40..h,
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 10..w),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
@@ -1081,23 +1107,21 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 7..h),
-                TextFormField(
-                  // controller: widget.controller,
-                  decoration: InputDecoration(
-                    hintText: '',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1..w, // Change the border width to make it visible
-                      ),
+                Container(
+                  height: 40..h,
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 10..w),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
@@ -1118,23 +1142,21 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 7..h),
-                TextFormField(
-                  // controller: widget.controller,
-                  decoration: InputDecoration(
-                    hintText: '',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1..w, // Change the border width to make it visible
-                      ),
+                Container(
+                  height: 40..h,
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 10..w),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
@@ -1156,7 +1178,9 @@ class PostPropertyAllScreens extends StatelessWidget {
         }),
       ),
       Step(
-        state: postPropertyController.currentStep.value <= 5 ? StepState.indexed : StepState.complete,
+        state: postPropertyController.currentStep.value <= 5
+            ? StepState.indexed
+            : StepState.complete,
         isActive: postPropertyController.currentStep.value >= 5 ? true : false,
         title: Text("  "),
         content: GetBuilder<PostPropertyController>(builder: (controller) {
@@ -1177,9 +1201,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColors.k0xff3C1663,
-                    ),
+                    border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -1218,9 +1240,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColors.k0xff3C1663,
-                    ),
+                    border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -1259,9 +1279,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColors.k0xff3C1663,
-                    ),
+                    border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -1310,9 +1328,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColors.k0xff3C1663,
-                    ),
+                    border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -1362,7 +1378,9 @@ class PostPropertyAllScreens extends StatelessWidget {
         }),
       ),
       Step(
-        state: postPropertyController.currentStep.value <= 6 ? StepState.indexed : StepState.complete,
+        state: postPropertyController.currentStep.value <= 6
+            ? StepState.indexed
+            : StepState.complete,
         isActive: postPropertyController.currentStep.value >= 6 ? true : false,
         title: Text("  "),
         content: GetBuilder<PostPropertyController>(builder: (controller) {
@@ -1388,58 +1406,54 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 7..h),
-                TextFormField(
-                  // controller: widget.controller,
-                  decoration: InputDecoration(
-                    hintText: '',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1..w, // Change the border width to make it visible
-                      ),
+                Container(
+                  height: 40..h,
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 10..w),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
-                SizedBox(height: 36..h),
+                SizedBox(height: 20..h),
                 const Divider(),
-                SizedBox(height: 22..h),
+                SizedBox(height: 20..h),
                 CustomText(
                   text: "Property Description",
                   fontSize: 16..sp,
                   fontWeight: FontWeight.w600,
                 ),
                 SizedBox(height: 7..h),
-                TextFormField(
-                  // controller: widget.controller,
-                  decoration: InputDecoration(
-                    hintText: '',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0..r),
-                      borderSide: BorderSide(
-                        color: AppColors.k0xff3C1663,
-                        width: 1..w, // Change the border width to make it visible
-                      ),
+                Container(
+                  height: 40..h,
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 10..w),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
-                SizedBox(height: 36..h),
+                SizedBox(height: 20..h),
                 const Divider(),
-                SizedBox(height: 22..h),
+                SizedBox(height: 20..h),
                 Center(
                   child: CustomText(
                     text: "Upload Images of Your Property",
@@ -1458,7 +1472,8 @@ class PostPropertyAllScreens extends StatelessWidget {
                     child: Container(
                       height: 55..h,
                       width: 277..w,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

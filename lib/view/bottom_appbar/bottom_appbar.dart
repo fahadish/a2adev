@@ -21,7 +21,8 @@ class CustomBottomAppBar extends StatefulWidget {
 }
 
 class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
-  bool isUserDataLoading = true; // Track whether user data is currently being fetched
+  bool isUserDataLoading =
+      true; // Track whether user data is currently being fetched
   UserModel? userData;
   AuthController authController = Get.find<AuthController>();
 
@@ -30,47 +31,41 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
     super.initState();
     fetchUserData();
   }
-  Future<void> fetchUserData() async {
 
-    try {EasyLoading.show(status: 'Featching Data');
+  Future<void> fetchUserData() async {
+    try {
+      EasyLoading.show(status: 'Featching Data');
 
       // Assuming your AuthController's fetchUserData takes a user ID
       String? userId = authController.getCurrentUserUid(); // Re
-    if (userId != null) {
-      userData = await authController.fetchUserData(userId);
-      print('Fetched user data: $userData'); // Print the fetched user data
-      EasyLoading.dismiss();// Set loading to false after data is fetched
+      if (userId != null) {
+        userData = await authController.fetchUserData(userId);
+        print('Fetched user data: $userData'); // Print the fetched user data
+        EasyLoading.dismiss(); // Set loading to false after data is fetched
+      } else {
+        // Handle the case where userId is null
+        print("User ID is null");
 
-    } else {
-      // Handle the case where userId is null
-      print("User ID is null");
-
-      EasyLoading.dismiss();// Set loading to false after data is fetched
-
-    }
-
-
-
+        EasyLoading.dismiss(); // Set loading to false after data is fetched
+      }
 
       print('Fetched user data: $userData'); // Print the fetched user data
       print(
-
-        'user picture${userData!.profileImage}'
-      ); // Print the fetched user data
+          'user picture${userData!.profileImage}'); // Print the fetched user data
 
       setState(() {
         isUserDataLoading = false; //
-        EasyLoading.dismiss();// Set loading to false after data is fetched
+        EasyLoading.dismiss(); // Set loading to false after data is fetched
       });
 
       EasyLoading.dismiss();
     } catch (error) {
       setState(() {
-        isUserDataLoading = false; // Ensure loading is set to false even if an error occurs
+        isUserDataLoading =
+            false; // Ensure loading is set to false even if an error occurs
       });
       print('Error fetching user data: $error');
-      EasyLoading.dismiss();// Set loading to false after data is fetched
-
+      EasyLoading.dismiss(); // Set loading to false after data is fetched
     }
   }
 
@@ -78,7 +73,11 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   final List<Widget> screens = [
     HomeScreenArchitecture(),
     HomeScreenArchitecture(),
-    Center(child: CustomText24(text: "Under Development",color: Colors.black,)),
+    Center(
+        child: CustomText24(
+      text: "Under Development",
+      color: Colors.black,
+    )),
   ];
   void onItemTapped(int index) {
     setState(() {
@@ -90,7 +89,8 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
     } else if (selectedIndex == 1) {
       Get.bottomSheet(buildBottomSheetContent());
     } else if (selectedIndex == 2) {
-      Get.to(HomeScreenArchitecture()); // Pass userData to the HomeScreenArchitecture widget
+      Get.to(
+          HomeScreenArchitecture()); // Pass userData to the HomeScreenArchitecture widget
     }
   }
 
@@ -119,7 +119,8 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            InkWell(onTap: ()=>Get.to(PostPropertyAllScreens()),
+            InkWell(
+              onTap: () => Get.to(PostPropertyAllScreens()),
               child: CustomCard(
                 width: 200..w,
                 topPadding: 10..h,
@@ -141,9 +142,10 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
               ),
             ),
             SizedBox(height: 14..h),
-            InkWell(onTap: (){
-              EasyLoading.showToast('Under Development');
-            },
+            InkWell(
+              onTap: () {
+                EasyLoading.showToast('Under Development');
+              },
               child: CustomCard(
                 width: 200..w,
                 topPadding: 10..h,
@@ -181,9 +183,6 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[selectedIndex],
-
-
-
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(30.0..r)),
         child: Container(
@@ -198,7 +197,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
           SizedBox(width: 18..w),
           buildNavItem("$iconPath/add.png", 1),
           SizedBox(width: 18..w),
-          buildNavItem("$iconPath/chat.png", 2),
+          buildNavItem("$iconPath/chat1.png", 2),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

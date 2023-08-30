@@ -1,7 +1,9 @@
 import 'package:a2aff/view/auth/login/login_screen.dart';
 import 'package:a2aff/view/auth/sign_up/signup_screen.dart';
 import 'package:a2aff/view/bottom_appbar/bottom_appbar.dart';
+import 'package:a2aff/view/bottom_appbar/bottom_appbar_on_propery_detail.dart';
 import 'package:a2aff/view/profile/profile_screen.dart';
+import 'package:a2aff/view/property_detail/property_detail_screen.dart';
 import 'package:a2aff/view/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -51,10 +53,11 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           home:
-          // LoginScreen(),
-          SignUpScreen(),
-          // CustomBottomAppBar(),
+              // LoginScreen(),
+              // SignUpScreen(),
+              CustomBottomAppBar(),
           // SplashScreen(),
+          // CustomBottomAppBar3(),
           builder: EasyLoading.init(),
         );
       },

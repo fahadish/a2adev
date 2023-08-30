@@ -16,6 +16,7 @@ class EditProfileScreen extends StatefulWidget {
   final UserModel? userData; // Add this line to accept userData
 
   const EditProfileScreen({Key? key, this.userData}) : super(key: key);
+
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
@@ -107,13 +108,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       // Show a toast message using EasyLoading
       EasyLoading.showToast('User data updated successfully');
       Get.offAll(() => CustomBottomAppBar());
-
-
     } else {
       // Show a toast message using EasyLoading
       EasyLoading.showToast('Change something first');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     UserModel? userData = widget.userData;
@@ -147,7 +147,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding: EdgeInsets.symmetric(horizontal: 30.0..w),
               child: Column(
                 children: [
-
                   Stack(
                     children: [
                       Container(
@@ -161,31 +160,39 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           child: userData?.profileImage == ''
                               ? Image.asset("assets/images/12.png")
                               : Image.network(
-                            '${userData?.profileImage}',
-                            fit: BoxFit.cover,
-                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                      : null,
+                                  '${userData?.profileImage}',
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (BuildContext context,
+                                      Object exception,
+                                      StackTrace? stackTrace) {
+                                    return Image.asset("assets/images/12.png");
+                                  },
                                 ),
-                              );
-                            },
-                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                              return Image.asset("assets/images/12.png");
-                            },
-                          ),
                         ),
                       ),
                       Positioned(
                         bottom: 10..h,
                         right: 7..w,
-                        child:InkWell (
-                          onTap: (){
+                        child: InkWell(
+                          onTap: () {
                             EasyLoading.showToast('Under development....');
-
                           },
                           child: Image.asset(
                             "assets/icons/camera.png",
@@ -204,7 +211,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     borderColor: const Color(0xff544C4C24),
                     labelColor: Colors.black,
                     controller: nameController,
-
                   ),
                   TextFieldWithLabel(
                     label: "Email",
@@ -214,8 +220,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     labelColor: Colors.black,
                     controller: emailController,
                     enabled: false,
-
-
                   ),
                   // TextFieldWithLabel(
                   //   label: "Password",
@@ -233,7 +237,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     borderColor: Color(0xff544C4C24),
                     labelColor: Colors.black,
                     controller: phoneController,
-
                   ),
                   SizedBox(height: 5..h),
                   TextFieldWithLabel(
@@ -254,28 +257,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     isOptional: false,
                     enabled: false,
                   ),
-                  InkWell(
-                    onTap: () {
-
-                      checkDataChanges();
-                      updateUserData();
-                    }
-                    ,
-                    child: CustomCard(
-                      topPadding: 13..h,
-                      bottomPadding: 13..h,
-                      color: AppColors.k0xffE1C4FF,
-                      child: Center(
-                        child: CustomText(
-                          text: "Save",
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          fontSize: 16..sp,
+                  SizedBox(height: 30..h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 80.0..w),
+                    child: InkWell(
+                      onTap: () {
+                        checkDataChanges();
+                        updateUserData();
+                      },
+                      child: CustomCard(
+                        topPadding: 13..h,
+                        bottomPadding: 13..h,
+                        color: AppColors.k0xff7B48B0,
+                        borderRadius: 50..r,
+                        child: Center(
+                          child: CustomText(
+                            text: "Save",
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            fontSize: 16..sp,
+                          ),
                         ),
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),

@@ -8,12 +8,15 @@ import 'package:get/get.dart';
 
 import '../../controller/authController.dart';
 import '../../userModel.dart';
+import '../bottom_appbar/bottom_appbar_on_my_propety.dart';
+import '../my_properties/my_properties_screen.dart';
 import '../profile_edit/edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  final UserModel? userData;  // Add this line to accept userData
+  final UserModel? userData; // Add this line to accept userData
 
   const ProfileScreen({Key? key, this.userData}) : super(key: key);
+
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -61,7 +64,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: 13..h),
                 InkWell(
-                  onTap: () => Get.to(    EditProfileScreen(userData: userData), // Pass userData here
+                  onTap: () => Get.to(
+                    EditProfileScreen(userData: userData), // Pass userData here
                   ),
                   child: CustomCard(
                     topPadding: 10..h,
@@ -86,25 +90,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 SizedBox(height: 20..h),
-                CustomCard(
-                  topPadding: 10..h,
-                  bottomPadding: 10..h,
-                  color: Colors.black.withOpacity(0.05),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 16..w),
-                      Image.asset(
-                        "$iconPath/person.png",
-                        height: 30..h,
-                        width: 30..w,
-                      ),
-                      SizedBox(width: 36..w),
-                      CustomText(
-                        text: "My Properties",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16..sp,
-                      ),
-                    ],
+                InkWell(
+                  onTap: () =>
+                      Get.to(CustomBottomAppBar2()), // Pass userData here
+
+                  child: CustomCard(
+                    topPadding: 10..h,
+                    bottomPadding: 10..h,
+                    color: Colors.black.withOpacity(0.05),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 16..w),
+                        Image.asset(
+                          "$iconPath/person.png",
+                          height: 30..h,
+                          width: 30..w,
+                        ),
+                        SizedBox(width: 36..w),
+                        CustomText(
+                          text: "My Properties",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16..sp,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 30..h),

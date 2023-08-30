@@ -99,12 +99,14 @@ class CustomText extends StatelessWidget {
   final Color? color;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final TextOverflow? overflow;
   const CustomText({
     super.key,
     required this.text,
     this.color,
     this.fontSize,
     this.fontWeight,
+    this.overflow,
   });
 
   @override
@@ -112,6 +114,7 @@ class CustomText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
+        overflow: overflow,
         color: color ?? Colors.black,
         fontSize: fontSize ?? 14
           ..sp,
