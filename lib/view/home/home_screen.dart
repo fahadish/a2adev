@@ -142,55 +142,11 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Positioned.fill(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25..r),
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            aspectRatio: 0.5..r,
-                            viewportFraction: 1,
-                            initialPage: 0,
-                            enableInfiniteScroll: true,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                _currentIndex = index;
-                              });
-                            },
-                          ),
-                          items: _imageUrls.map((imageUrl) {
-                            return Image.asset(
-                              imageUrl,
-                              fit: BoxFit.fitHeight,
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 10,
-                      left: 0,
-                      right: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: _imageUrls.map((imageUrl) {
-                            int index = _imageUrls.indexOf(imageUrl);
-                            return Expanded(
-                              child: Container(
-                                height: 2.0,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10.0..h, horizontal: 1.0..w),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50..r),
-                                  color: _currentIndex == index
-                                      ? Colors.white
-                                      : AppColors.k0xffCCCCCC,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset(
+                        "$imagePath/22.png",
+                        fit: BoxFit.fitHeight,
                       ),
                     ),
                     Positioned(
@@ -209,7 +165,7 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                                 rightPadding: 15..w,
                                 leftPadding: 15..w,
                                 borderRadius: 50..r,
-                                color: Colors.black.withOpacity(0.1),
+                                color: Colors.black.withOpacity(0.6),
                                 child: CustomText(
                                     text: "24HB", color: Colors.white),
                               ),

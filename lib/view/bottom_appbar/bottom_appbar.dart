@@ -79,6 +79,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
       color: Colors.black,
     )),
   ];
+
   void onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
@@ -175,7 +176,13 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   Widget buildNavItem(String image, int index) {
     return GestureDetector(
       onTap: () => onItemTapped(index),
-      child: Image.asset(image, height: 66..h, width: 66..w),
+      child: Image.asset(
+        image,
+        height: index == 2 ? 51.h : 66
+          ..h,
+        width: index == 2 ? 51.w : 66
+          ..w,
+      ),
     );
   }
 

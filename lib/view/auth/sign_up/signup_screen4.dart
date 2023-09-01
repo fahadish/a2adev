@@ -36,12 +36,23 @@ class SignupScreen4 extends StatefulWidget {
     required this.selectedOptions,
     required this.locations, // Add locations parameter
   });
+
   @override
   State<SignupScreen4> createState() => _SignupScreen4State();
 }
 
 class _SignupScreen4State extends State<SignupScreen4> {
   final TextEditingController experience = TextEditingController();
+  String selectedOption = "1";
+  List<String> dropdownOptions = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "5+",
+    "10+",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -76,70 +87,68 @@ class _SignupScreen4State extends State<SignupScreen4> {
                       color: Colors.white,
                     ),
                     SizedBox(height: 45..h),
-                    SizedBox(
+                    Container(
                       height: 40..h,
-                      child: TextFormField(
-                        style: TextStyle(color: Colors.white),
-                        textAlignVertical: TextAlignVertical.bottom,
-
-                        controller: experience,
-                        decoration: InputDecoration(
-                          hintText: '',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4..r),
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 0.5,
+                      width: double.maxFinite,
+                      padding: EdgeInsets.symmetric(horizontal: 16.0..w),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4.0),
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: DropdownButton<String>(
+                              underline: const SizedBox(),
+                              icon: const SizedBox(),
+                              value: selectedOption,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedOption = newValue!;
+                                });
+                              },
+                              items: dropdownOptions
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
                             ),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0..r),
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 0.5
-                                ..w, // Change the border width to make it visible
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0..r),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 0.5..w),
-                          ),
-                        ),
+                          Icon(Icons.keyboard_arrow_down_rounded)
+                        ],
                       ),
                     ),
                     SizedBox(height: 104..h),
-
                     CustomButton(
-                onTap: () {
-                  if (experience.text.isEmpty) {
-                    // Show a toast message indicating that experience should be provided
-                    EasyLoading.showToast('Please provide experience');
-                  } else {
-                    // Navigate to SignupScreen5 if the experience is not empty
-                    Get.to(SignupScreen5(
-                      name: widget.name,
-                      email: widget.email,
-                      password: widget.password,
-                      phoneNumber: widget.phoneNumber,
-                      selectedOption: widget.selectedOption,
-                      companyName: widget.companyName,
-                      imageLinkRera: widget.imageLinkRera,
-                      isReraCertified: widget.isReraCertified,
-                      selectedOptions: widget.selectedOptions,
-                      locations: widget.locations,
-                      experience: experience.text,
-                    ));
-                  }
-                },
-                label: 'Next',
-              ),
-
-
-
-
-
-            SizedBox(height: 20..h),
+                      onTap: () {
+                        if (experience.text.isEmpty) {
+                          // Show a toast message indicating that experience should be provided
+                          EasyLoading.showToast('Please provide experience');
+                        } else {
+                          // Navigate to SignupScreen5 if the experience is not empty
+                          Get.to(SignupScreen5(
+                            name: widget.name,
+                            email: widget.email,
+                            password: widget.password,
+                            phoneNumber: widget.phoneNumber,
+                            selectedOption: widget.selectedOption,
+                            companyName: widget.companyName,
+                            imageLinkRera: widget.imageLinkRera,
+                            isReraCertified: widget.isReraCertified,
+                            selectedOptions: widget.selectedOptions,
+                            locations: widget.locations,
+                            experience: experience.text,
+                          ));
+                        }
+                      },
+                      label: 'Next',
+                    ),
+                    SizedBox(height: 20..h),
                   ],
                 ),
               ),

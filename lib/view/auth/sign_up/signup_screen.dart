@@ -23,7 +23,9 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   AuthController authController = Get.put(AuthController());
   FocusNode focusNode = FocusNode();
+  FocusNode focusNode1 = FocusNode();
   bool isTapped = false;
+  bool isTapped1 = false;
   String selectedOption = "User";
   List<String> dropdownOptions = [
     "Developer",
@@ -66,6 +68,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final phoneRegExp = RegExp(r'^\d{10}$'); // Assuming a 10-digit phone number
     return phoneRegExp.hasMatch(phoneNumber);
   }
+
+  bool _isWhatsappValid(String phoneNumber) {
+    // You can define your own validation rules for the phone number field
+    // For example, checking for a valid format
+    final phoneRegExp = RegExp(r'^\d{10}$'); // Assuming a 10-digit phone number
+    return phoneRegExp.hasMatch(phoneNumber);
+  }
+
   bool _isEmailValid(String email) {
     final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[a-zA-Z]{2,})+$');
     return emailRegExp.hasMatch(email);
@@ -74,6 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _isPasswordValid(String password) {
     return password.length >= 6;
   }
+
   // String selectedCountryCode = "US"; // Set the default country code
   // String selectedCountryCode = "US"; // Set the default country code
   String selectedCountryCode = "+971"; // Default: United Arab Emirates
@@ -89,17 +100,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 136..h),
+                  SizedBox(height: 90..h),
                   CustomText(
                       text: "Create an Account",
                       fontWeight: FontWeight.w600,
                       fontSize: 24..sp),
-                  SizedBox(height: 59..h),
+                  SizedBox(height: 40..h),
                   TextFieldWithLabel(label: "Name", controller: nameController),
                   TextFieldWithLabel(
                       label: "Email", controller: emailController),
                   TextFieldWithLabel(
-                      label: "Password", controller: passwordController, obsecure: true),
+                      label: "Password",
+                      controller: passwordController,
+                      obsecure: true),
                   Row(
                     children: [
                       CustomText(
@@ -182,6 +195,83 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Row(
                     children: [
                       CustomText(
+                        text: "Whatsapp Number",
+                        color: focusNode1.hasFocus
+                            ? AppColors.k0xff352049
+                            : AppColors.k0xff9D9D9D,
+                      ),
+                      CustomText(text: "*", color: AppColors.k0xffDA0404),
+                    ],
+                  ),
+                  SizedBox(height: 5..h),
+                  SizedBox(
+                    height: 41..h,
+                    child: Row(
+                      children: [
+                        CustomCard(
+                          enableBorder: true,
+                          borderColor: AppColors.k0xff9D9D9D,
+                          width: 100..w,
+                          child: CountryCodePicker(
+                            padding: EdgeInsets.zero,
+                            flagWidth: 25,
+                            textStyle: const TextStyle(color: Colors.black),
+                            onChanged: (value) {
+                              // Update the selectedCountryCode variable when the country code is changed
+                              setState(() {
+                                selectedCountryCode = value.dialCode ?? "";
+                              });
+                            },
+                            initialSelection: selectedCountryCode,
+                            // Set the default country code
+                            showCountryOnly: false,
+                            showOnlyCountryWhenClosed: false,
+                            alignLeft: true,
+                          ),
+                        ),
+                        SizedBox(width: 10..w),
+                        Flexible(
+                          child: TextFormField(
+                            keyboardType: TextInputType.phone,
+                            focusNode: focusNode1,
+                            textAlignVertical: TextAlignVertical.top,
+                            onTap: () {
+                              setState(() {
+                                isTapped1 = true;
+                              });
+                            },
+                            onChanged: (text) {
+                              setState(() {
+                                isTapped1 = false;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4..r),
+                                borderSide: BorderSide(
+                                  color: AppColors.k0xff9D9D9D,
+                                  width: 2.0,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.0..r),
+                                borderSide: BorderSide(
+                                  color: AppColors.k0xff352049,
+                                  width: 2
+                                    ..w, // Change the border width to make it visible
+                                ),
+                              ),
+                            ),
+                            controller: numberController,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 18..h),
+                  Row(
+                    children: [
+                      CustomText(
                         text: "Sign up as",
                         color: AppColors.k0xff9D9D9D,
                       ),
@@ -232,40 +322,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       isOptional: true,
                       controller: companyNameController),
                   SizedBox(height: 50..h),
-                  // CustomButton(
-                  //     onTap: () {
-                  //       String countryCode = controller.getSelectedCountryCode();
-                  //       String combinedPassword = countryCode + numberController.text;
-                  //       Get.to(SignupScreen1(
-                  //
-                  //       name: nameController.text,
-                  //       email: emailController.text,
-                  //       password:   passwordController.text,
-                  //       phoneNumber:  controller.selectedCountryCode + numberController.text,
-                  //       selectedOption: selectedOption,
-                  //       companyName: companyNameController.text,
-                  //
-                  //
-                  //
-                  //     ));}, label: 'Next'),
-
                   CustomButton(
-                    // onTap: () {
-                    //   String combinedNumber =
-                    //       selectedCountryCode + numberController.text;
-                    //
-                    //   print('${combinedNumber}this is my num');
-                    //   Get.to(SignupScreen1(
-                    //     name: nameController.text,
-                    //     email: emailController.text,
-                    //     password: passwordController.text,
-                    //     phoneNumber: combinedNumber,
-                    //     // Combine country code with phone number
-                    //     selectedOption: selectedOption,
-                    //     companyName: companyNameController.text,
-                    //   ));
-                    // },
-
                     onTap: () {
                       final email = emailController.text.trim();
                       final password = passwordController.text;
@@ -282,23 +339,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
 
                       if (!_isPasswordValid(password)) {
-                        EasyLoading.showToast('Please provide a valid password (at least 6 characters)');
+                        EasyLoading.showToast(
+                            'Please provide a valid password (at least 6 characters)');
                         return;
                       }
-
-
-
-
-
                       if (!_isPhoneNumberValid(phoneNumber)) {
-                        EasyLoading.showToast('Please provide a valid phone number');
+                        EasyLoading.showToast(
+                            'Please provide a valid phone number');
+                        return;
+                      }
+                      if (!_isWhatsappValid(phoneNumber)) {
+                        EasyLoading.showToast(
+                            'Please provide a valid whatsapp number');
                         return;
                       }
                       // if (!_isCompanyNameValid(companyName)) {
                       //   EasyLoading.showToast('Please provide a valid company name (at least 3 characters)');
                       //   return;
                       // }
-                      String combinedNumber = selectedCountryCode + numberController.text;
+                      String combinedNumber =
+                          selectedCountryCode + numberController.text;
                       Get.to(SignupScreen1(
                         name: name,
                         email: email,

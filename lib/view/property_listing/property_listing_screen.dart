@@ -121,58 +121,11 @@ class _PropertyListingScreenState extends State<PropertyListingScreen> {
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
-                          Positioned.fill(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25..r),
-                              child: CarouselSlider(
-                                options: CarouselOptions(
-                                  aspectRatio: 1..r,
-                                  viewportFraction: 1,
-                                  initialPage: 0,
-                                  enableInfiniteScroll: true,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      _currentIndex = index;
-                                    });
-                                  },
-                                ),
-                                items: _imageUrls.map((imageUrl) {
-                                  return Image.asset(
-                                    imageUrl,
-                                    fit: BoxFit.fitHeight,
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 10,
-                            left: 0,
-                            right: 0,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: _imageUrls.map((imageUrl) {
-                                  int index = _imageUrls.indexOf(imageUrl);
-                                  return Expanded(
-                                    child: Container(
-                                      height: 2.0,
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: 10.0..h,
-                                          horizontal: 1.0..w),
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(50..r),
-                                        color: _currentIndex == index
-                                            ? Colors.white
-                                            : AppColors.k0xffCCCCCC,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.asset(
+                              "$imagePath/22.png",
+                              fit: BoxFit.fitHeight,
                             ),
                           ),
                           Positioned(
@@ -192,11 +145,9 @@ class _PropertyListingScreenState extends State<PropertyListingScreen> {
                                       rightPadding: 15..w,
                                       leftPadding: 15..w,
                                       borderRadius: 50..r,
-                                      color: Colors.black.withOpacity(0.1),
+                                      color: Colors.black.withOpacity(0.6),
                                       child: CustomText(
-                                        text: "24HB",
-                                        color: Colors.white,
-                                      ),
+                                          text: "24HB", color: Colors.white),
                                     ),
                                   ),
                                 ),
@@ -212,10 +163,9 @@ class _PropertyListingScreenState extends State<PropertyListingScreen> {
                                     SizedBox(
                                       width: 160..w,
                                       child: CustomText(
-                                        text:
-                                            "Bahria town Apartments, Lahore, Pk",
-                                        color: Colors.white,
-                                      ),
+                                          text:
+                                              "Bahria town Apartments, Lahore, Pk",
+                                          color: Colors.white),
                                     )
                                   ],
                                 )
@@ -226,6 +176,121 @@ class _PropertyListingScreenState extends State<PropertyListingScreen> {
                       ),
                     ),
                   ),
+                  //     InkWell(
+                  //   onTap: () {
+                  //     Get.to(CustomBottomAppBar3());
+                  //   },
+                  //   child: CustomCard(
+                  //     height: 305..h,
+                  //     borderRadius: 25..r,
+                  //     child: Stack(
+                  //       fit: StackFit.expand,
+                  //       children: [
+                  //         Positioned.fill(
+                  //           child: ClipRRect(
+                  //             borderRadius: BorderRadius.circular(25..r),
+                  //             child: CarouselSlider(
+                  //               options: CarouselOptions(
+                  //                 aspectRatio: 1..r,
+                  //                 viewportFraction: 1,
+                  //                 initialPage: 0,
+                  //                 enableInfiniteScroll: true,
+                  //                 onPageChanged: (index, reason) {
+                  //                   setState(() {
+                  //                     _currentIndex = index;
+                  //                   });
+                  //                 },
+                  //               ),
+                  //               items: _imageUrls.map((imageUrl) {
+                  //                 return Image.asset(
+                  //                   imageUrl,
+                  //                   fit: BoxFit.fitHeight,
+                  //                 );
+                  //               }).toList(),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Positioned(
+                  //           top: 10,
+                  //           left: 0,
+                  //           right: 0,
+                  //           child: Padding(
+                  //             padding:
+                  //                 const EdgeInsets.symmetric(horizontal: 8.0),
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               children: _imageUrls.map((imageUrl) {
+                  //                 int index = _imageUrls.indexOf(imageUrl);
+                  //                 return Expanded(
+                  //                   child: Container(
+                  //                     height: 2.0,
+                  //                     margin: EdgeInsets.symmetric(
+                  //                         vertical: 10.0..h,
+                  //                         horizontal: 1.0..w),
+                  //                     decoration: BoxDecoration(
+                  //                       borderRadius:
+                  //                           BorderRadius.circular(50..r),
+                  //                       color: _currentIndex == index
+                  //                           ? Colors.white
+                  //                           : AppColors.k0xffCCCCCC,
+                  //                     ),
+                  //                   ),
+                  //                 );
+                  //               }).toList(),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Positioned(
+                  //           bottom: 30..h,
+                  //           left: 27..w,
+                  //           right: 60..w,
+                  //           child: Column(
+                  //             children: [
+                  //               Row(
+                  //                 mainAxisAlignment:
+                  //                     MainAxisAlignment.spaceBetween,
+                  //                 children: List.generate(
+                  //                   3,
+                  //                   (index) => CustomCard(
+                  //                     topPadding: 4..h,
+                  //                     bottomPadding: 4..h,
+                  //                     rightPadding: 15..w,
+                  //                     leftPadding: 15..w,
+                  //                     borderRadius: 50..r,
+                  //                     color: Colors.black.withOpacity(0.1),
+                  //                     child: CustomText(
+                  //                       text: "24HB",
+                  //                       color: Colors.white,
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               SizedBox(height: 14..h),
+                  //               Row(
+                  //                 children: [
+                  //                   Image.asset(
+                  //                     "$iconPath/location.png",
+                  //                     height: 18..h,
+                  //                     width: 18..w,
+                  //                     color: Colors.white,
+                  //                   ),
+                  //                   SizedBox(
+                  //                     width: 160..w,
+                  //                     child: CustomText(
+                  //                       text:
+                  //                           "Bahria town Apartments, Lahore, Pk",
+                  //                       color: Colors.white,
+                  //                     ),
+                  //                   )
+                  //                 ],
+                  //               )
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ),
               ),
             ],
