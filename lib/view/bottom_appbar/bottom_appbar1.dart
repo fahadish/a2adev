@@ -31,7 +31,11 @@ class _CustomBottomAppBar1State extends State<CustomBottomAppBar1> {
   Widget buildNavItem(String image, int index) {
     return GestureDetector(
       onTap: () => onItemTapped(index),
-      child: Image.asset(image, height: 66..h, width: 66..w),
+      child: Image.asset(
+        image,
+        height: index == 1 ? 52.h : 60.h,
+        width: index == 1 ? 52.w : 60.w,
+      ),
     );
   }
 

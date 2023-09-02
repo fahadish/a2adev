@@ -27,7 +27,14 @@ class _CustomBottomAppBar3State extends State<CustomBottomAppBar3> {
   Widget buildNavItem(String image, int index) {
     return GestureDetector(
       onTap: () => onItemTapped(index),
-      child: Image.asset(image, height: 66..h, width: 66..w),
+      child: CircleAvatar(
+          radius: 33..r,
+          backgroundColor: AppColors.k0xff7B48B0,
+          child: Image.asset(
+            image,
+            height: 31..h,
+            width: 31..w,
+          )),
     );
   }
 
@@ -45,7 +52,11 @@ class _CustomBottomAppBar3State extends State<CustomBottomAppBar3> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          buildNavItem("$iconPath/back.png", 0),
+          buildNavItem("$iconPath/call.png", 0),
+          SizedBox(width: 28..w),
+          buildNavItem("$iconPath/w_a.png", 1),
+          SizedBox(width: 28..w),
+          buildNavItem("$iconPath/_chat.png", 2),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
