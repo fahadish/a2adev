@@ -101,6 +101,7 @@ class PropertyController extends GetxController {
         // No more documents available
         print('No more documents available');
         property.value = null;
+
       }
     } catch (error) {
       print('Error fetching property data: $error');
