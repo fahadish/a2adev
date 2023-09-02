@@ -27,8 +27,6 @@ class HomeScreenArchitecture extends StatefulWidget {
 class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
   UserModel? userData;
   AuthController authController = Get.find<AuthController>();
-  PropertyController propertyController = Get.find<PropertyController>(); // Initialize PropertyController
-
 
   Future<void> fetchUserData() async {
     try {
@@ -61,56 +59,12 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
     super.initState();
     fetchUserData();
   }
+  double initialX = 0.0;
+  double offsetX = 0.0;
 
-  void handleSwipeLeft() async {
-    if (propertyController.propertyList.isNotEmpty) {
-      // Show a toast for rejection
-      EasyLoading.showToast('Rejected');
-
-      // Fetch the next property if available
-      await propertyController.fetchPropertyData();
-
-      if (propertyController.propertyData != null) {
-        // Show loading while fetching new data
-        EasyLoading.show(status: 'Fetching New Data');
-
-        // Simulate a delay to show loading (you can replace this with your actual fetching logic)
-        await Future.delayed(Duration(seconds: 2));
-
-        // Hide loading
-        EasyLoading.dismiss();
-      }
-    }
-  }
-
-  void handleSwipeRight() async {
-    if (propertyController.propertyList.isNotEmpty) {
-      // Show a toast for acceptance
-      EasyLoading.showToast('Accepted');
-
-      // Fetch the next property if available
-      await propertyController.fetchPropertyData();
-
-      if (propertyController.propertyData != null) {
-        // Show loading while fetching new data
-        EasyLoading.show(status: 'Fetching New Data');
-
-        // Simulate a delay to show loading (you can replace this with your actual fetching logic)
-        await Future.delayed(Duration(seconds: 2));
-
-        // Hide loading
-        EasyLoading.dismiss();
-      }
-    }
-  }
-
-
-  int _currentIndex = 0;
-  final List<String> _imageUrls = ["$imagePath/22.png", "$imagePath/11.png"];
   @override
   Widget build(BuildContext context) {
-    final propertyController = Get.find<PropertyController>(); // Get the PropertyController
-
+    final propertyController = Get.find<PropertyController>();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -169,9 +123,9 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                   child: CircleAvatar(
                     radius: 21..r,
                     backgroundImage: userData?.profileImage != null &&
-                            userData!.profileImage.isNotEmpty
+                        userData!.profileImage.isNotEmpty
                         ? NetworkImage(userData!.profileImage!)
-                            as ImageProvider<Object>?
+                    as ImageProvider<Object>?
                         : AssetImage("$imagePath/Mask group.png"),
                   ),
                 ),
@@ -180,204 +134,150 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
             SizedBox(height: 40..h),
             CustomTextFieldRightIcon(hintText: "Search....."),
             SizedBox(height: 25..h),
+            InkWell(
+              onTap: () {
+                Get.to(CustomBottomAppBar3());
+              },
+              child: Column(
+                children: [
 
-    GestureDetector(
-    // Wrap the CustomCard in a GestureDetector for swipe gestures
-    onHorizontalDragEnd: (details) {
-    if (details.primaryVelocity! > 0) {
-    // Swiped right
-    handleSwipeRight();
-    } else if (details.primaryVelocity! < 0) {
-    // Swiped left
-    handleSwipeLeft();
-    }
-    },
-    child: Container(
+                  Obx(
+                        () {
+                      final propertyData = propertyController.propertyData;
 
-      height: 500,
-      child: PageView.builder(
-      itemCount: 2, // Number of cards you want to display
-      itemBuilder: (context, index) {
-      // Replace with your actual card widget here
-      return CustomCard(
-      height: 500,
-      borderRadius: 25,
-      child: Stack(
-      fit: StackFit.expand,
-      children: [
-      ClipRRect(
-      borderRadius: BorderRadius.circular(30),
-      child: Image.network(
-      propertyController.propertyData!.propertyImages!.first,
-      fit: BoxFit.fitHeight,
-      ),
-      ),
-      Positioned(
-      bottom: 30,
-      left: 27,
-      right: 60,
-      child: Column(
-      children: [
-      Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-      CustomCard(
-      topPadding: 4,
-      bottomPadding: 4,
-      rightPadding: 15,
-      leftPadding: 15,
-      borderRadius: 50,
-      color: Colors.black.withOpacity(0.6),
-      child: CustomText(
-      text: propertyController.propertyData!.occupancy.toString(),
-      color: Colors.white,
-      ),
-      ),
-      CustomCard(
-      topPadding: 4,
-      bottomPadding: 4,
-      rightPadding: 15,
-      leftPadding: 15,
-      borderRadius: 50,
-      color: Colors.black.withOpacity(0.6),
-      child: CustomText(
-      text: propertyController.propertyData!.areaSize.toString(),
-      color: Colors.white,
-      ),
-      ),
-      CustomCard(
-      topPadding: 4,
-      bottomPadding: 4,
-      rightPadding: 15,
-      leftPadding: 15,
-      borderRadius: 50,
-      color: Colors.black.withOpacity(0.6),
-      child: CustomText(
-      text: '${propertyController.propertyData!.op}/${propertyController.propertyData!.purpose}',
-      color: Colors.white,
-      ),
-      ),
-      ],
-      ),
-      SizedBox(height: 14),
-      Row(
-      children: [
-      Image.asset(
-      "$iconPath/location.png",
-      height: 18,
-      width: 18,
-      color: Colors.white,
-      ),
-      SizedBox(
-      width: 160,
-      child: CustomText(
-      text: propertyController.propertyData!.areaCommunity.toString(),
-      color: Colors.white,
-      ),
-      ),
-      ],
-      ),
-      ],
-      ),
-      ),
-      ],
-      ),
-      );
-      },
-      ),
-    ),
-    ),
+                      return Visibility(
+                        visible: propertyData != null,
+                        child: GestureDetector(
 
+                          onHorizontalDragStart: (details) {
+                            initialX = details.localPosition.dx;
+                          },
+                          onHorizontalDragUpdate: (details) {
+                            offsetX = details.localPosition.dx - initialX;
+                            setState(() {});
+                          },
+                          onHorizontalDragEnd: (details) {
+                            // You can add logic here for handling the end of the swipe
+                            if (offsetX > 50.0) {
+                              propertyController.swipeRight();
+                            } else if (offsetX < -50.0) {
+                              propertyController.swipeLeft();
+                            }
+                            offsetX = 0.0;
+                            setState(() {});
+                          },
+                          child:
+                          Obx(
+                          () => propertyController.isLoading.value
+                          ? SizedBox(
+                              height: MediaQuery.of(context).size.height*0.5,
+                              child: Center(child: Container(child: CircularProgressIndicator()))) :
+                          CustomCard(
+                            height: 500..h,
+                            borderRadius: 25..r,
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Image.network(
+                                    propertyData?.propertyImages?.first ?? "",
+                                    fit: BoxFit.fitHeight,
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 30..h,
+                                  left: 27..w,
+                                  right: 60..w,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          CustomCard(
+                                            topPadding: 4..h,
+                                            bottomPadding: 4..h,
+                                            rightPadding: 15..w,
+                                            leftPadding: 15..w,
+                                            borderRadius: 50..r,
+                                            color: Colors.black.withOpacity(0.6),
+                                            child: CustomText(
+                                                text: propertyData?.occupancy.toString() ?? "",
+                                                color: Colors.white),
+                                          ),
+                                          CustomCard(
+                                            topPadding: 4..h,
+                                            bottomPadding: 4..h,
+                                            rightPadding: 15..w,
+                                            leftPadding: 15..w,
+                                            borderRadius: 50..r,
+                                            color: Colors.black.withOpacity(0.6),
+                                            child: CustomText(
+                                                text: propertyData?.areaSize.toString() ?? "",
+                                                color: Colors.white),
+                                          ),
+                                          CustomCard(
+                                            topPadding: 4..h,
+                                            bottomPadding: 4..h,
+                                            rightPadding: 15..w,
+                                            leftPadding: 15..w,
+                                            borderRadius: 50..r,
+                                            color: Colors.black.withOpacity(0.6),
+                                            child: CustomText(
+                                                text: '${propertyData?.op ?? ""} ${propertyData?.op ?? ""}',
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 14..h),
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            "$iconPath/location.png",
+                                            height: 18..h,
+                                            width: 18..w,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 160..w,
+                                            child: CustomText(
+                                                text: propertyData?.areaCommunity ?? "",
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      ),
+                                      // Add additional property info here...
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ));
+                    },
+                  ),
+                  Obx(
+                        () {
+                      final propertyData = propertyController.propertyData;
 
-            // InkWell(
-            //   onTap: () {
-            //     Get.to(CustomBottomAppBar3());
-            //   },
-            //   child: CustomCard(
-            //     height: 500..h,
-            //     borderRadius: 25..r,
-            //     child: Stack(
-            //       fit: StackFit.expand,
-            //       children: [
-            //         ClipRRect(
-            //           borderRadius: BorderRadius.circular(30),
-            //           child:
-            //           Image.network(
-            //             propertyController.propertyData!.propertyImages!.first,
-            //             fit: BoxFit.fitHeight,
-            //           ),
-            //
-            //           // Image.asset(
-            //           //   "$imagePath/22.png",
-            //           //   fit: BoxFit.fitHeight,
-            //           // ),
-            //         ),
-            //
-            //         Positioned(
-            //           bottom: 30..h,
-            //           left: 27..w,
-            //           right: 60..w,
-            //           child: Column(
-            //             children: [
-            //               Row(
-            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                 children: [
-            //                   CustomCard(
-            //                     topPadding: 4..h,
-            //                     bottomPadding: 4..h,
-            //                     rightPadding: 15..w,
-            //                     leftPadding: 15..w,
-            //                     borderRadius: 50..r,
-            //                     color: Colors.black.withOpacity(0.6),
-            //                     child: CustomText(
-            //                         text: propertyController.propertyData!.occupancy.toString(), color: Colors.white),
-            //                   ),
-            //                   CustomCard(
-            //                     topPadding: 4..h,
-            //                     bottomPadding: 4..h,
-            //                     rightPadding: 15..w,
-            //                     leftPadding: 15..w,
-            //                     borderRadius: 50..r,
-            //                     color: Colors.black.withOpacity(0.6),
-            //                     child: CustomText(
-            //                         text: propertyController.propertyData!.areaSize.toString(), color: Colors.white),
-            //                   ),
-            //                   CustomCard(
-            //                     topPadding: 4..h,
-            //                     bottomPadding: 4..h,
-            //                     rightPadding: 15..w,
-            //                     leftPadding: 15..w,
-            //                     borderRadius: 50..r,
-            //                     color: Colors.black.withOpacity(0.6),
-            //                     child: CustomText(
-            //                         text: '${propertyController.propertyData!.op}/${propertyController.propertyData!.purpose}', color: Colors.white),
-            //                   ),
-            //                 ]
-            //               ),
-            //               SizedBox(height: 14..h),
-            //               Row(
-            //                 children: [
-            //                   Image.asset(
-            //                     "$iconPath/location.png",
-            //                     height: 18..h,
-            //                     width: 18..w,
-            //                     color: Colors.white,
-            //                   ),
-            //                   SizedBox(
-            //                     width: 160..w,
-            //                     child: CustomText(
-            //                         text: propertyController.propertyData!.areaCommunity.toString(),
-            //                         color: Colors.white),
-            //                   )
-            //                 ],
-            //               )
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+                      return Visibility(
+                        visible: propertyData == null,
+                        child: Container(
+                          height: MediaQuery.of(context).size.height*0.5,
+                          child: Center(
+                            child: Text(
+                              'No more documents available',
+                              style: TextStyle(fontSize: 18..sp, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 20..h),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -14,98 +15,70 @@ class PropertyController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPropertyData(); //
+    fetchPropertyData();
     // Automatically fetch property data when the controller is initialized
-
   }
 
-  List<Property> propertyList = []; // Initialize an empty list to store properties
-
-  // Future<void> fetchPropertyData() async {
-  //   try {
-  //     // Reference to the Firestore collection "properties"
-  //     CollectionReference collection = FirebaseFirestore.instance.collection("properties");
-  //
-  //     // If lastFetchedId is null, fetch the first document; otherwise, fetch the next document
-  //     Query query;
-  //     if (lastFetchedId == null) {
-  //       query = collection.orderBy(FieldPath.documentId);
-  //     } else {
-  //       query = collection.orderBy(FieldPath.documentId).startAfter([lastFetchedId]);
-  //     }
-  //
-  //     // Get the next document
-  //     QuerySnapshot querySnapshot = await query.limit(1).get();
-  //
-  //     if (querySnapshot.docs.isNotEmpty) {
-  //       // Get the first document in the result
-  //       DocumentSnapshot docSnapshot = querySnapshot.docs.first;
-  //
-  //       // Convert the document data into a Property object
-  //       Property propertyData = Property.fromMap(docSnapshot.data() as Map<String, dynamic>);
-  //
-  //       // Append the fetched property data to the propertyList
-  //       propertyList.add(propertyData);
-  //
-  //       // Update lastFetchedId to the document ID of the last fetched item
-  //       lastFetchedId = docSnapshot.id;
-  //
-  //       // Print the fetched property data
-  //       print('Fetched property data: $propertyData');
-  //
-  //       // Notify any listeners (e.g., UI) about the updated property list
-  //       property.value = propertyData;
-  //     } else {
-  //       // No more documents available
-  //       print('No more documents available');
-  //       property.value = null;
-  //     }
-  //   } catch (error) {
-  //     print('Error fetching property data: $error');
-  //   }
-  // }
   Future<void> fetchPropertyData() async {
     try {
-      // Reference to the Firestore collection "properties"
       CollectionReference collection = FirebaseFirestore.instance.collection("properties");
 
-      // Define the query to start after the last fetched document
       Query query = collection.orderBy(FieldPath.documentId);
 
       if (lastFetchedId != null) {
         query = query.startAfter([lastFetchedId]);
       }
 
-      // Get the next document
       QuerySnapshot querySnapshot = await query.limit(1).get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        // Get the first document in the result
         DocumentSnapshot docSnapshot = querySnapshot.docs.first;
 
-        // Convert the document data into a Property object
-        Property propertyData = Property.fromMap(docSnapshot.data() as Map<String, dynamic>);
+        Property propertyData = Property.fromMap(docSnapshot.id, docSnapshot.data() as Map<String, dynamic>);
 
-        // Append the fetched property data to the propertyList
-        propertyList.add(propertyData);
-
-        // Update lastFetchedId to the document ID of the last fetched item
         lastFetchedId = docSnapshot.id;
 
-        // Print the fetched property data
-        print('Fetched property data: $propertyData');
-
-        // Notify any listeners (e.g., UI) about the updated property list
+        // Update the property value
         property.value = propertyData;
+
+        // Print the new values
+        print('New Property Data:');
+        print('ID: ${propertyData.id}');
+        print('Name: ${propertyData.email}');
+        print('Description: ${propertyData.sp}');
+        // Add more properties as needed
+
       } else {
         // No more documents available
         print('No more documents available');
         property.value = null;
-
       }
     } catch (error) {
       print('Error fetching property data: $error');
     }
   }
+  RxBool isLoading = false.obs;
 
+  // Function to handle swiping left (rejected)
+  void swipeLeft() async{
+    // You can add any additional logic here if needed
+    isLoading.value = true;
+
+    fetchPropertyData();
+    isLoading.value = false;
+
+    await EasyLoading.showToast('Removed');
+  }
+
+  // Function to handle swiping right (accepted)
+  void swipeRight() async{
+    isLoading.value = true;
+
+    // You can add any additional logic here if needed
+   await fetchPropertyData();
+    isLoading.value = false;
+
+    EasyLoading.showToast('Send Request successfully');
+
+  }
 }

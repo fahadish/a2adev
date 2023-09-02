@@ -49,9 +49,9 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           home:
-          LoginScreen(),
+          // LoginScreen(),
           // SignUpScreen(),
-          // CustomBottomAppBar(),
+          CustomBottomAppBar(),
           // SplashScreen(),
           // MessageScreen(),
           builder: EasyLoading.init(),

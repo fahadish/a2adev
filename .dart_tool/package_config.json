@@ -26,6 +26,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "card_swiper",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dev/card_swiper-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "carousel_slider",
       "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dev/carousel_slider-4.2.1",
       "packageUri": "lib/",
@@ -210,12 +216,6 @@
       "rootUri": "file:///C:/src/flutter_windows_3.10.6-stable/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.0"
-    },
-    {
-      "name": "flutter_card_swiper",
-      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_card_swiper-6.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
     },
     {
       "name": "flutter_easyloading",
@@ -470,7 +470,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-09-02T08:33:00.922636Z",
+  "generated": "2023-09-02T19:28:00.863341Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }
