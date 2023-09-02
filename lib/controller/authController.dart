@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../userModel.dart';
+import '../model/userModel.dart';
 import '../view/bottom_appbar/bottom_appbar.dart';
 import '../view/home/home_screen.dart';
 import '../view/splash/splash_screen.dart';
@@ -81,6 +81,82 @@ bool loading = false;
         children: [
           Text(
             'Choose Profile Photo',
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              // color: AppTheme.appColor,
+              // fontFamily: AppTheme.fontfamily,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              InkWell(
+                onTap: () async {
+                  await getImage(ImageSource.camera);
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.camera_alt,
+                      // color: AppTheme.appColor,
+                    ),
+                    SizedBox(width: 8.0.w),
+                    Text(
+                      'Camera',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        // color: AppTheme.appColor,
+                        // fontFamily: AppTheme.fontfamily,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () async {
+                  await getImage(ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.image,
+                      // color: AppTheme.appColor,
+                    ),
+                    SizedBox(width: 8.0.w),
+                    Text(
+                      'Gallery',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        // color: AppTheme.appColor,
+                        // fontFamily: AppTheme.fontfamily,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+  Widget myBottomSheetR(BuildContext context) {
+    return Container(
+      height: 100.h,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            'Select RERA certificate',
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,

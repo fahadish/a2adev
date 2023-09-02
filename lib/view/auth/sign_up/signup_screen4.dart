@@ -44,6 +44,8 @@ class SignupScreen4 extends StatefulWidget {
 class _SignupScreen4State extends State<SignupScreen4> {
   final TextEditingController experience = TextEditingController();
   String selectedOption = "1";
+  String selectedExperience = "1"; // Initialize with a default value
+
   List<String> dropdownOptions = [
     "1",
     "2",
@@ -100,24 +102,42 @@ class _SignupScreen4State extends State<SignupScreen4> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: DropdownButton<String>(
+                            // child: DropdownButton<String>(
+                            //   underline: const SizedBox(),
+                            //   icon: const SizedBox(),
+                            //   value: selectedOption,
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       selectedOption = newValue!;
+                            //     });
+                            //   },
+                            //   items: dropdownOptions
+                            //       .map<DropdownMenuItem<String>>(
+                            //           (String value) {
+                            //     return DropdownMenuItem<String>(
+                            //       value: value,
+                            //       child: Text(value),
+                            //     );
+                            //   }).toList(),
+                            // ),
+
+                         child:   DropdownButton<String>(
                               underline: const SizedBox(),
                               icon: const SizedBox(),
-                              value: selectedOption,
+                              value: selectedExperience, // Use selectedExperience here
                               onChanged: (newValue) {
                                 setState(() {
-                                  selectedOption = newValue!;
+                                  selectedExperience = newValue!; // Update selectedExperience with the selected value
                                 });
                               },
-                              items: dropdownOptions
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
+                              items: dropdownOptions.map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
                                 );
                               }).toList(),
                             ),
+
                           ),
                           Icon(Icons.keyboard_arrow_down_rounded)
                         ],
@@ -126,10 +146,7 @@ class _SignupScreen4State extends State<SignupScreen4> {
                     SizedBox(height: 104..h),
                     CustomButton(
                       onTap: () {
-                        if (experience.text.isEmpty) {
-                          // Show a toast message indicating that experience should be provided
-                          EasyLoading.showToast('Please provide experience');
-                        } else {
+
                           // Navigate to SignupScreen5 if the experience is not empty
                           Get.to(SignupScreen5(
                             name: widget.name,
@@ -142,10 +159,10 @@ class _SignupScreen4State extends State<SignupScreen4> {
                             isReraCertified: widget.isReraCertified,
                             selectedOptions: widget.selectedOptions,
                             locations: widget.locations,
-                            experience: experience.text,
+                            experience: selectedExperience,
                           ));
-                        }
-                      },
+                          print('${selectedExperience}');
+                        },
                       label: 'Next',
                     ),
                     SizedBox(height: 20..h),

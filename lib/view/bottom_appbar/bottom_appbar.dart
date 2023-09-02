@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 import '../../const/colors.dart';
 import '../../const/image_or_icon_path.dart';
 import '../../controller/authController.dart';
-import '../../userModel.dart';
+import '../../controller/property controllerr.dart';
+import '../../model/userModel.dart';
 import '../../view/home/home_screen.dart';
 import '../post_property/post_property_screen.dart';
 import 'bottom_appbar1.dart';
@@ -25,6 +26,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
       true; // Track whether user data is currently being fetched
   UserModel? userData;
   AuthController authController = Get.find<AuthController>();
+  PropertyController propertyController = Get.find<PropertyController>();
 
   @override
   void initState() {
@@ -95,18 +97,10 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
     }
   }
 
-  // void onItemTapped(int index) {
-  //   setState(() {
-  //     selectedIndex = index;
-  //   });
-  //   selectedIndex == 0
-  //       ? Get.to(CustomBottomAppBar1())
-  //       : selectedIndex == 1
-  //           ? Get.bottomSheet(buildBottomSheetContent())
-  //           : Center(child: CustomText24(text: "Under Development",color: Colors.black,));
-  // }
 
   Widget buildBottomSheetContent() {
+    final propertyController = Get.find<PropertyController>(); // Get the PropertyController
+
     return Container(
       height: 300..h,
       decoration: BoxDecoration(

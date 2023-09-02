@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/authController.dart';
-import '../../userModel.dart';
+import '../../model/userModel.dart';
 import '../../utils/custom_text_field/custom_text_field.dart';
 import '../bottom_appbar/bottom_appbar.dart';
 

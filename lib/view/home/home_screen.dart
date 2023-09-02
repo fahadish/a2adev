@@ -11,7 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../const/colors.dart';
 import '../../controller/authController.dart';
-import '../../userModel.dart';
+import '../../controller/property controllerr.dart';
+import '../../model/userModel.dart';
 import '../../utils/custom_text_field/custom_text_field.dart';
 import '../bottom_appbar/bottom_appbar_on_favorites.dart';
 import '../profile/profile_screen.dart';
@@ -26,6 +27,8 @@ class HomeScreenArchitecture extends StatefulWidget {
 class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
   UserModel? userData;
   AuthController authController = Get.find<AuthController>();
+  PropertyController propertyController = Get.find<PropertyController>(); // Initialize PropertyController
+
 
   Future<void> fetchUserData() async {
     try {
@@ -59,11 +62,56 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
     fetchUserData();
   }
 
+  void handleSwipeLeft() async {
+    if (propertyController.propertyList.isNotEmpty) {
+      // Show a toast for rejection
+      EasyLoading.showToast('Rejected');
+
+      // Fetch the next property if available
+      await propertyController.fetchPropertyData();
+
+      if (propertyController.propertyData != null) {
+        // Show loading while fetching new data
+        EasyLoading.show(status: 'Fetching New Data');
+
+        // Simulate a delay to show loading (you can replace this with your actual fetching logic)
+        await Future.delayed(Duration(seconds: 2));
+
+        // Hide loading
+        EasyLoading.dismiss();
+      }
+    }
+  }
+
+  void handleSwipeRight() async {
+    if (propertyController.propertyList.isNotEmpty) {
+      // Show a toast for acceptance
+      EasyLoading.showToast('Accepted');
+
+      // Fetch the next property if available
+      await propertyController.fetchPropertyData();
+
+      if (propertyController.propertyData != null) {
+        // Show loading while fetching new data
+        EasyLoading.show(status: 'Fetching New Data');
+
+        // Simulate a delay to show loading (you can replace this with your actual fetching logic)
+        await Future.delayed(Duration(seconds: 2));
+
+        // Hide loading
+        EasyLoading.dismiss();
+      }
+    }
+  }
+
+
   int _currentIndex = 0;
   final List<String> _imageUrls = ["$imagePath/22.png", "$imagePath/11.png"];
-
   @override
   Widget build(BuildContext context) {
+    final propertyController = Get.find<PropertyController>(); // Get the PropertyController
+
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24..w),
@@ -132,69 +180,204 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
             SizedBox(height: 40..h),
             CustomTextFieldRightIcon(hintText: "Search....."),
             SizedBox(height: 25..h),
-            InkWell(
-              onTap: () {
-                Get.to(CustomBottomAppBar3());
-              },
-              child: CustomCard(
-                height: 500..h,
-                borderRadius: 25..r,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.asset(
-                        "$imagePath/22.png",
-                        fit: BoxFit.fitHeight,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 30..h,
-                      left: 27..w,
-                      right: 60..w,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: List.generate(
-                              3,
-                              (index) => CustomCard(
-                                topPadding: 4..h,
-                                bottomPadding: 4..h,
-                                rightPadding: 15..w,
-                                leftPadding: 15..w,
-                                borderRadius: 50..r,
-                                color: Colors.black.withOpacity(0.6),
-                                child: CustomText(
-                                    text: "24HB", color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 14..h),
-                          Row(
-                            children: [
-                              Image.asset(
-                                "$iconPath/location.png",
-                                height: 18..h,
-                                width: 18..w,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 160..w,
-                                child: CustomText(
-                                    text: "Bahria town Apartments, Lahore, Pk",
-                                    color: Colors.white),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+
+    GestureDetector(
+    // Wrap the CustomCard in a GestureDetector for swipe gestures
+    onHorizontalDragEnd: (details) {
+    if (details.primaryVelocity! > 0) {
+    // Swiped right
+    handleSwipeRight();
+    } else if (details.primaryVelocity! < 0) {
+    // Swiped left
+    handleSwipeLeft();
+    }
+    },
+    child: Container(
+
+      height: 500,
+      child: PageView.builder(
+      itemCount: 2, // Number of cards you want to display
+      itemBuilder: (context, index) {
+      // Replace with your actual card widget here
+      return CustomCard(
+      height: 500,
+      borderRadius: 25,
+      child: Stack(
+      fit: StackFit.expand,
+      children: [
+      ClipRRect(
+      borderRadius: BorderRadius.circular(30),
+      child: Image.network(
+      propertyController.propertyData!.propertyImages!.first,
+      fit: BoxFit.fitHeight,
+      ),
+      ),
+      Positioned(
+      bottom: 30,
+      left: 27,
+      right: 60,
+      child: Column(
+      children: [
+      Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+      CustomCard(
+      topPadding: 4,
+      bottomPadding: 4,
+      rightPadding: 15,
+      leftPadding: 15,
+      borderRadius: 50,
+      color: Colors.black.withOpacity(0.6),
+      child: CustomText(
+      text: propertyController.propertyData!.occupancy.toString(),
+      color: Colors.white,
+      ),
+      ),
+      CustomCard(
+      topPadding: 4,
+      bottomPadding: 4,
+      rightPadding: 15,
+      leftPadding: 15,
+      borderRadius: 50,
+      color: Colors.black.withOpacity(0.6),
+      child: CustomText(
+      text: propertyController.propertyData!.areaSize.toString(),
+      color: Colors.white,
+      ),
+      ),
+      CustomCard(
+      topPadding: 4,
+      bottomPadding: 4,
+      rightPadding: 15,
+      leftPadding: 15,
+      borderRadius: 50,
+      color: Colors.black.withOpacity(0.6),
+      child: CustomText(
+      text: '${propertyController.propertyData!.op}/${propertyController.propertyData!.purpose}',
+      color: Colors.white,
+      ),
+      ),
+      ],
+      ),
+      SizedBox(height: 14),
+      Row(
+      children: [
+      Image.asset(
+      "$iconPath/location.png",
+      height: 18,
+      width: 18,
+      color: Colors.white,
+      ),
+      SizedBox(
+      width: 160,
+      child: CustomText(
+      text: propertyController.propertyData!.areaCommunity.toString(),
+      color: Colors.white,
+      ),
+      ),
+      ],
+      ),
+      ],
+      ),
+      ),
+      ],
+      ),
+      );
+      },
+      ),
+    ),
+    ),
+
+
+            // InkWell(
+            //   onTap: () {
+            //     Get.to(CustomBottomAppBar3());
+            //   },
+            //   child: CustomCard(
+            //     height: 500..h,
+            //     borderRadius: 25..r,
+            //     child: Stack(
+            //       fit: StackFit.expand,
+            //       children: [
+            //         ClipRRect(
+            //           borderRadius: BorderRadius.circular(30),
+            //           child:
+            //           Image.network(
+            //             propertyController.propertyData!.propertyImages!.first,
+            //             fit: BoxFit.fitHeight,
+            //           ),
+            //
+            //           // Image.asset(
+            //           //   "$imagePath/22.png",
+            //           //   fit: BoxFit.fitHeight,
+            //           // ),
+            //         ),
+            //
+            //         Positioned(
+            //           bottom: 30..h,
+            //           left: 27..w,
+            //           right: 60..w,
+            //           child: Column(
+            //             children: [
+            //               Row(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                 children: [
+            //                   CustomCard(
+            //                     topPadding: 4..h,
+            //                     bottomPadding: 4..h,
+            //                     rightPadding: 15..w,
+            //                     leftPadding: 15..w,
+            //                     borderRadius: 50..r,
+            //                     color: Colors.black.withOpacity(0.6),
+            //                     child: CustomText(
+            //                         text: propertyController.propertyData!.occupancy.toString(), color: Colors.white),
+            //                   ),
+            //                   CustomCard(
+            //                     topPadding: 4..h,
+            //                     bottomPadding: 4..h,
+            //                     rightPadding: 15..w,
+            //                     leftPadding: 15..w,
+            //                     borderRadius: 50..r,
+            //                     color: Colors.black.withOpacity(0.6),
+            //                     child: CustomText(
+            //                         text: propertyController.propertyData!.areaSize.toString(), color: Colors.white),
+            //                   ),
+            //                   CustomCard(
+            //                     topPadding: 4..h,
+            //                     bottomPadding: 4..h,
+            //                     rightPadding: 15..w,
+            //                     leftPadding: 15..w,
+            //                     borderRadius: 50..r,
+            //                     color: Colors.black.withOpacity(0.6),
+            //                     child: CustomText(
+            //                         text: '${propertyController.propertyData!.op}/${propertyController.propertyData!.purpose}', color: Colors.white),
+            //                   ),
+            //                 ]
+            //               ),
+            //               SizedBox(height: 14..h),
+            //               Row(
+            //                 children: [
+            //                   Image.asset(
+            //                     "$iconPath/location.png",
+            //                     height: 18..h,
+            //                     width: 18..w,
+            //                     color: Colors.white,
+            //                   ),
+            //                   SizedBox(
+            //                     width: 160..w,
+            //                     child: CustomText(
+            //                         text: propertyController.propertyData!.areaCommunity.toString(),
+            //                         color: Colors.white),
+            //                   )
+            //                 ],
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             SizedBox(height: 20..h),
           ],
         ),

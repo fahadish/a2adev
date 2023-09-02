@@ -8,7 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 import '../../controller/authController.dart';
-import '../../userModel.dart';
+import '../../model/userModel.dart';
 import '../profile_edit/edit_profile_screen.dart';
 
 class NotificationsScreen extends StatefulWidget {

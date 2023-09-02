@@ -133,7 +133,12 @@ class _SignupScreen1State extends State<SignupScreen1> {
       });
 
       if (yes) {
-        await _authController.getImage(ImageSource.gallery);
+
+        showModalBottomSheet(
+            context: context,
+            builder: (builder) =>
+                _authController.myBottomSheetR(context));
+        // await _authController.getImage(ImageSource.gallery);
       }
 
                       // onTap: () async {
