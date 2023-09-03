@@ -18,6 +18,7 @@ class SignupScreen1 extends StatefulWidget {
   final String email;
   final String password;
   final String phoneNumber;
+  final String phoneNumberW;
   final String selectedOption;
   final String companyName;
 
@@ -26,6 +27,7 @@ class SignupScreen1 extends StatefulWidget {
     required this.email,
     required this.password,
     required this.phoneNumber,
+    required this.phoneNumberW,
     required this.selectedOption,
     required this.companyName,
   });
@@ -264,6 +266,7 @@ class _SignupScreen1State extends State<SignupScreen1> {
                               email: widget.email,
                               password: widget.password,
                               phoneNumber: widget.phoneNumber,
+                              phoneNumberW: widget.phoneNumberW,
                               selectedOption: widget.selectedOption,
                               companyName: widget.companyName,
                               imageLinkRera: _authController.imageLink,

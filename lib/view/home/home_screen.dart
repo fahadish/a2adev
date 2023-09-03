@@ -135,9 +135,11 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
             CustomTextFieldRightIcon(hintText: "Search....."),
             SizedBox(height: 25..h),
             InkWell(
-              onTap: () {
-                Get.to(CustomBottomAppBar3());
-              },
+                onTap: propertyController.propertyData != null
+                    ? () {
+                  Get.to(CustomBottomAppBar3());
+                }
+                    : null,
               child: Column(
                 children: [
 
@@ -224,7 +226,7 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                                             borderRadius: 50..r,
                                             color: Colors.black.withOpacity(0.6),
                                             child: CustomText(
-                                                text: '${propertyData?.op ?? ""} ${propertyData?.op ?? ""}',
+                                                text: '${propertyData?.op ?? ""}/${propertyData?.purpose ?? ""}',
                                                 color: Colors.white),
                                           ),
                                         ],

@@ -5,6 +5,7 @@ class UserModel {
   final String certifiedImage;
   final String company;
   final String phone;
+  final String phoneW;
   final String email;
   final String name;
   final String location;
@@ -18,6 +19,7 @@ class UserModel {
     required this.certifiedImage,
     required this.company,
     required this.phone,
+    required this.phoneW,
     required this.email,
     required this.name,
     required this.location,
@@ -34,6 +36,7 @@ class UserModel {
       certifiedImage: data['certified_image'],
       company: data['company'],
       phone: data['phone'],
+      phoneW: data['phoneW'],
       email: data['email'],
       name: data['name'],
       location: data['location'],

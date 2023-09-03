@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
           home:
           // LoginScreen(),
           // SignUpScreen(),
-          CustomBottomAppBar(),
-          // SplashScreen(),
+          // CustomBottomAppBar(),
+          SplashScreen(),
           // MessageScreen(),
           builder: EasyLoading.init(),
         );

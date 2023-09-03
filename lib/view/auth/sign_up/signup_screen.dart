@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../const/image_or_icon_path.dart';
 import '../../../controller/authController.dart';
 import '../../../utils/button/custom_button.dart';
 
@@ -37,6 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final emailController = TextEditingController();
   final companyNameController = TextEditingController();
   final numberController = TextEditingController();
+  final whatsAppNumberController = TextEditingController();
 
   @override
   void initState() {
@@ -133,22 +135,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           enableBorder: true,
                           borderColor: AppColors.k0xff9D9D9D,
                           width: 100..w,
-                          child: CountryCodePicker(
-                            padding: EdgeInsets.zero,
-                            flagWidth: 25,
-                            textStyle: const TextStyle(color: Colors.black),
-                            onChanged: (value) {
-                              // Update the selectedCountryCode variable when the country code is changed
-                              setState(() {
-                                selectedCountryCode = value.dialCode ?? "";
-                              });
-                            },
-                            initialSelection: selectedCountryCode,
-                            // Set the default country code
-                            showCountryOnly: false,
-                            showOnlyCountryWhenClosed: false,
-                            alignLeft: true,
-                          ),
+                          child:Container(
+                            height: 41,
+                            child:
+                            Row(children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0) ,
+                                child: Image.asset(
+                                  "$iconPath/flagAED.png",
+                                  height: 30..h,
+                                  width: 30..w,
+                                ),
+                              ),
+                              CustomText(
+                                text: "+971",
+                                fontSize: 14..sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+
+
+                            ],)
+                            ,
+                          )
+
+
+                          // CountryCodePicker(
+                          //   padding: EdgeInsets.zero,
+                          //   flagWidth: 25,
+                          //   textStyle: const TextStyle(color: Colors.black),
+                          //   onChanged: (value) {
+                          //     // Update the selectedCountryCode variable when the country code is changed
+                          //     setState(() {
+                          //       selectedCountryCode = value.dialCode ?? "";
+                          //     });
+                          //   },
+                          //   initialSelection: selectedCountryCode,
+                          //   // Set the default country code
+                          //   showCountryOnly: false,
+                          //   showOnlyCountryWhenClosed: false,
+                          //   alignLeft: true,
+                          // ),
                         ),
                         SizedBox(width: 10..w),
                         Flexible(
@@ -192,83 +219,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(height: 18..h),
-                  Row(
-                    children: [
-                      CustomText(
-                        text: "Whatsapp Number",
-                        color: focusNode1.hasFocus
-                            ? AppColors.k0xff352049
-                            : AppColors.k0xff9D9D9D,
-                      ),
-                      CustomText(text: "*", color: AppColors.k0xffDA0404),
-                    ],
-                  ),
-                  SizedBox(height: 5..h),
-                  SizedBox(
-                    height: 41..h,
-                    child: Row(
-                      children: [
-                        CustomCard(
-                          enableBorder: true,
-                          borderColor: AppColors.k0xff9D9D9D,
-                          width: 100..w,
-                          child: CountryCodePicker(
-                            padding: EdgeInsets.zero,
-                            flagWidth: 25,
-                            textStyle: const TextStyle(color: Colors.black),
-                            onChanged: (value) {
-                              // Update the selectedCountryCode variable when the country code is changed
-                              setState(() {
-                                selectedCountryCode = value.dialCode ?? "";
-                              });
-                            },
-                            initialSelection: selectedCountryCode,
-                            // Set the default country code
-                            showCountryOnly: false,
-                            showOnlyCountryWhenClosed: false,
-                            alignLeft: true,
-                          ),
-                        ),
-                        SizedBox(width: 10..w),
-                        Flexible(
-                          child: TextFormField(
-                            keyboardType: TextInputType.phone,
-                            focusNode: focusNode1,
-                            textAlignVertical: TextAlignVertical.top,
-                            onTap: () {
-                              setState(() {
-                                isTapped1 = true;
-                              });
-                            },
-                            onChanged: (text) {
-                              setState(() {
-                                isTapped1 = false;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4..r),
-                                borderSide: BorderSide(
-                                  color: AppColors.k0xff9D9D9D,
-                                  width: 2.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.0..r),
-                                borderSide: BorderSide(
-                                  color: AppColors.k0xff352049,
-                                  width: 2
-                                    ..w, // Change the border width to make it visible
-                                ),
-                              ),
-                            ),
-                            controller: numberController,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 18..h),
+
+                  // SizedBox(height: 18..h),
                   Row(
                     children: [
                       CustomText(
@@ -317,6 +269,108 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(height: 18..h),
+
+                  Row(
+                    children: [
+                      CustomText(
+                        text: "Whatsapp Number",
+                        color: focusNode1.hasFocus
+                            ? AppColors.k0xff352049
+                            : AppColors.k0xff9D9D9D,
+                      ),
+                      CustomText(text: "*", color: AppColors.k0xffDA0404),
+                    ],
+                  ),
+                  SizedBox(height: 5..h),
+                  SizedBox(
+                    height: 41..h,
+                    child: Row(
+                      children: [
+                        CustomCard(
+                            enableBorder: true,
+                            borderColor: AppColors.k0xff9D9D9D,
+                            width: 100..w,
+                            child:
+                            Container(
+                              height: 41,
+                              child:
+                              Row(children: [
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0) ,
+                                  child: Image.asset(
+                                    "$iconPath/flagAED.png",
+                                    height: 30..h,
+                                    width: 30..w,
+                                  ),
+                                ),
+                                CustomText(
+                                  text: "+971",
+                                  fontSize: 14..sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+
+
+                              ],)
+                              ,
+                            )
+                          // CountryCodePicker(
+                          //   padding: EdgeInsets.zero,
+                          //   flagWidth: 25,
+                          //   textStyle: const TextStyle(color: Colors.black),
+                          //   onChanged: (value) {
+                          //     // Update the selectedCountryCode variable when the country code is changed
+                          //     setState(() {
+                          //       selectedCountryCode = value.dialCode ?? "";
+                          //     });
+                          //   },
+                          //   initialSelection: selectedCountryCode,
+                          //   // Set the default country code
+                          //   showCountryOnly: false,
+                          //   showOnlyCountryWhenClosed: false,
+                          //   alignLeft: true,
+                          // ),
+                        ),
+                        SizedBox(width: 10..w),
+                        Flexible(
+                          child: TextFormField(
+                            keyboardType: TextInputType.phone,
+                            focusNode: focusNode1,
+                            textAlignVertical: TextAlignVertical.top,
+                            onTap: () {
+                              setState(() {
+                                isTapped1 = true;
+                              });
+                            },
+                            onChanged: (text) {
+                              setState(() {
+                                isTapped1 = false;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4..r),
+                                borderSide: BorderSide(
+                                  color: AppColors.k0xff9D9D9D,
+                                  width: 2.0,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.0..r),
+                                borderSide: BorderSide(
+                                  color: AppColors.k0xff352049,
+                                  width: 2
+                                    ..w, // Change the border width to make it visible
+                                ),
+                              ),
+                            ),
+                            controller: whatsAppNumberController,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 18..h),
                   TextFieldWithLabel(
                       label: "Company name",
                       isOptional: true,
@@ -329,6 +383,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       final name = nameController.text;
                       final companyName = companyNameController.text;
                       final phoneNumber = numberController.text;
+                      final phoneNumberW = whatsAppNumberController.text;
                       if (!_isNameValid(name)) {
                         EasyLoading.showToast('Please provide your name');
                         return;
@@ -348,7 +403,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             'Please provide a valid phone number');
                         return;
                       }
-                      if (!_isWhatsappValid(phoneNumber)) {
+                      if (!_isWhatsappValid(phoneNumberW)) {
                         EasyLoading.showToast(
                             'Please provide a valid whatsapp number');
                         return;
@@ -359,11 +414,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       // }
                       String combinedNumber =
                           selectedCountryCode + numberController.text;
+
+                      String combinedNumberW =
+                          selectedCountryCode + whatsAppNumberController.text;
                       Get.to(SignupScreen1(
                         name: name,
                         email: email,
                         password: password,
                         phoneNumber: combinedNumber,
+                        phoneNumberW: combinedNumberW,
                         selectedOption: selectedOption,
                         companyName: companyName,
                       ));

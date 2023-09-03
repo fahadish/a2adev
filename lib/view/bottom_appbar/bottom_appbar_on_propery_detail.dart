@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../const/colors.dart';
@@ -26,7 +27,11 @@ class _CustomBottomAppBar3State extends State<CustomBottomAppBar3> {
 
   Widget buildNavItem(String image, int index) {
     return GestureDetector(
-      onTap: () => onItemTapped(index),
+      onTap: () {
+        EasyLoading.showToast('Under Development');
+
+      },
+      // onTap: () => onItemTapped(index),
       child: CircleAvatar(
           radius: 33..r,
           backgroundColor: AppColors.k0xff7B48B0,

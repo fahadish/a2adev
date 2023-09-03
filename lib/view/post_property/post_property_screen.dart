@@ -2,6 +2,7 @@ import 'package:a2aff/view/post_property/post_property1_screen.dart';
 import 'package:a2aff/view/post_property/post_property2_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -318,7 +319,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -355,7 +356,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -378,7 +379,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 Row(
                   children: [
                     CustomText(
-                      text: "Type /Series",
+                      text: "Type / Series",
                       fontSize: 16..sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -392,7 +393,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -454,7 +455,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
@@ -503,7 +504,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -697,14 +698,30 @@ class PostPropertyAllScreens extends StatelessWidget {
                 SizedBox(height: 38..h),
                 Divider(),
                 SizedBox(height: 31..h),
-                CustomText(
-                  text: "Area Size",
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16..sp,
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Area Size",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: "*",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16..sp,
+                      color: AppColors.k0xffDA0404,
+                    ),
+                  ],
                 ),
+
+                // CustomText(
+                //   text: "Area Size",
+                //   fontWeight: FontWeight.w500,
+                //   fontSize: 16..sp,
+                // ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -783,7 +800,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -815,14 +832,30 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20..h),
-                CustomText(
-                  text: "Finishing",
-                  fontSize: 16..sp,
-                  fontWeight: FontWeight.w600,
+                // CustomText(
+                //   text: "Finishing",
+                //   fontSize: 16..sp,
+                //   fontWeight: FontWeight.w600,
+                // ),
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Finishing",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: " (optional)",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.k0xffCBCBCB,
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -854,14 +887,30 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20..h),
-                CustomText(
-                  text: "Floor",
-                  fontSize: 16..sp,
-                  fontWeight: FontWeight.w600,
+                // CustomText(
+                //   text: "Floor",
+                //   fontSize: 16..sp,
+                //   fontWeight: FontWeight.w600,
+                // ),
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Floor",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: " (optional)",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.k0xffCBCBCB,
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -893,14 +942,30 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20..h),
-                CustomText(
-                  text: "Payment Terms",
-                  fontSize: 16..sp,
-                  fontWeight: FontWeight.w600,
+                // CustomText(
+                //   text: "Payment Terms",
+                //   fontSize: 16..sp,
+                //   fontWeight: FontWeight.w600,
+                // ),
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Payment Terms",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: " (optional)",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.k0xffCBCBCB,
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -932,14 +997,30 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20..h),
-                CustomText(
-                  text: "Payment Plan",
-                  fontSize: 16..sp,
-                  fontWeight: FontWeight.w600,
+                // CustomText(
+                //   text: "Payment Plan",
+                //   fontSize: 16..sp,
+                //   fontWeight: FontWeight.w600,
+                // ),
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Payment Plan",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: "*",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.k0xffDA0404,
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1003,7 +1084,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1038,7 +1119,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1073,7 +1154,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1108,7 +1189,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1143,7 +1224,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1190,14 +1271,30 @@ class PostPropertyAllScreens extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 50..h),
-                CustomText(
-                  text: "Source",
-                  fontSize: 16..sp,
-                  fontWeight: FontWeight.w600,
+                // CustomText(
+                //   text: "Source",
+                //   fontSize: 16..sp,
+                //   fontWeight: FontWeight.w600,
+                // ),
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Source",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: " (optional)",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.k0xffCBCBCB,
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1229,14 +1326,30 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20..h),
-                CustomText(
-                  text: "Negotiation",
-                  fontSize: 16..sp,
-                  fontWeight: FontWeight.w600,
+                // CustomText(
+                //   text: "Negotiation",
+                //   fontSize: 16..sp,
+                //   fontWeight: FontWeight.w600,
+                // ),
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Negotiation",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: " (optional)",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.k0xffCBCBCB,
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1268,14 +1381,31 @@ class PostPropertyAllScreens extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20..h),
-                CustomText(
-                  text: "Coverage",
-                  fontSize: 16..sp,
-                  fontWeight: FontWeight.w600,
+                // CustomText(
+                //   text: "Coverage",
+                //   fontSize: 16..sp,
+                //   fontWeight: FontWeight.w600,
+                // ),
+
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Coverage",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: " (optional)",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.k0xffCBCBCB,
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1324,7 +1454,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1407,7 +1537,7 @@ class PostPropertyAllScreens extends StatelessWidget {
                 ),
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1427,14 +1557,30 @@ class PostPropertyAllScreens extends StatelessWidget {
                 SizedBox(height: 20..h),
                 const Divider(),
                 SizedBox(height: 20..h),
-                CustomText(
-                  text: "Property Description",
-                  fontSize: 16..sp,
-                  fontWeight: FontWeight.w600,
+                // CustomText(
+                //   text: "Property Description",
+                //   fontSize: 16..sp,
+                //   fontWeight: FontWeight.w600,
+                // ),
+                Row(
+                  children: [
+                    CustomText(
+                      text: "Property Description",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    CustomText(
+                      text: " (optional)",
+                      fontSize: 16..sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.k0xffCBCBCB,
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 7..h),
                 Container(
-                  height: 40..h,
+                  height: 48..h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: 10..w),
                   decoration: BoxDecoration(
@@ -1455,41 +1601,64 @@ class PostPropertyAllScreens extends StatelessWidget {
                 const Divider(),
                 SizedBox(height: 20..h),
                 Center(
-                  child: CustomText(
-                    text: "Upload Images of Your Property",
-                    fontSize: 16..sp,
-                    fontWeight: FontWeight.w600,
+                  child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomText(
+                        text: "Upload Images of Your Property",
+                        fontSize: 16..sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      CustomText(
+                        text: "*",
+                        fontSize: 16..sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.k0xffDA0404,
+                      ),
+                    ],
                   ),
+
+                  // CustomText(
+                  //   text: "Upload Images of Your Property",
+                  //   fontSize: 16..sp,
+                  //   fontWeight: FontWeight.w600,
+                  // ),
                 ),
                 SizedBox(height: 20..h),
-                Center(
-                  child: DottedBorder(
-                    color: AppColors.k0xff3C1663,
-                    borderType: BorderType.RRect,
-                    dashPattern: const <double>[10, 3],
-                    radius: Radius.circular(5..r),
-                    strokeWidth: 1,
-                    child: Container(
-                      height: 55..h,
-                      width: 277..w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "$iconPath/plus.png",
-                            height: 24..h,
-                            width: 24..w,
-                          ),
-                          SizedBox(width: 4..w),
-                          CustomText(
-                            text: "Upload From Gallery",
-                            fontSize: 13..sp,
-                            fontWeight: FontWeight.w300,
-                            color: AppColors.k0xff3C1663,
-                          ),
-                        ],
+                InkWell(
+                  onTap: (){
+                    EasyLoading.showToast('Under Development...');
+
+                  },
+                  child: Center(
+                    child: DottedBorder(
+                      color: AppColors.k0xff3C1663,
+                      borderType: BorderType.RRect,
+                      dashPattern: const <double>[10, 3],
+                      radius: Radius.circular(5..r),
+                      strokeWidth: 1,
+                      child: Container(
+                        height: 55..h,
+                        width: 277..w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "$iconPath/plus.png",
+                              height: 24..h,
+                              width: 24..w,
+                            ),
+                            SizedBox(width: 4..w),
+                            CustomText(
+                              text: "Upload From Gallery",
+                              fontSize: 13..sp,
+                              fontWeight: FontWeight.w300,
+                              color: AppColors.k0xff3C1663,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -1498,7 +1667,12 @@ class PostPropertyAllScreens extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(20.0..w),
                   child: CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      EasyLoading.showToast('Under Development...');
+
+                      EasyLoading.showToast('Under Development...');
+
+                    },
                     label: 'Save Draft',
                     color: AppColors.k0xff7B48B0,
                     labelColor: Colors.white,

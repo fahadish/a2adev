@@ -224,54 +224,6 @@ bool loading = false;
     );
   }
 
-  // Future<void> fetchUserData(String userId) async {
-  //   try {
-  //     DocumentSnapshot userSnapshot =
-  //     await FirebaseFirestore.instance.collection('users').doc(userId).get();
-  //
-  //     final user = UserModel.fromSnapshot(userSnapshot);
-  //     userData.value = user;
-  //   } catch (e) {
-  //     print('Error fetching user data: $e');
-  //   }
-  // }
-
-  // Future<void> signInWithEmailAndPassword(String email, String password) async {
-  //   try {
-  //     loading = true;
-  //     isLoading.value = true; // Set loading state
-  //
-  //     // Sign in the user
-  //     await _auth.signInWithEmailAndPassword(email: email, password: password);
-  //
-  //     // Fetch and store user data
-  //     await fetchUserData(_auth.currentUser!.uid);
-  //     // Navigate to the next screen
-  //     Get.offAll(() => CustomBottomAppBar());
-  //
-  //     // Show a success message
-  //     Get.snackbar('Success', 'Login successfully');
-  //
-  //   } catch (e) {
-  //     // Log the error for debugging purposes
-  //     print('Authentication Error: $e');
-  //
-  //     // Show a user-friendly error message
-  //     String errorMessage = 'An error occurred';
-  //     if (e is FirebaseAuthException) {
-  //       if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-  //         errorMessage = 'Invalid email or password';
-  //       } else if (e.code == 'invalid-email') {
-  //         errorMessage = 'Invalid email format';
-  //       } // Add more specific error handling if needed
-  //     }
-  //     Get.snackbar('Error', errorMessage);
-  //
-  //   } finally {
-  //     loading = false;
-  //     isLoading.value = false; // Reset loading state
-  //   }
-  // }
 
 
   void clearImage() {
@@ -393,6 +345,7 @@ bool loading = false;
     required String certifiedImage,
     required String company,
     required String phone,
+    required String phoneW,
     required String email,
     required String name,
     required String location,
@@ -414,6 +367,7 @@ bool loading = false;
         'certified_image': certifiedImage,
         'company': company,
         'phone': phone,
+        'phoneW': phoneW,
         'email': email,
         'name': name,
         'location': location,
@@ -483,6 +437,42 @@ bool loading = false;
     } catch (e) {
       print('Error updating user data: $e');
       EasyLoading.showToast('Error updating user data');
+    }
+  }
+
+
+
+  Future<void> uploadImageToFirebase2(String folderName, File imageFile) async {
+    if (imageFile != null) {
+      try {
+        EasyLoading.show(status: 'Loading...');
+
+        isLoading.value = true;
+        loading = true;
+
+        final firebaseStorageRef = FirebaseStorage.instance
+            .ref()
+            .child('$folderName/${firebaseUser.value?.email}/${DateTime.now()}.png');
+
+        await firebaseStorageRef.putFile(imageFile);
+
+        final downloadUrl = await firebaseStorageRef.getDownloadURL();
+        imageLink = downloadUrl;
+        loading = false;
+        EasyLoading.dismiss();
+
+        EasyLoading.showToast('Image uploaded successfully');
+
+        isLoading.value = false;
+      } catch (e) {
+        EasyLoading.dismiss();
+
+        isLoading.value = false;
+        loading = false;
+        // Handle the error
+      }
+    } else {
+      // Handle the case where imageFile is null
     }
   }
 
