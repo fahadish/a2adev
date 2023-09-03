@@ -134,12 +134,24 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
             SizedBox(height: 40..h),
             CustomTextFieldRightIcon(hintText: "Search....."),
             SizedBox(height: 25..h),
-            InkWell(
-                onTap: propertyController.propertyData != null
-                    ? () {
+            // InkWell(
+            //     onTap: propertyController.propertyData != null
+            //         ? () {
+            //       Get.to(CustomBottomAppBar3());
+            //     }
+            //         : null,
+
+            GestureDetector(
+              onTap: () {
+                if (propertyController.propertyData != null) {
                   Get.to(CustomBottomAppBar3());
+                } else {
+                  // Handle the case when data is null (e.g., show an error message).
+                  // You can also add some feedback for the user.
+                  EasyLoading.showToast('No more Properties available');
+
                 }
-                    : null,
+              },
               child: Column(
                 children: [
 
@@ -269,7 +281,7 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                           height: MediaQuery.of(context).size.height*0.5,
                           child: Center(
                             child: Text(
-                              'No more documents available',
+                              'No more Properties available',
                               style: TextStyle(fontSize: 18..sp, fontWeight: FontWeight.bold),
                             ),
                           ),

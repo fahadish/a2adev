@@ -34,15 +34,16 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
     final List<String>? imagesList = propertyData!.propertyImages;
 
     return Scaffold(
-      body: Stack(
-        children: [
-        Obx(
-    ()
+      body:
+      Obx(
+        ()
     {
       final propertyController = Get.find<PropertyController>();
       final propertyData = propertyController.property.value;
-      return Stack(
+
+     return Stack(
         children: [
+
         Positioned(
         top: 0,
         left: 0,
@@ -439,50 +440,101 @@ propertyData!.propertyTitle.toString(),
                 color: AppColors.k0xffB0ADAD.withOpacity(0.2),
               ),
               // SizedBox(height: 16..h),
+              // Theme(
+              //   data:
+              //   ThemeData().copyWith(dividerColor: Colors.transparent),
+              //   child:
+              //   ExpansionTile(
+              //     childrenPadding: EdgeInsets.only(left: 23
+              //       ..w, right: 23
+              //       ..w, bottom: 20
+              //       ..h),
+              //     title: CustomText(
+              //       text: "Description",
+              //       fontSize: 24
+              //         ..sp,
+              //       fontWeight: FontWeight.w500,
+              //     ),
+              //     children: [
+              //       Column(
+              //         children: [
+              //           SizedBox(
+              //             // height: 140..h,
+              //             width: double.maxFinite,
+              //             child: CustomText(
+              //               overflow: showMore
+              //                   ? TextOverflow.visible
+              //                   : TextOverflow.ellipsis,
+              //               text:
+              //               propertyData.propertyDescription.toString(),
+              //
+              //
+              //               // "Charming & inviting space, perfect for those who are seeking warm and comfortable living environment. Charming & inviting space, perfect for those who are seeking warm and comfortable living environment. Charming & inviting space, perfect for those who are seeking warm and comfortable living environment."
+              //               //     "Charming & inviting space, perfect for those who are seeking warm and comfortable living environment. Charming & inviting space, perfect for those who are seeking warm and comfortable living environment. Charming & inviting space, perfect for those who are seeking warm and comfortable living environment.",
+              //               maxLines: showMore ? null : 2,
+              //               // Display only 2 lines initially.
+              //               fontSize: 18
+              //                 ..sp,
+              //               fontWeight: FontWeight.w500,
+              //               color: AppColors.k0xff545454,
+              //             ),
+              //           ),
+              //           if (!showMore)
+              //             Positioned(
+              //               bottom: 0,
+              //               right: 0,
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   setState(() {
+              //                     showMore = true; // Show the full text.
+              //                   });
+              //                 },
+              //                 child: Container(
+              //                   color: Colors.transparent,
+              //                   padding: EdgeInsets.all(8),
+              //                   child: CustomText(
+              //                     text: "Show More",
+              //                     fontSize: 16
+              //                       ..sp,
+              //                     fontWeight: FontWeight.w500,
+              //                     color: AppColors.k0xff7B48B0,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              //
+              // ),
+
               Theme(
-                data:
-                ThemeData().copyWith(dividerColor: Colors.transparent),
-                child:
-                ExpansionTile(
-                  childrenPadding: EdgeInsets.only(left: 23
-                    ..w, right: 23
-                    ..w, bottom: 20
-                    ..h),
+                data: ThemeData().copyWith(dividerColor: Colors.transparent),
+                child: ExpansionTile(
+                  childrenPadding: EdgeInsets.only(
+                      left: 23 ..w, right: 23 ..w, bottom: 20 ..h),
                   title: CustomText(
                     text: "Description",
-                    fontSize: 24
-                      ..sp,
+                    fontSize: 24 ..sp,
                     fontWeight: FontWeight.w500,
                   ),
                   children: [
-                    Column(
-                      children: [
-                        SizedBox(
-                          // height: 140..h,
-                          width: double.maxFinite,
-                          child: CustomText(
-                            overflow: showMore
-                                ? TextOverflow.visible
-                                : TextOverflow.ellipsis,
-                            text:
-                            propertyData.propertyDescription.toString(),
-
-
-                            // "Charming & inviting space, perfect for those who are seeking warm and comfortable living environment. Charming & inviting space, perfect for those who are seeking warm and comfortable living environment. Charming & inviting space, perfect for those who are seeking warm and comfortable living environment."
-                            //     "Charming & inviting space, perfect for those who are seeking warm and comfortable living environment. Charming & inviting space, perfect for those who are seeking warm and comfortable living environment. Charming & inviting space, perfect for those who are seeking warm and comfortable living environment.",
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            overflow: showMore ? TextOverflow.visible : TextOverflow.ellipsis,
+                            text: propertyData.propertyDescription.toString(),
                             maxLines: showMore ? null : 2,
-                            // Display only 2 lines initially.
-                            fontSize: 18
-                              ..sp,
+                            fontSize: 18 ..sp,
                             fontWeight: FontWeight.w500,
                             color: AppColors.k0xff545454,
                           ),
-                        ),
-                        if (!showMore)
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: GestureDetector(
+                          if (!showMore)
+                            GestureDetector(
                               onTap: () {
                                 setState(() {
                                   showMore = true; // Show the full text.
@@ -493,20 +545,19 @@ propertyData!.propertyTitle.toString(),
                                 padding: EdgeInsets.all(8),
                                 child: CustomText(
                                   text: "Show More",
-                                  fontSize: 16
-                                    ..sp,
+                                  fontSize: 16 ..sp,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.k0xff7B48B0,
                                 ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
-
               ),
+
               // SizedBox(height: 20..h),
               Container(
                 height: 8
@@ -678,15 +729,14 @@ propertyData!.propertyTitle.toString(),
         ),
       )
 
+
+
+
+
+
         ],
-      );
 
-
-
-
-    })
-        ],
-      ),
+      );})
     );
   }
 }

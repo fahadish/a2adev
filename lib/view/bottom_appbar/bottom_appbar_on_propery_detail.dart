@@ -28,7 +28,7 @@ class _CustomBottomAppBar3State extends State<CustomBottomAppBar3> {
   Widget buildNavItem(String image, int index) {
     return GestureDetector(
       onTap: () {
-        EasyLoading.showToast('Under Development');
+        EasyLoading.showToast('Under Development...');
 
       },
       // onTap: () => onItemTapped(index),
