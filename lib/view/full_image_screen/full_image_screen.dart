@@ -15,8 +15,6 @@ class FullImageScreen extends StatefulWidget {
 class _FullImageScreenState extends State<FullImageScreen> {
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

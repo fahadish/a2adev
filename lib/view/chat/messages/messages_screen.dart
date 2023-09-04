@@ -91,14 +91,110 @@ class _MessageScreenState extends State<MessageScreen> {
               ],
             ),
           ),
-          const Spacer(),
-          Container(
-            padding: EdgeInsets.only(top: 25..h, right: 30..w, left: 30..w),
-            decoration: BoxDecoration(color: Colors.white),
-            child: Column(
-              children: [],
+          SizedBox(height: 30..h),
+          SizedBox(
+            height: 72..h,
+            child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.only(left: 25.0..w, right: 25.0..w),
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              separatorBuilder: (context, index) => SizedBox(width: 10..w),
+              itemBuilder: (context, index) => Container(
+                height: 69..h,
+                width: 69..w,
+                padding: EdgeInsets.all(3..r),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColors.k0xffFD7B01),
+                ),
+                child: index == 0
+                    ? Container(
+                        padding: EdgeInsets.all(17..r),
+                        height: 60..h,
+                        width: 60..w,
+                        decoration: BoxDecoration(
+                          color: AppColors.k0xffFD7B01,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.black,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.add,
+                              color: AppColors.k0xffFD7B01,
+                            ),
+                          ),
+                        ),
+                      )
+                    : CircleAvatar(
+                        radius: 21..r,
+                        backgroundImage: AssetImage("$imagePath/aaa.png"),
+                      ),
+              ),
             ),
           ),
+          const Spacer(),
+          Container(
+              height: 550..h,
+              width: double.maxFinite,
+              padding: EdgeInsets.only(top: 25..h, right: 30..w, left: 30..w),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20..r),
+                  topRight: Radius.circular(20..r),
+                ),
+              ),
+              child: ListView.separated(
+                itemCount: 10,
+                separatorBuilder: (context, index) => Divider(height: 30..h),
+                itemBuilder: (context, index) => Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 29..r,
+                      backgroundImage: AssetImage("$imagePath/aaa.png"),
+                    ),
+                    SizedBox(width: 15..w),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                          text: "Client 01",
+                          fontSize: 15..sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        CustomText(
+                          text: "okay sure!!",
+                          fontSize: 14..sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.k0xff8A91A8,
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        CustomText(
+                          text: "12:25 PM",
+                          fontSize: 12..sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.k0xff8A91A8,
+                        ),
+                        Icon(
+                          Icons.done_all,
+                          color: AppColors.k0xff8A91A8,
+                          size: 16..r,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )),
         ],
       ),
     );
