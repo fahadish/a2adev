@@ -11,7 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../const/colors.dart';
 import '../../controller/authController.dart';
-import '../../userModel.dart';
+import '../../controller/property controllerr.dart';
+import '../../model/userModel.dart';
 import '../../utils/custom_text_field/custom_text_field.dart';
 import '../bottom_appbar/bottom_appbar_on_favorites.dart';
 import '../profile/profile_screen.dart';
@@ -58,12 +59,13 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
     super.initState();
     fetchUserData();
   }
-
-  int _currentIndex = 0;
-  final List<String> _imageUrls = ["$imagePath/22.png", "$imagePath/11.png"];
+  double initialX = 0.0;
+  double offsetX = 0.0;
 
   @override
   Widget build(BuildContext context) {
+    final propertyController = Get.find<PropertyController>();
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24..w),
@@ -121,9 +123,9 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                   child: CircleAvatar(
                     radius: 21..r,
                     backgroundImage: userData?.profileImage != null &&
-                            userData!.profileImage.isNotEmpty
+                        userData!.profileImage.isNotEmpty
                         ? NetworkImage(userData!.profileImage!)
-                            as ImageProvider<Object>?
+                    as ImageProvider<Object>?
                         : AssetImage("$imagePath/Mask group.png"),
                   ),
                 ),
@@ -132,67 +134,156 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
             SizedBox(height: 40..h),
             CustomTextFieldRightIcon(hintText: "Search....."),
             SizedBox(height: 25..h),
-            InkWell(
+
+            GestureDetector(
               onTap: () {
-                Get.to(CustomBottomAppBar3());
+                if (propertyController.propertyData != null) {
+                  Get.to(CustomBottomAppBar3());
+                } else {
+                  // Handle the case when data is null (e.g., show an error message).
+                  // You can also add some feedback for the user.
+                  EasyLoading.showToast('No more Properties available');
+
+                }
               },
-              child: CustomCard(
-                height: 500..h,
-                borderRadius: 25..r,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.asset(
-                        "$imagePath/22.png",
-                        fit: BoxFit.fitHeight,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 30..h,
-                      left: 27..w,
-                      right: 60..w,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: List.generate(
-                              3,
-                              (index) => CustomCard(
-                                topPadding: 4..h,
-                                bottomPadding: 4..h,
-                                rightPadding: 15..w,
-                                leftPadding: 15..w,
-                                borderRadius: 50..r,
-                                color: Colors.black.withOpacity(0.6),
-                                child: CustomText(
-                                    text: "24HB", color: Colors.white),
-                              ),
+              child: Column(
+                children: [
+
+                  Obx(
+                        () {
+                      final propertyData = propertyController.propertyData;
+
+                      return Visibility(
+                        visible: propertyData != null,
+                        child: GestureDetector(
+
+                          onHorizontalDragStart: (details) {
+                            initialX = details.localPosition.dx;
+                          },
+                          onHorizontalDragUpdate: (details) {
+                            offsetX = details.localPosition.dx - initialX;
+                            setState(() {});
+                          },
+                          onHorizontalDragEnd: (details) {
+                            // You can add logic here for handling the end of the swipe
+                            if (offsetX > 50.0) {
+                              propertyController.swipeRight();
+                            } else if (offsetX < -50.0) {
+                              propertyController.swipeLeft();
+                            }
+                            offsetX = 0.0;
+                            setState(() {});
+                          },
+                          child:
+                          Obx(
+                          () => propertyController.isLoading.value
+                          ? SizedBox(
+                              height: MediaQuery.of(context).size.height*0.5,
+                              child: Center(child: Container(child: CircularProgressIndicator()))) :
+                          CustomCard(
+                            height: 500..h,
+                            borderRadius: 25..r,
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Image.network(
+                                    propertyData?.propertyImages?.first ?? "",
+                                    fit: BoxFit.fitHeight,
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 30..h,
+                                  left: 27..w,
+                                  right: 60..w,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          CustomCard(
+                                            topPadding: 4..h,
+                                            bottomPadding: 4..h,
+                                            rightPadding: 15..w,
+                                            leftPadding: 15..w,
+                                            borderRadius: 50..r,
+                                            color: Colors.black.withOpacity(0.6),
+                                            child: CustomText(
+                                                text: propertyData?.occupancy.toString() ?? "",
+                                                color: Colors.white),
+                                          ),
+                                          CustomCard(
+                                            topPadding: 4..h,
+                                            bottomPadding: 4..h,
+                                            rightPadding: 15..w,
+                                            leftPadding: 15..w,
+                                            borderRadius: 50..r,
+                                            color: Colors.black.withOpacity(0.6),
+                                            child: CustomText(
+                                                text: propertyData?.areaSize.toString() ?? "",
+                                                color: Colors.white),
+                                          ),
+                                          CustomCard(
+                                            topPadding: 4..h,
+                                            bottomPadding: 4..h,
+                                            rightPadding: 15..w,
+                                            leftPadding: 15..w,
+                                            borderRadius: 50..r,
+                                            color: Colors.black.withOpacity(0.6),
+                                            child: CustomText(
+                                                text: '${propertyData?.op ?? ""}/${propertyData?.purpose ?? ""}',
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 14..h),
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            "$iconPath/location.png",
+                                            height: 18..h,
+                                            width: 18..w,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 160..w,
+                                            child: CustomText(
+                                                text: propertyData?.areaCommunity ?? "",
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      ),
+                                      // Add additional property info here...
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 14..h),
-                          Row(
-                            children: [
-                              Image.asset(
-                                "$iconPath/location.png",
-                                height: 18..h,
-                                width: 18..w,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 160..w,
-                                child: CustomText(
-                                    text: "Bahria town Apartments, Lahore, Pk",
-                                    color: Colors.white),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                        ),
+                      ));
+                    },
+                  ),
+                  Obx(
+                        () {
+                      final propertyData = propertyController.propertyData;
+
+                      return Visibility(
+                        visible: propertyData == null,
+                        child: Container(
+                          height: MediaQuery.of(context).size.height*0.5,
+                          child: Center(
+                            child: Text(
+                              'No more Properties available',
+                              style: TextStyle(fontSize: 18..sp, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 20..h),

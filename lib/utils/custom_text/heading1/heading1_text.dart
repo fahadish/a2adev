@@ -100,6 +100,8 @@ class CustomText extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final TextOverflow? overflow;
+  final int? maxLines; // Add maxLines parameter.
+
   const CustomText({
     super.key,
     required this.text,
@@ -107,6 +109,8 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.overflow,
+    this.maxLines, // Include maxLines in the constructor.
+
   });
 
   @override
@@ -120,7 +124,11 @@ class CustomText extends StatelessWidget {
           ..sp,
         fontFamily: 'Lato',
         fontWeight: fontWeight ?? FontWeight.w400,
+
       ),
+
+      maxLines: maxLines, // Set maxLines in the Text widget.
+
     );
   }
 }

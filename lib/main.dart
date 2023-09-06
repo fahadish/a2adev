@@ -17,6 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controller/authController.dart';
+import 'controller/property controllerr.dart';
 import 'firebase_options.dart';
 import 'view/splash/splash_screen.dart';
 
@@ -25,9 +26,13 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  final authController = AuthController(); // Instantiate the AuthController
+  final authController = AuthController(); //
+  final propertyController = PropertyController(); // Add this line
+// Instantiate the AuthController
   Get.put(
-      authController); // Put the AuthController into the GetX dependency management
+      authController); //
+  Get.put(propertyController); // Add this line
+// // Put the AuthController into the GetX dependency management
 
   runApp(MyApp());
 }
@@ -44,11 +49,10 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           home:
-              // LoginScreen(),
-              // SignUpScreen(),
-              // CustomBottomAppBar(),
-              SplashScreen(),
-          // MessageScreen(),
+          // LoginScreen(),
+          // SignUpScreen(),
+          // CustomBottomAppBar(),
+          SplashScreen(),
           // MessageScreen(),
           builder: EasyLoading.init(),
         );

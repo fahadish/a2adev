@@ -46,10 +46,13 @@ dependencies:
   cloud_firestore: ^4.8.5
   firebase_auth: ^4.7.3
   firebase_storage:
+  firebase_database: ^10.2.5
   dotted_border: ^2.0.0+3
   lottie: ^2.6.0
-
-
+  fluttertoast: ^8.2.2
+#  flutter_card_swiper: ^6.0.0
+  card_swiper: ^3.0.1
+  shared_preferences: ^2.2.1
 
 dev_dependencies:
   flutter_test:

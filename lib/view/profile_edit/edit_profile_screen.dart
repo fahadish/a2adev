@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/authController.dart';
-import '../../userModel.dart';
+import '../../model/userModel.dart';
 import '../../utils/custom_text_field/custom_text_field.dart';
 import '../bottom_appbar/bottom_appbar.dart';
 
@@ -32,6 +32,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController phoneControllerW = TextEditingController();
 
   @override
   void initState() {
@@ -41,8 +42,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     emailController.text = userData?.email ?? '';
     // Initialize other controllers with userData values
     passwordController.text = ''; // Initialize password to empty
+    passwordController.text = ''; // Initialize password to empty
     companyNameController.text = userData?.company ?? '';
     phoneController.text = userData?.phone ?? '';
+    phoneControllerW.text = userData?.phoneW ?? '';
   }
 
   void checkDataChanges() {
@@ -50,37 +53,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         userData!.email != emailController.text ||
         // Check other fields for changes
         userData!.company != companyNameController.text ||
-        userData!.phone != phoneController.text) {
+        userData!.phone != phoneController.text||
+        userData!.phoneW != phoneControllerW.text
+
+    ) {
       isDataChanged = true;
     } else {
       isDataChanged = false;
     }
   }
 
-  // void updateUserData() async {
-  //   if (isDataChanged) {
-  //     Map<String, dynamic> updatedData = {
-  //       'name': nameController.text,
-  //       'email': emailController.text,
-  //       // Add other fields as needed
-  //       'company': companyNameController.text,
-  //       'phone': phoneController.text,
-  //     };
-  //
-  //     await authController.updateUserData(
-  //       userId: authController.getCurrentUserUid() ?? '',
-  //       updatedData: updatedData,
-  //     );
-  //
-  //     // Optionally, you can perform additional actions after updating
-  //     // For example, show a toast message using EasyLoading
-  //     EasyLoading.showToast('User data updated successfully');
-  //
-  //   } else {
-  //     // Show a toast message using EasyLoading
-  //     EasyLoading.showToast('Change something first');
-  //   }
-  // }
 
   void updateUserData() async {
     if (isDataChanged) {
@@ -90,6 +72,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         // Add other fields as needed
         'company': companyNameController.text,
         'phone': phoneController.text,
+        'phoneW': phoneControllerW.text,
       };
 
       String userId = authController.getCurrentUserUid() ?? '';
@@ -113,6 +96,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       EasyLoading.showToast('Change something first');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -221,15 +205,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     controller: emailController,
                     enabled: false,
                   ),
-                  // TextFieldWithLabel(
-                  //   label: "Password",
-                  //   hintText: "Enter your password",
-                  //   labelSize: 16..sp,
-                  //   controller: passwordController,
-                  //
-                  //   borderColor: Color(0xff544C4C24),
-                  //   labelColor: Colors.black,
-                  // ),
                   TextFieldWithLabel(
                     label: "WhatsApp",
                     hintText: "Enter phone number",
@@ -254,8 +229,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     labelSize: 16..sp,
                     borderColor: Color(0xff544C4C24),
                     labelColor: Colors.black,
-                    isOptional: false,
-                    enabled: false,
+                    // isOptional: false,
+                    controller: phoneControllerW,
+                    // enabled: false,
                   ),
                   SizedBox(height: 30..h),
                   Padding(

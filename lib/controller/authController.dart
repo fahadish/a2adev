@@ -10,8 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../userModel.dart';
+import '../model/userModel.dart';
 import '../view/bottom_appbar/bottom_appbar.dart';
 import '../view/home/home_screen.dart';
 import '../view/splash/splash_screen.dart';
@@ -147,55 +148,83 @@ bool loading = false;
       ),
     );
   }
+  Widget myBottomSheetR(BuildContext context) {
+    return Container(
+      height: 100.h,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            'Select RERA certificate',
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              // color: AppTheme.appColor,
+              // fontFamily: AppTheme.fontfamily,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              InkWell(
+                onTap: () async {
+                  await getImage(ImageSource.camera);
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.camera_alt,
+                      // color: AppTheme.appColor,
+                    ),
+                    SizedBox(width: 8.0.w),
+                    Text(
+                      'Camera',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        // color: AppTheme.appColor,
+                        // fontFamily: AppTheme.fontfamily,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () async {
+                  await getImage(ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.image,
+                      // color: AppTheme.appColor,
+                    ),
+                    SizedBox(width: 8.0.w),
+                    Text(
+                      'Gallery',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        // color: AppTheme.appColor,
+                        // fontFamily: AppTheme.fontfamily,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
 
-  // Future<void> fetchUserData(String userId) async {
-  //   try {
-  //     DocumentSnapshot userSnapshot =
-  //     await FirebaseFirestore.instance.collection('users').doc(userId).get();
-  //
-  //     final user = UserModel.fromSnapshot(userSnapshot);
-  //     userData.value = user;
-  //   } catch (e) {
-  //     print('Error fetching user data: $e');
-  //   }
-  // }
-
-  // Future<void> signInWithEmailAndPassword(String email, String password) async {
-  //   try {
-  //     loading = true;
-  //     isLoading.value = true; // Set loading state
-  //
-  //     // Sign in the user
-  //     await _auth.signInWithEmailAndPassword(email: email, password: password);
-  //
-  //     // Fetch and store user data
-  //     await fetchUserData(_auth.currentUser!.uid);
-  //     // Navigate to the next screen
-  //     Get.offAll(() => CustomBottomAppBar());
-  //
-  //     // Show a success message
-  //     Get.snackbar('Success', 'Login successfully');
-  //
-  //   } catch (e) {
-  //     // Log the error for debugging purposes
-  //     print('Authentication Error: $e');
-  //
-  //     // Show a user-friendly error message
-  //     String errorMessage = 'An error occurred';
-  //     if (e is FirebaseAuthException) {
-  //       if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-  //         errorMessage = 'Invalid email or password';
-  //       } else if (e.code == 'invalid-email') {
-  //         errorMessage = 'Invalid email format';
-  //       } // Add more specific error handling if needed
-  //     }
-  //     Get.snackbar('Error', errorMessage);
-  //
-  //   } finally {
-  //     loading = false;
-  //     isLoading.value = false; // Reset loading state
-  //   }
-  // }
 
 
   void clearImage() {
@@ -206,6 +235,10 @@ bool loading = false;
   Future<void> signOut() async {
     EasyLoading.show(status: 'Loading...');
     await _auth.signOut();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', false);
+    prefs.remove('email');
+    prefs.remove('password');
     EasyLoading.dismiss();
     EasyLoading.showToast('SignOut successfully');
 
@@ -274,7 +307,9 @@ bool loading = false;
     }
   }
 
-
+  bool loginSuccessful = false; // Initialize with a default value
+  String? userEmail;
+  String? userPassword;
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
@@ -282,6 +317,17 @@ bool loading = false;
       isLoading.value = true;
 
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      // Set loginSuccessful, userEmail, and userPassword upon successful login
+      loginSuccessful = true;
+      userEmail = email;
+      userPassword = password;
+      if (loginSuccessful) {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setBool('isLoggedIn', true);
+        // Save other user data if needed
+        prefs.setString('email', userEmail!);
+        prefs.setString('password', userPassword!);
+      }
 
       // await fetchUserData(_auth.currentUser!.uid);
       Get.offAll(() => CustomBottomAppBar());
@@ -301,6 +347,7 @@ bool loading = false;
       DocumentSnapshot userSnapshot =
       await FirebaseFirestore.instance.collection('users').doc(userId).get();
 
+
       final user = UserModel.fromSnapshot(userSnapshot);
       return user; // Return the UserModel object
     } catch (e) {
@@ -317,6 +364,7 @@ bool loading = false;
     required String certifiedImage,
     required String company,
     required String phone,
+    required String phoneW,
     required String email,
     required String name,
     required String location,
@@ -338,6 +386,7 @@ bool loading = false;
         'certified_image': certifiedImage,
         'company': company,
         'phone': phone,
+        'phoneW': phoneW,
         'email': email,
         'name': name,
         'location': location,
@@ -407,6 +456,42 @@ bool loading = false;
     } catch (e) {
       print('Error updating user data: $e');
       EasyLoading.showToast('Error updating user data');
+    }
+  }
+
+
+
+  Future<void> uploadImageToFirebase2(String folderName, File imageFile) async {
+    if (imageFile != null) {
+      try {
+        EasyLoading.show(status: 'Loading...');
+
+        isLoading.value = true;
+        loading = true;
+
+        final firebaseStorageRef = FirebaseStorage.instance
+            .ref()
+            .child('$folderName/${firebaseUser.value?.email}/${DateTime.now()}.png');
+
+        await firebaseStorageRef.putFile(imageFile);
+
+        final downloadUrl = await firebaseStorageRef.getDownloadURL();
+        imageLink = downloadUrl;
+        loading = false;
+        EasyLoading.dismiss();
+
+        EasyLoading.showToast('Image uploaded successfully');
+
+        isLoading.value = false;
+      } catch (e) {
+        EasyLoading.dismiss();
+
+        isLoading.value = false;
+        loading = false;
+        // Handle the error
+      }
+    } else {
+      // Handle the case where imageFile is null
     }
   }
 
