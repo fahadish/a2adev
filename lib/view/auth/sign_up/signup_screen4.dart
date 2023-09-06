@@ -91,60 +91,61 @@ class _SignupScreen4State extends State<SignupScreen4> {
                       color: Colors.white,
                     ),
                     SizedBox(height: 45..h),
+                    // Container(
+                    //   height: 40..h,
+                    //   width: double.maxFinite,
+                    //   padding: EdgeInsets.symmetric(horizontal: 16.0..w),
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.circular(4.0),
+                    //     border: Border.all(color: Colors.grey),
+                    //   ),
+                    //   child: DropdownButton<String>(
+                    //        underline: const SizedBox(),
+                    //        icon: const SizedBox(),
+                    //        value: selectedExperience, // Use selectedExperience here
+                    //        onChanged: (newValue) {
+                    //
+                    //          setState(() {
+                    //            selectedExperience = newValue!; // Update selectedExperience with the selected value
+                    //          });
+                    //        },
+                    //     isExpanded: true,
+                    //        items: dropdownOptions.map<DropdownMenuItem<String>>((String value) {
+                    //          return DropdownMenuItem<String>(
+                    //            value: value,
+                    //            child: Text(value),
+                    //          );
+                    //        }).toList(),
+                    //      ),
+                    // ),
                     Container(
-                      height: 40..h,
+                      height: 40.0,
                       width: double.maxFinite,
-                      padding: EdgeInsets.symmetric(horizontal: 16.0..w),
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(4.0),
                         border: Border.all(color: Colors.grey),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            // child: DropdownButton<String>(
-                            //   underline: const SizedBox(),
-                            //   icon: const SizedBox(),
-                            //   value: selectedOption,
-                            //   onChanged: (newValue) {
-                            //     setState(() {
-                            //       selectedOption = newValue!;
-                            //     });
-                            //   },
-                            //   items: dropdownOptions
-                            //       .map<DropdownMenuItem<String>>(
-                            //           (String value) {
-                            //     return DropdownMenuItem<String>(
-                            //       value: value,
-                            //       child: Text(value),
-                            //     );
-                            //   }).toList(),
-                            // ),
-
-                         child:   DropdownButton<String>(
-                              underline: const SizedBox(),
-                              icon: const SizedBox(),
-                              value: selectedExperience, // Use selectedExperience here
-                              onChanged: (newValue) {
-                                setState(() {
-                                  selectedExperience = newValue!; // Update selectedExperience with the selected value
-                                });
-                              },
-                              items: dropdownOptions.map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-
-                          ),
-                          Icon(Icons.keyboard_arrow_down_rounded)
-                        ],
+                      child: DropdownButton<String>(
+                        underline: const SizedBox(),
+                        value: selectedExperience, // Use selectedExperience here
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedExperience = newValue!;
+                          });
+                        },
+                        isExpanded: true,
+                        items: dropdownOptions.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
                       ),
-                    ),
+                    )
+,
                     SizedBox(height: 104..h),
                     CustomButton(
                       onTap: () {

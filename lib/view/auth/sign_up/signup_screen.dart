@@ -27,7 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   FocusNode focusNode1 = FocusNode();
   bool isTapped = false;
   bool isTapped1 = false;
-  String selectedOption = "User";
+  String selectedOption = "Agent";
   List<String> dropdownOptions = [
     "Developer",
     "Agent",
@@ -110,7 +110,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 40..h),
                   TextFieldWithLabel(label: "Name", controller: nameController),
                   TextFieldWithLabel(
-                      label: "Email", controller: emailController),
+                    label: "Email",
+                    controller: emailController,
+                    // keyboardType: TextInputType.emailAddress,
+                  ),
                   TextFieldWithLabel(
                       label: "Password",
                       controller: passwordController,
@@ -127,62 +130,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                   SizedBox(height: 5..h),
-                  SizedBox(
-                    height: 41..h,
-                    child: Row(
-                      children: [
-                        CustomCard(
-                          enableBorder: true,
-                          borderColor: AppColors.k0xff9D9D9D,
-                          width: 100..w,
-                          child:Container(
-                            height: 41,
-                            child:
-                            Row(children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0) ,
-                                child: Image.asset(
-                                  "$iconPath/flagAED.png",
-                                  height: 30..h,
-                                  width: 30..w,
-                                ),
-                              ),
-                              CustomText(
-                                text: "+971",
-                                fontSize: 14..sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                              ),
-
-
-                            ],)
-                            ,
-                          )
-
-
-                          // CountryCodePicker(
-                          //   padding: EdgeInsets.zero,
-                          //   flagWidth: 25,
-                          //   textStyle: const TextStyle(color: Colors.black),
-                          //   onChanged: (value) {
-                          //     // Update the selectedCountryCode variable when the country code is changed
-                          //     setState(() {
-                          //       selectedCountryCode = value.dialCode ?? "";
-                          //     });
-                          //   },
-                          //   initialSelection: selectedCountryCode,
-                          //   // Set the default country code
-                          //   showCountryOnly: false,
-                          //   showOnlyCountryWhenClosed: false,
-                          //   alignLeft: true,
-                          // ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomCard(
+                        enableBorder: true,
+                        borderColor: AppColors.k0xff9D9D9D,
+                        width: 100..w,
+                        height: 40..h,
+                        child: CountryCodePicker(
+                          padding: EdgeInsets.zero,
+                          flagWidth: 25,
+                          textStyle: const TextStyle(color: Colors.black),
+                          onChanged: (value) {
+                            // Update the selectedCountryCode variable when the country code is changed
+                            setState(() {
+                              selectedCountryCode = value.dialCode ?? "";
+                            });
+                          },
+                          initialSelection: selectedCountryCode,
+                          // Set the default country code
+                          showCountryOnly: false,
+                          showOnlyCountryWhenClosed: false,
+                          alignLeft: true,
                         ),
-                        SizedBox(width: 10..w),
-                        Flexible(
+                      ),
+                      SizedBox(width: 10..w),
+                      Flexible(
+                        child: Container(
+                          height: 58..h,
                           child: TextFormField(
+                            maxLength: 13,
                             keyboardType: TextInputType.phone,
                             focusNode: focusNode,
-                            textAlignVertical: TextAlignVertical.top,
+                            textAlignVertical: TextAlignVertical.center,
                             onTap: () {
                               setState(() {
                                 isTapped = true;
@@ -195,7 +176,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             },
                             // controller: widget.controller,
                             decoration: InputDecoration(
-                              // hintText: widget.hintText ?? '',
+                              // isDense: true,
+                              contentPadding:
+                                  EdgeInsets.only(left: 10..w, bottom: 2..h),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4..r),
                                 borderSide: BorderSide(
@@ -207,19 +190,71 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 borderRadius: BorderRadius.circular(4.0..r),
                                 borderSide: BorderSide(
                                   color: AppColors.k0xff352049,
-                                  width: 2
-                                    ..w, // Change the border width to make it visible
                                 ),
                               ),
                             ),
+
                             controller: numberController,
                           ),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      CustomText(
+                        text: "Whatsapp Number",
+                        color: focusNode1.hasFocus
+                            ? AppColors.k0xff352049
+                            : AppColors.k0xff9D9D9D,
+                      ),
+                      CustomText(text: "*", color: AppColors.k0xffDA0404),
+                    ],
+                  ),
+                  SizedBox(height: 5..h),
+                  Container(
+                    // color: Colors.blue,
+                    height: 58..h,
+                    child: TextFormField(
+                      maxLength: 13,
+                      keyboardType: TextInputType.phone,
+                      focusNode: focusNode1,
+                      textAlignVertical: TextAlignVertical.top,
+                      onTap: () {
+                        setState(() {
+                          isTapped1 = true;
+                        });
+                      },
+                      onChanged: (text) {
+                        setState(() {
+                          isTapped1 = false;
+                        });
+                      },
+                      // decoration: InputDecoration(
+                      //   prefixIcon: Padding(
+                      //     padding: EdgeInsets.symmetric(vertical: 10.0.h),
+                      //     child: Image.asset("$iconPath/whats.png",
+                      //         height: 18, width: 18),
+                      //   ),
+                      //   border: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.circular(4..r),
+                      //     borderSide: BorderSide(
+                      //       color: AppColors.k0xff9D9D9D,
+                      //       width: 2.0,
+                      //     ),
+                      //   ),
+                      //   focusedBorder: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.circular(4.0..r),
+                      //     borderSide: BorderSide(
+                      //       color: AppColors.k0xff352049,
+                      //       width: 2
+                      //         ..w, // Change the border width to make it visible
+                      //     ),
+                      //   ),
+                      // ),
+                      controller: whatsAppNumberController,
                     ),
                   ),
-                  SizedBox(height: 18..h),
-
                   // SizedBox(height: 18..h),
                   Row(
                     children: [
@@ -265,108 +300,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                         Icon(Icons.keyboard_arrow_down_rounded)
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 18..h),
-
-                  Row(
-                    children: [
-                      CustomText(
-                        text: "Whatsapp Number",
-                        color: focusNode1.hasFocus
-                            ? AppColors.k0xff352049
-                            : AppColors.k0xff9D9D9D,
-                      ),
-                      CustomText(text: "*", color: AppColors.k0xffDA0404),
-                    ],
-                  ),
-                  SizedBox(height: 5..h),
-                  SizedBox(
-                    height: 41..h,
-                    child: Row(
-                      children: [
-                        CustomCard(
-                            enableBorder: true,
-                            borderColor: AppColors.k0xff9D9D9D,
-                            width: 100..w,
-                            child:
-                            Container(
-                              height: 41,
-                              child:
-                              Row(children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0) ,
-                                  child: Image.asset(
-                                    "$iconPath/flagAED.png",
-                                    height: 30..h,
-                                    width: 30..w,
-                                  ),
-                                ),
-                                CustomText(
-                                  text: "+971",
-                                  fontSize: 14..sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                ),
-
-
-                              ],)
-                              ,
-                            )
-                          // CountryCodePicker(
-                          //   padding: EdgeInsets.zero,
-                          //   flagWidth: 25,
-                          //   textStyle: const TextStyle(color: Colors.black),
-                          //   onChanged: (value) {
-                          //     // Update the selectedCountryCode variable when the country code is changed
-                          //     setState(() {
-                          //       selectedCountryCode = value.dialCode ?? "";
-                          //     });
-                          //   },
-                          //   initialSelection: selectedCountryCode,
-                          //   // Set the default country code
-                          //   showCountryOnly: false,
-                          //   showOnlyCountryWhenClosed: false,
-                          //   alignLeft: true,
-                          // ),
-                        ),
-                        SizedBox(width: 10..w),
-                        Flexible(
-                          child: TextFormField(
-                            keyboardType: TextInputType.phone,
-                            focusNode: focusNode1,
-                            textAlignVertical: TextAlignVertical.top,
-                            onTap: () {
-                              setState(() {
-                                isTapped1 = true;
-                              });
-                            },
-                            onChanged: (text) {
-                              setState(() {
-                                isTapped1 = false;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4..r),
-                                borderSide: BorderSide(
-                                  color: AppColors.k0xff9D9D9D,
-                                  width: 2.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.0..r),
-                                borderSide: BorderSide(
-                                  color: AppColors.k0xff352049,
-                                  width: 2
-                                    ..w, // Change the border width to make it visible
-                                ),
-                              ),
-                            ),
-                            controller: whatsAppNumberController,
-                          ),
-                        ),
                       ],
                     ),
                   ),

@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 58..h),
                       CustomTextFieldWithIcon(
                         controller: _emailController,
-                        hintText: "User name",
+                        hintText: "Email Address",
                         assetIcon: "$iconPath/user.png",
                       ),
                       SizedBox(height: 20..h),

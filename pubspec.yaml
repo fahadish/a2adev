@@ -53,6 +53,10 @@ dependencies:
 #  flutter_card_swiper: ^6.0.0
   card_swiper: ^3.0.1
   shared_preferences: ^2.2.1
+  geolocator: ^7.6.2  # Use the latest version of the geolocator package.
+  geocoding: ^2.0.1  # Use the latest version of the geocoding package.
+
+
 
 dev_dependencies:
   flutter_test:
