@@ -8,6 +8,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import '../../const/colors.dart';
 import '../../controller/authController.dart';
@@ -27,6 +29,28 @@ class HomeScreenArchitecture extends StatefulWidget {
 class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
   UserModel? userData;
   AuthController authController = Get.find<AuthController>();
+  String userLocation = 'Loading...'; // Initialize with a loading message
+
+  Future<void> updateUserLocation() async {
+    try {
+      final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      final List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        final Placemark placemark = placemarks.first;
+        setState(() {
+          userLocation = '${placemark.locality}, ${placemark.country}';
+        });
+      }
+    } catch (e) {
+      print('Error getting user location: $e');
+    }
+  }
 
   Future<void> fetchUserData() async {
     try {
@@ -53,10 +77,32 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
       EasyLoading.dismiss();
     }
   }
+  Future<String> getUserLocation() async {
+    try {
+      final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      final List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        final Placemark placemark = placemarks.first;
+        return '${placemark.locality}, ${placemark.country}';
+      } else {
+        return 'No placemarks available';
+      }
+    } catch (e) {
+      print('Error getting user location: $e');
+      return 'Error: $e';
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    updateUserLocation();
     fetchUserData();
   }
   double initialX = 0.0;
@@ -81,11 +127,35 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
                   width: 24..w,
                 ),
                 SizedBox(width: 7..w),
-                CustomText(
-                  text: "Lahore, Pakistan",
-                  fontSize: 15..sp,
-                  fontWeight: FontWeight.w500,
+
+
+                Container(width: 110.w,
+                  child: FutureBuilder<String>(
+                    future: getUserLocation(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text(
+                          'Loading...',
+                          // You can style this text as you want
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text(
+                          'Error getting location',
+                          // You can style this text as you want
+                        );
+                      } else {
+                        return CustomText(
+                          text: snapshot.data ?? 'Location not available',
+                          fontSize: 15..sp,
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis,
+
+                        );
+                      }
+                    },
+                  ),
                 ),
+
                 SizedBox(width: 6..w),
                 Icon(Icons.arrow_downward_sharp),
                 const Spacer(),

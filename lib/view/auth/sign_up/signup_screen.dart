@@ -112,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextFieldWithLabel(
                     label: "Email",
                     controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
+                    // keyboardType: TextInputType.emailAddress,
                   ),
                   TextFieldWithLabel(
                       label: "Password",
@@ -230,28 +230,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           isTapped1 = false;
                         });
                       },
-                      decoration: InputDecoration(
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0.h),
-                          child: Image.asset("$iconPath/whats.png",
-                              height: 18, width: 18),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4..r),
-                          borderSide: BorderSide(
-                            color: AppColors.k0xff9D9D9D,
-                            width: 2.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0..r),
-                          borderSide: BorderSide(
-                            color: AppColors.k0xff352049,
-                            width: 2
-                              ..w, // Change the border width to make it visible
-                          ),
-                        ),
-                      ),
+                      // decoration: InputDecoration(
+                      //   prefixIcon: Padding(
+                      //     padding: EdgeInsets.symmetric(vertical: 10.0.h),
+                      //     child: Image.asset("$iconPath/whats.png",
+                      //         height: 18, width: 18),
+                      //   ),
+                      //   border: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.circular(4..r),
+                      //     borderSide: BorderSide(
+                      //       color: AppColors.k0xff9D9D9D,
+                      //       width: 2.0,
+                      //     ),
+                      //   ),
+                      //   focusedBorder: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.circular(4.0..r),
+                      //     borderSide: BorderSide(
+                      //       color: AppColors.k0xff352049,
+                      //       width: 2
+                      //         ..w, // Change the border width to make it visible
+                      //     ),
+                      //   ),
+                      // ),
                       controller: whatsAppNumberController,
                     ),
                   ),

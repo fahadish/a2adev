@@ -190,9 +190,9 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           buildNavItem("$iconPath/home.png", 0),
-          SizedBox(width: 18..w),
+          SizedBox(width: 45..w),
           buildNavItem("$iconPath/add.png", 1),
-          SizedBox(width: 18..w),
+          SizedBox(width: 45..w),
           buildNavItem("$iconPath/chat1.png", 2),
         ],
       ),

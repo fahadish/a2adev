@@ -331,7 +331,8 @@ bool loading = false;
 
       // await fetchUserData(_auth.currentUser!.uid);
       Get.offAll(() => CustomBottomAppBar());
-      Get.snackbar('Success', 'Login successfully');
+      EasyLoading.showToast('Login successfully');
+      // Get.snackbar('Success', 'Login successfully');
     } catch (e) {
       print('Authentication Error: $e');
       handleAuthError(e);
@@ -403,8 +404,17 @@ bool loading = false;
 
       EasyLoading.dismiss();
       EasyLoading.showToast('User Register successfully');
-
-      Get.to(CustomBottomAppBar());
+      loginSuccessful = true;
+      userEmail = email;
+      userPassword = password;
+      if (loginSuccessful) {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setBool('isLoggedIn', true);
+        // Save other user data if needed
+        prefs.setString('email', userEmail!);
+        prefs.setString('password', userPassword!);
+      }
+      Get.offAll(CustomBottomAppBar());
     } catch (e) {
       print('Error during registration: $e');
       handleAuthError(e);
