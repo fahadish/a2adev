@@ -139,7 +139,7 @@ class _MessageScreenState extends State<MessageScreen> {
           ),
           const Spacer(),
           Container(
-              height: 550..h,
+              height: 500..h,
               width: double.maxFinite,
               padding: EdgeInsets.only(top: 25..h, right: 30..w, left: 30..w),
               decoration: BoxDecoration(
@@ -151,6 +151,7 @@ class _MessageScreenState extends State<MessageScreen> {
               ),
               child: ListView.separated(
                 itemCount: 10,
+                padding: EdgeInsets.only(bottom: 30..h),
                 separatorBuilder: (context, index) => Divider(height: 30..h),
                 itemBuilder: (context, index) => Row(
                   children: [

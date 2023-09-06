@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../const/image_or_icon_path.dart';
 import '../../../controller/authController.dart';
 import '../../../utils/button/custom_button.dart';
 
@@ -26,7 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   FocusNode focusNode1 = FocusNode();
   bool isTapped = false;
   bool isTapped1 = false;
-  String selectedOption = "User";
+  String selectedOption = "Agent";
   List<String> dropdownOptions = [
     "Developer",
     "Agent",
@@ -37,6 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final emailController = TextEditingController();
   final companyNameController = TextEditingController();
   final numberController = TextEditingController();
+  final whatsAppController = TextEditingController();
 
   @override
   void initState() {
@@ -69,11 +71,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return phoneRegExp.hasMatch(phoneNumber);
   }
 
-  bool _isWhatsappValid(String phoneNumber) {
+  bool _isWhatsappValid(String whatsAppController) {
     // You can define your own validation rules for the phone number field
     // For example, checking for a valid format
     final phoneRegExp = RegExp(r'^\d{10}$'); // Assuming a 10-digit phone number
-    return phoneRegExp.hasMatch(phoneNumber);
+    return phoneRegExp.hasMatch(whatsAppController);
   }
 
   bool _isEmailValid(String email) {
@@ -108,7 +110,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 40..h),
                   TextFieldWithLabel(label: "Name", controller: nameController),
                   TextFieldWithLabel(
-                      label: "Email", controller: emailController),
+                    label: "Email",
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                  ),
                   TextFieldWithLabel(
                       label: "Password",
                       controller: passwordController,
@@ -125,37 +130,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                   SizedBox(height: 5..h),
-                  SizedBox(
-                    height: 41..h,
-                    child: Row(
-                      children: [
-                        CustomCard(
-                          enableBorder: true,
-                          borderColor: AppColors.k0xff9D9D9D,
-                          width: 100..w,
-                          child: CountryCodePicker(
-                            padding: EdgeInsets.zero,
-                            flagWidth: 25,
-                            textStyle: const TextStyle(color: Colors.black),
-                            onChanged: (value) {
-                              // Update the selectedCountryCode variable when the country code is changed
-                              setState(() {
-                                selectedCountryCode = value.dialCode ?? "";
-                              });
-                            },
-                            initialSelection: selectedCountryCode,
-                            // Set the default country code
-                            showCountryOnly: false,
-                            showOnlyCountryWhenClosed: false,
-                            alignLeft: true,
-                          ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomCard(
+                        enableBorder: true,
+                        borderColor: AppColors.k0xff9D9D9D,
+                        width: 100..w,
+                        height: 40..h,
+                        child: CountryCodePicker(
+                          padding: EdgeInsets.zero,
+                          flagWidth: 25,
+                          textStyle: const TextStyle(color: Colors.black),
+                          onChanged: (value) {
+                            // Update the selectedCountryCode variable when the country code is changed
+                            setState(() {
+                              selectedCountryCode = value.dialCode ?? "";
+                            });
+                          },
+                          initialSelection: selectedCountryCode,
+                          // Set the default country code
+                          showCountryOnly: false,
+                          showOnlyCountryWhenClosed: false,
+                          alignLeft: true,
                         ),
-                        SizedBox(width: 10..w),
-                        Flexible(
+                      ),
+                      SizedBox(width: 10..w),
+                      Flexible(
+                        child: Container(
+                          height: 58..h,
                           child: TextFormField(
+                            maxLength: 13,
                             keyboardType: TextInputType.phone,
                             focusNode: focusNode,
-                            textAlignVertical: TextAlignVertical.top,
+                            textAlignVertical: TextAlignVertical.center,
                             onTap: () {
                               setState(() {
                                 isTapped = true;
@@ -166,9 +174,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 isTapped = false;
                               });
                             },
+
                             // controller: widget.controller,
+
                             decoration: InputDecoration(
-                              // hintText: widget.hintText ?? '',
+                              // isDense: true,
+                              contentPadding:
+                                  EdgeInsets.only(left: 10..w, bottom: 2..h),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4..r),
                                 borderSide: BorderSide(
@@ -180,18 +192,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 borderRadius: BorderRadius.circular(4.0..r),
                                 borderSide: BorderSide(
                                   color: AppColors.k0xff352049,
-                                  width: 2
-                                    ..w, // Change the border width to make it visible
                                 ),
                               ),
                             ),
+
                             controller: numberController,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 18..h),
                   Row(
                     children: [
                       CustomText(
@@ -204,71 +214,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                   SizedBox(height: 5..h),
-                  SizedBox(
-                    height: 41..h,
-                    child: Row(
-                      children: [
-                        CustomCard(
-                          enableBorder: true,
-                          borderColor: AppColors.k0xff9D9D9D,
-                          width: 100..w,
-                          child: CountryCodePicker(
-                            padding: EdgeInsets.zero,
-                            flagWidth: 25,
-                            textStyle: const TextStyle(color: Colors.black),
-                            onChanged: (value) {
-                              // Update the selectedCountryCode variable when the country code is changed
-                              setState(() {
-                                selectedCountryCode = value.dialCode ?? "";
-                              });
-                            },
-                            initialSelection: selectedCountryCode,
-                            // Set the default country code
-                            showCountryOnly: false,
-                            showOnlyCountryWhenClosed: false,
-                            alignLeft: true,
+                  Container(
+                    // color: Colors.blue,
+                    height: 58..h,
+                    child: TextFormField(
+                      maxLength: 13,
+                      keyboardType: TextInputType.phone,
+                      focusNode: focusNode1,
+                      textAlignVertical: TextAlignVertical.top,
+                      onTap: () {
+                        setState(() {
+                          isTapped1 = true;
+                        });
+                      },
+                      onChanged: (text) {
+                        setState(() {
+                          isTapped1 = false;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0.h),
+                          child: Image.asset("$iconPath/whats.png",
+                              height: 18, width: 18),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4..r),
+                          borderSide: BorderSide(
+                            color: AppColors.k0xff9D9D9D,
+                            width: 2.0,
                           ),
                         ),
-                        SizedBox(width: 10..w),
-                        Flexible(
-                          child: TextFormField(
-                            keyboardType: TextInputType.phone,
-                            focusNode: focusNode1,
-                            textAlignVertical: TextAlignVertical.top,
-                            onTap: () {
-                              setState(() {
-                                isTapped1 = true;
-                              });
-                            },
-                            onChanged: (text) {
-                              setState(() {
-                                isTapped1 = false;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4..r),
-                                borderSide: BorderSide(
-                                  color: AppColors.k0xff9D9D9D,
-                                  width: 2.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4.0..r),
-                                borderSide: BorderSide(
-                                  color: AppColors.k0xff352049,
-                                  width: 2
-                                    ..w, // Change the border width to make it visible
-                                ),
-                              ),
-                            ),
-                            controller: numberController,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0..r),
+                          borderSide: BorderSide(
+                            color: AppColors.k0xff352049,
+                            width: 2
+                              ..w, // Change the border width to make it visible
                           ),
                         ),
-                      ],
+                      ),
+                      controller: whatsAppController,
                     ),
                   ),
-                  SizedBox(height: 18..h),
+                  // SizedBox(height: 18..h),
                   Row(
                     children: [
                       CustomText(

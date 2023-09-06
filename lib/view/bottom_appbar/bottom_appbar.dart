@@ -10,6 +10,7 @@ import '../../const/image_or_icon_path.dart';
 import '../../controller/authController.dart';
 import '../../userModel.dart';
 import '../../view/home/home_screen.dart';
+import '../chat/messages/messages_screen.dart';
 import '../post_property/post_property_screen.dart';
 import 'bottom_appbar1.dart';
 
@@ -73,11 +74,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   final List<Widget> screens = [
     HomeScreenArchitecture(),
     HomeScreenArchitecture(),
-    Center(
-        child: CustomText24(
-      text: "Under Development",
-      color: Colors.black,
-    )),
+    MessageScreen()
   ];
 
   void onItemTapped(int index) {
@@ -89,9 +86,6 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
       Get.to(CustomBottomAppBar1());
     } else if (selectedIndex == 1) {
       Get.bottomSheet(buildBottomSheetContent());
-    } else if (selectedIndex == 2) {
-      Get.to(
-          HomeScreenArchitecture()); // Pass userData to the HomeScreenArchitecture widget
     }
   }
 

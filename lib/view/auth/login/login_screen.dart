@@ -10,8 +10,6 @@ import '../../../utils/button/custom_button.dart';
 import 'package:get/get.dart';
 import '../sign_up/signup_screen.dart';
 
-
-
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -40,8 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BackgroundColored(
         child: Center(
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal:63.0..w
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 63.0..w),
             child: Obx(() {
               if (_authController.isLoading.value) {
                 return Lottie.asset('assets/icons/animation_llr5v0pn.json');
@@ -50,11 +47,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset("$imagePath/logo1.png", height: 98..h, width: 84..w),
-                SizedBox(height: 58..h),
+                      Image.asset("$imagePath/logo1.png",
+                          height: 98..h, width: 84..w),
+                      SizedBox(height: 58..h),
                       CustomTextFieldWithIcon(
                         controller: _emailController,
-                        hintText: "User name",
+                        hintText: "Email",
                         assetIcon: "$iconPath/user.png",
                       ),
                       SizedBox(height: 20..h),
@@ -66,40 +64,45 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 36..h),
                       CustomButton(
                         onTap: () {
-
                           final email = _emailController.text.trim();
                           final password = _passwordController.text;
 
                           if (!_isEmailValid(email)) {
-                            EasyLoading.showToast('Please provide a valid email');
+                            EasyLoading.showToast(
+                                'Please provide a valid email');
                             return;
                           }
 
                           if (!_isPasswordValid(password)) {
-                            EasyLoading.showToast('Please provide a valid password (at least 6 characters)');
+                            EasyLoading.showToast(
+                                'Please provide a valid password (at least 6 characters)');
                             return;
                           }
 
                           // Continue with the login process if both email and password are valid
-                          _authController.signInWithEmailAndPassword(email, password);}
-                          // _authController.signInWithEmailAndPassword(
-                          //   _emailController.text,
-                          //   _passwordController.text,
-                          // );
-                     ,   label: 'Login',
+                          _authController.signInWithEmailAndPassword(
+                              email, password);
+                        }
+                        // _authController.signInWithEmailAndPassword(
+                        //   _emailController.text,
+                        //   _passwordController.text,
+                        // );
+                        ,
+                        label: 'Login',
                       ),
                       SizedBox(height: 20..h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("New member?  ", style: TextStyle(fontSize: 13..sp,color: Colors.white
-                          )),
+                          Text("New member?  ",
+                              style: TextStyle(
+                                  fontSize: 13..sp, color: Colors.white)),
                           GestureDetector(
                             onTap: () => Get.off(() => const SignUpScreen()),
                             child: Text(
                               "SignUp",
                               style: TextStyle(
-                                color: Colors.orange,fontSize: 13..sp,
+                                color: Colors.orange, fontSize: 13..sp,
                                 decoration: TextDecoration.underline,
                                 // decorationStyle: TextDecorationStyle.dashed,
                                 fontWeight: FontWeight.bold,
@@ -119,4 +122,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

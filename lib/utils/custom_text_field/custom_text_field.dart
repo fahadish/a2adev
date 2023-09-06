@@ -12,9 +12,10 @@ class TextFieldWithLabel extends StatefulWidget {
   final Color? labelColor;
   final double? labelSize;
   final TextEditingController? controller;
+  final TextInputType? keyboardType;
+
   final bool enabled; // Add this property
   final bool obsecure; // Add this property
-
 
   const TextFieldWithLabel({
     super.key,
@@ -27,6 +28,7 @@ class TextFieldWithLabel extends StatefulWidget {
     this.borderColor,
     this.labelColor,
     this.labelSize,
+    this.keyboardType,
   });
 
   @override
@@ -73,13 +75,21 @@ class _TextFieldWithLabelState extends State<TextFieldWithLabel> {
           ],
         ),
         SizedBox(height: 5..h),
-        SizedBox(
+        Container(
+          padding: EdgeInsets.only(left: 10..w, top: 2..h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4..r),
+            border: Border.all(
+              color: focusNode.hasFocus
+                  ? widget.labelColor ?? AppColors.k0xff352049
+                  : widget.labelColor ?? AppColors.k0xff9D9D9D,
+            ),
+          ),
           height: 40..h,
           child: TextFormField(
             focusNode: focusNode,
-            textAlignVertical: TextAlignVertical.bottom,
-            enabled: widget.enabled, // Use the enabled property from the widget
-
+            keyboardType: widget.keyboardType,
+            enabled: widget.enabled,
             onTap: () {
               setState(() {
                 isTapped = true;
@@ -92,23 +102,15 @@ class _TextFieldWithLabelState extends State<TextFieldWithLabel> {
             },
             controller: widget.controller,
             obscureText: widget.obsecure,
+            style: TextStyle(height: 1.3..sp),
             decoration: InputDecoration(
               hintText: widget.hintText ?? '',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4..r),
-                borderSide: BorderSide(
-                  color: widget.borderColor ?? AppColors.k0xff9D9D9D,
-                  width: 2.0,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4.0..r),
-
-                borderSide: BorderSide(
-                  color: AppColors.k0xff352049,
-                  width: 2..w, // Change the border width to make it visible
-                ),
-              ),
+              isDense: true,
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
             ),
           ),
         ),
@@ -128,86 +130,42 @@ class CustomTextFieldWithIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 41..h,
-      child: TextFormField(
-        textAlignVertical: TextAlignVertical.bottom,
-        controller: controller,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 15..h, horizontal: 5..w),
-          filled: true,
-          hintText: hintText ?? 'Enter text',
-          prefixIcon: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.0..w),
-            child: Image.asset(assetIcon!, height: 18..h, width: 18..w),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4..r),
-            borderSide: BorderSide(
-              color: Colors.transparent,
-              width: 0..w,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4..r),
+          border: Border.all(color: Colors.black45)),
+      child: Center(
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  left: 15..w, top: 10..h, bottom: 10..h, right: 10..w),
+              child: Image.asset(assetIcon!, height: 18..h, width: 18..w),
             ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: BorderSide(
-              color: Colors
-                  .transparent, // Same border color as in the normal state
-              width: 0..w,
+            Flexible(
+              child: TextFormField(
+                controller: controller,
+                decoration: InputDecoration(
+                  isDense: true,
+                  hintText: hintText ?? 'Enter text',
+                  // filled: true,
+                  // fillColor: Colors.blue,
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 }
-// class CustomTextFieldWithIconObsecure extends StatelessWidget {
-//   final TextEditingController? controller;
-//   final String? assetIcon;
-//   final String? hintText;
-//
-//   const CustomTextFieldWithIconObsecure(
-//       {super.key, required this.hintText, this.assetIcon, this.controller});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 41..h,
-//       child: TextFormField(
-//         textAlignVertical: TextAlignVertical.bottom,
-//         controller: controller,
-//         decoration: InputDecoration(
-//           fillColor: Colors.white,
-//           contentPadding:
-//               EdgeInsets.symmetric(vertical: 15..h, horizontal: 5..w),
-//           filled: true,
-//           hintText: hintText ?? 'Enter text',
-//           prefixIcon: Padding(
-//             padding: EdgeInsets.symmetric(vertical: 10.0..w),
-//             child: Image.asset(assetIcon!, height: 18..h, width: 18..w),
-//           ),
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(4..r),
-//             borderSide: BorderSide(
-//               color: Colors.transparent,
-//               width: 0..w,
-//             ),
-//           ),
-//           focusedBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(4.0),
-//             borderSide: BorderSide(
-//               color: Colors
-//                   .transparent, // Same border color as in the normal state
-//               width: 0..w,
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class CustomTextFieldWithIconObsecure extends StatefulWidget {
   final TextEditingController? controller;
@@ -232,46 +190,41 @@ class _CustomTextFieldWithIconObsecureState
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 41,
-      child: TextFormField(
-        textAlignVertical: TextAlignVertical.bottom,
-        controller: widget.controller,
-        obscureText: _obscureText,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          contentPadding:
-          EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-          filled: true,
-          hintText: widget.hintText ?? 'Enter text',
-          prefixIcon: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: Image.asset(widget.assetIcon!,
-                height: 18, width: 18),
-          ),
-          suffixIcon: GestureDetector(
-            onTap: () {
-              setState(() {
-                _obscureText = !_obscureText;
-              });
-            },
-            child: Icon(
-              _obscureText ? Icons.visibility : Icons.visibility_off,
-              color: Colors.grey,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4..r),
+          border: Border.all(color: Colors.black45)),
+      child: Center(
+        child: TextFormField(
+          textAlignVertical: TextAlignVertical.top,
+          controller: widget.controller,
+          obscureText: _obscureText,
+          decoration: InputDecoration(
+            isDense: true,
+            fillColor: Colors.white,
+            border: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            filled: true,
+            hintText: widget.hintText ?? 'Enter text',
+            prefixIcon: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: Image.asset(widget.assetIcon!, height: 18, width: 18),
             ),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(
-              color: Colors.transparent,
-              width: 0,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(
-              color: Colors.transparent,
-              width: 0,
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+              child: Icon(
+                _obscureText ? Icons.visibility : Icons.visibility_off,
+                color: Colors.grey,
+              ),
             ),
           ),
         ),
