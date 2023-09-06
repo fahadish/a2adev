@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/userModel.dart';
 import '../view/bottom_appbar/bottom_appbar.dart';
@@ -234,6 +235,10 @@ bool loading = false;
   Future<void> signOut() async {
     EasyLoading.show(status: 'Loading...');
     await _auth.signOut();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', false);
+    prefs.remove('email');
+    prefs.remove('password');
     EasyLoading.dismiss();
     EasyLoading.showToast('SignOut successfully');
 
@@ -302,7 +307,9 @@ bool loading = false;
     }
   }
 
-
+  bool loginSuccessful = false; // Initialize with a default value
+  String? userEmail;
+  String? userPassword;
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
@@ -310,6 +317,17 @@ bool loading = false;
       isLoading.value = true;
 
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      // Set loginSuccessful, userEmail, and userPassword upon successful login
+      loginSuccessful = true;
+      userEmail = email;
+      userPassword = password;
+      if (loginSuccessful) {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setBool('isLoggedIn', true);
+        // Save other user data if needed
+        prefs.setString('email', userEmail!);
+        prefs.setString('password', userPassword!);
+      }
 
       // await fetchUserData(_auth.currentUser!.uid);
       Get.offAll(() => CustomBottomAppBar());
@@ -328,6 +346,7 @@ bool loading = false;
     try {
       DocumentSnapshot userSnapshot =
       await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
 
       final user = UserModel.fromSnapshot(userSnapshot);
       return user; // Return the UserModel object

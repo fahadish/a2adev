@@ -134,12 +134,6 @@ class _HomeScreenArchitectureState extends State<HomeScreenArchitecture> {
             SizedBox(height: 40..h),
             CustomTextFieldRightIcon(hintText: "Search....."),
             SizedBox(height: 25..h),
-            // InkWell(
-            //     onTap: propertyController.propertyData != null
-            //         ? () {
-            //       Get.to(CustomBottomAppBar3());
-            //     }
-            //         : null,
 
             GestureDetector(
               onTap: () {

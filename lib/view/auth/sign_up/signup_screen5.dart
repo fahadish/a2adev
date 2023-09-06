@@ -123,13 +123,6 @@ class _SignupScreen5State extends State<SignupScreen5> {
                                           controller.myBottomSheet(context));
                                 },
                                 child:
-                                    // controller.imageFile != null
-                                    //     ? ClipRRect(
-                                    //         borderRadius: BorderRadius.circular(25..r),
-                                    //         child: Image.file(
-                                    //             File(controller.imageFile!.path),
-                                    //             fit: BoxFit.cover))
-                                    //     :
 
                                     CircleAvatar(
                                   backgroundColor: AppColors.k0xff9D9D9D,
@@ -143,37 +136,6 @@ class _SignupScreen5State extends State<SignupScreen5> {
                     CustomButton(
                         // onTap: () async {
     onTap: () async {
-    // if (controller.imageFile == null) {
-    // // Show a toast if no profile picture is provided
-    // EasyLoading.showToast('Please provide a profile picture');
-    // } else{
-    //
-    //
-    //                       await authController
-    //                           .uploadImageToFirebase("Profile_Images");
-    //                       if (authController.imageLink != null) {
-    //                         print(
-    //                             'Uploaded Image URL: Uploaded Image URL: ${authController.imageLink}');
-    //
-    //
-    //                         await authController.registerUserWithData(
-    //                           password: widget.password,
-    //                           certified: widget.isReraCertified,
-    //                           certifiedImage: widget.imageLinkRera ?? "NoData",
-    //                           company: widget.companyName,
-    //                           phone: widget.phoneNumber,
-    //                           email: widget.email,
-    //                           name: widget.name,
-    //                           location: widget.locations,
-    //                           experience: widget.experience,
-    //                           status: widget.selectedOption,
-    //                           specialty: widget.selectedOptions,
-    //                           profileImage: authController.imageLink.toString(),
-    //                         );
-    //
-    //                       }}},
-                          // Add navigation or other logic as neede
-                        // Get.to(CustomBottomAppBar()),
 if(authController.imageLink != null){
   await authController.uploadImageToFirebase("Profile_Images");
 

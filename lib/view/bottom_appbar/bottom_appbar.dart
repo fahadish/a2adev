@@ -32,6 +32,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   void initState() {
     super.initState();
     fetchUserData();
+
   }
 
   Future<void> fetchUserData() async {

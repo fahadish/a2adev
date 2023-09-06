@@ -32,7 +32,7 @@ void main() async {
   Get.put(
       authController); //
   Get.put(propertyController); // Add this line
-// Put the AuthController into the GetX dependency management
+// // Put the AuthController into the GetX dependency management
 
   runApp(MyApp());
 }

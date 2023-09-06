@@ -2,6 +2,7 @@ class Property {
   final String? id;  // Add an 'id' field to uniquely identify each property document
 
   final String? areaCommunity;
+  final String? ownerId;
   final String? areaSize;
   final bool? areaCommunityBool;
   final String? bathrooms;
@@ -34,6 +35,7 @@ class Property {
 
   Property({
     this.id,  // Include 'id' in the constructor
+    this.ownerId,  // Include 'id' in the constructor
     this.areaCommunity,
     this.areaSize,
     this.areaCommunityBool,
@@ -71,6 +73,7 @@ class Property {
     return Property(
       id: id,
       areaCommunity: map['area_community'],
+      ownerId: map['ownerId'],
       areaSize: map['area_size'],
       areaCommunityBool: map['areaCommunityBool'],
       bathrooms: map['bathrooms'],
