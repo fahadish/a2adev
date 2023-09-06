@@ -29,8 +29,7 @@ void main() async {
   final authController = AuthController(); //
   final propertyController = PropertyController(); // Add this line
 // Instantiate the AuthController
-  Get.put(
-      authController); //
+  Get.put(authController); //
   Get.put(propertyController); // Add this line
 // // Put the AuthController into the GetX dependency management
 
@@ -49,10 +48,10 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           home:
-          // LoginScreen(),
-          // SignUpScreen(),
-          // CustomBottomAppBar(),
-          SplashScreen(),
+              // LoginScreen(),
+              // SignUpScreen(),
+              // CustomBottomAppBar(),
+              SplashScreen(),
           // MessageScreen(),
           builder: EasyLoading.init(),
         );
